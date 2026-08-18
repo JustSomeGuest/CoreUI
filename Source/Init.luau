@@ -90,6 +90,7 @@ end
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Name = UID()
 ScreenGui.ResetOnSpawn = false
+ScreenGui.IgnoreGuiInset = true
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 ScreenGui.Parent = Hui
 
