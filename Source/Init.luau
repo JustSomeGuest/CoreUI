@@ -32,15 +32,12 @@ Shared.CoreUI.IsLoaded = true
 
 local function UID(Length)
     Length = Length or 64
-
     local Chars = [[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]]
     local Id = table.create(Length)
-
     for i = 1, Length do
         local Rand = math.random(1, #Chars)
         Id[i] = Chars:sub(Rand, Rand)
     end
-
     return table.concat(Id)
 end
 
@@ -81,9 +78,10 @@ end
 local function FindDescendant(Parent, ...)
     local Current = Parent
     for _, Name in ipairs({...}) do
+        local Previous = Current
         Current = Current and Current:FindFirstChild(Name)
         if not Current then
-            Error(string.format("'%s' was not found in %s", Name, Parent.Name))
+            Error(string.format("'%s' was not found in '%s'", Name, Previous.Name))
         end
     end
     return Current
@@ -110,7 +108,7 @@ local Env = {
     Protect = Protect,
     RGBToHex = RGBToHex,
     FindDescendant = FindDescendant,
-      
+
     Chat = {},
     Leaderboard = {}
 }
@@ -125,12 +123,10 @@ for _, File in ipairs(Files) do
         local Source = game:HttpGet(
             "https://raw.githubusercontent.com/JustSomeGuest/CoreUI/Main/Source/Modules/" .. File .. ".luau"
         )
-
-        local LoadedFunction, Error = loadstring(Source)
+        local LoadedFunction, LoadError = loadstring(Source)
         if not LoadedFunction then
-            error(Error)
+            error(LoadError)
         end
-
         setfenv(LoadedFunction, Env)
         return LoadedFunction()
     end)
