@@ -108,6 +108,7 @@ Shared.CoreUI.Env = {
     Protect = Protect,
     RGBToHex = RGBToHex,
     FindDescendant = FindDescendant,
+      
     Chat = {},
     Leaderboard = {}
 }
