@@ -634,10 +634,6 @@ end)
 
 UI["Close"].Activated:Connect(HideLeaderboard)
 
-pcall(function()
-    StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
-end)
-
 local topbarMenu = CoreGui
     :WaitForChild("TopBarApp", 10)
     :WaitForChild("TopBarApp", 10)
