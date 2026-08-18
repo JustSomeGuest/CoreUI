@@ -334,7 +334,7 @@ UI["Actions"].Parent = UI["LeaderboardProfile"]
 UI["ActionsLayout"] = Instance.new("UIListLayout")
 UI["ActionsLayout"].FillDirection = Enum.FillDirection.Vertical
 UI["ActionsLayout"].HorizontalFlex = Enum.UIFlexAlignment.Fill
-UI["ActionsLayout"].Padding = UDim.new(0, 8)
+UI["ActionsLayout"].Padding = UDim.new(0, 2)
 UI["ActionsLayout"].SortOrder = Enum.SortOrder.LayoutOrder
 UI["ActionsLayout"].Parent = UI["Actions"]
 
