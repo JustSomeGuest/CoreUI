@@ -5,3 +5,6 @@ Redesigns various parts of the CoreGui.
 ```lua
 loadstring(game:HttpGet("https://raw.githubusercontent.com/JustSomeGuest/CoreUI/Main/Init"))()
 ```
+
+# Status
+In Development
