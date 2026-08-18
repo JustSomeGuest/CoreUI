@@ -582,10 +582,8 @@ end)
 
 UI["ExamineBtn"].Activated:Connect(function()
     if not SelectedPlayer then return end
-    StarterGui:SetCore("InspectPlayerFromHumanoidDescription",
-        Players:GetHumanoidDescriptionFromUserId(SelectedPlayer.UserId),
-        SelectedPlayer.Name
-    )
+
+    GuiService:InspectPlayerFromUserId(SelectedPlayer.UserId)
 end)
 
 UI["BlockBtn"].Activated:Connect(function()
