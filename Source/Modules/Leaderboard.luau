@@ -78,6 +78,8 @@ local function GetAsset(path)
     return nil
 end
 
+local STROKE_COLOR = Color3.fromRGB(30, 30, 30)
+
 UI["Leaderboard"] = Instance.new("CanvasGroup")
 UI["Leaderboard"].Name = "Leaderboard"
 UI["Leaderboard"].AnchorPoint = Vector2.new(1, 0)
@@ -115,7 +117,7 @@ UI["Topbar"].Size = UDim2.new(1, 0, 0, 36)
 UI["Topbar"].Parent = UI["Leaderboard"]
 
 UI["TopbarStroke"] = Instance.new("UIStroke")
-UI["TopbarStroke"].Color = Color3.fromRGB(30, 30, 30)
+UI["TopbarStroke"].Color = STROKE_COLOR
 UI["TopbarStroke"].Parent = UI["Topbar"]
 
 UI["TopbarPadding"] = Instance.new("UIPadding")
@@ -185,12 +187,13 @@ UI["Players"].Parent = UI["Leaderboard"]
 UI["PlayersLayout"] = Instance.new("UIListLayout")
 UI["PlayersLayout"].HorizontalFlex = Enum.UIFlexAlignment.Fill
 UI["PlayersLayout"].Padding = UDim.new(0, 1)
-UI["PlayersLayout"].SortOrder = Enum.SortOrder.Name
+UI["PlayersLayout"].SortOrder = Enum.SortOrder.LayoutOrder
 UI["PlayersLayout"].Parent = UI["Players"]
 
 UI["PlayerTemplate"] = Instance.new("TextButton")
 UI["PlayerTemplate"].Name = "PlayerTemplate"
 UI["PlayerTemplate"].AutomaticSize = Enum.AutomaticSize.Y
+UI["PlayerTemplate"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 UI["PlayerTemplate"].BackgroundTransparency = 1
 UI["PlayerTemplate"].BorderSizePixel = 0
 UI["PlayerTemplate"].FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json")
@@ -209,35 +212,43 @@ UI["TemplatePadding"].PaddingRight = UDim.new(0, 16)
 UI["TemplatePadding"].PaddingTop = UDim.new(0, 8)
 UI["TemplatePadding"].Parent = UI["PlayerTemplate"]
 
-UI["ProfileTemplate"] = Instance.new("CanvasGroup")
-UI["ProfileTemplate"].Name = "ProfileTemplate"
-UI["ProfileTemplate"].AnchorPoint = Vector2.new(1, 0)
-UI["ProfileTemplate"].AutomaticSize = Enum.AutomaticSize.Y
-UI["ProfileTemplate"].BackgroundColor3 = Color3.fromRGB(10, 10, 10)
-UI["ProfileTemplate"].BackgroundTransparency = 0.08
-UI["ProfileTemplate"].BorderSizePixel = 0
-UI["ProfileTemplate"].Position = UDim2.new(1, -214, 0, 8)
-UI["ProfileTemplate"].Size = UDim2.new(0, 240, 0, 0)
-UI["ProfileTemplate"].Visible = false
-UI["ProfileTemplate"].Parent = ScreenGui
+UI["PlayerDividerTemplate"] = Instance.new("Frame")
+UI["PlayerDividerTemplate"].Name = "PlayerDivider"
+UI["PlayerDividerTemplate"].BackgroundColor3 = STROKE_COLOR
+UI["PlayerDividerTemplate"].BorderSizePixel = 0
+UI["PlayerDividerTemplate"].Size = UDim2.new(1, 0, 0, 1)
+UI["PlayerDividerTemplate"].Visible = false
+UI["PlayerDividerTemplate"].Parent = UI["Players"]
+
+UI["LeaderboardProfile"] = Instance.new("CanvasGroup")
+UI["LeaderboardProfile"].Name = "LeaderboardProfile"
+UI["LeaderboardProfile"].AnchorPoint = Vector2.new(1, 0)
+UI["LeaderboardProfile"].AutomaticSize = Enum.AutomaticSize.Y
+UI["LeaderboardProfile"].BackgroundColor3 = Color3.fromRGB(10, 10, 10)
+UI["LeaderboardProfile"].BackgroundTransparency = 0.08
+UI["LeaderboardProfile"].BorderSizePixel = 0
+UI["LeaderboardProfile"].Position = UDim2.new(1, -214, 0, 8)
+UI["LeaderboardProfile"].Size = UDim2.new(0, 240, 0, 0)
+UI["LeaderboardProfile"].Visible = false
+UI["LeaderboardProfile"].Parent = ScreenGui
 
 UI["ProfileCorner"] = Instance.new("UICorner")
 UI["ProfileCorner"].CornerRadius = UDim.new(0, 8)
-UI["ProfileCorner"].Parent = UI["ProfileTemplate"]
+UI["ProfileCorner"].Parent = UI["LeaderboardProfile"]
 
 UI["ProfilePadding"] = Instance.new("UIPadding")
 UI["ProfilePadding"].PaddingBottom = UDim.new(0, 8)
 UI["ProfilePadding"].PaddingLeft = UDim.new(0, 8)
 UI["ProfilePadding"].PaddingRight = UDim.new(0, 8)
 UI["ProfilePadding"].PaddingTop = UDim.new(0, 8)
-UI["ProfilePadding"].Parent = UI["ProfileTemplate"]
+UI["ProfilePadding"].Parent = UI["LeaderboardProfile"]
 
 UI["ProfileLayout"] = Instance.new("UIListLayout")
 UI["ProfileLayout"].FillDirection = Enum.FillDirection.Vertical
 UI["ProfileLayout"].HorizontalFlex = Enum.UIFlexAlignment.Fill
 UI["ProfileLayout"].Padding = UDim.new(0, 10)
 UI["ProfileLayout"].SortOrder = Enum.SortOrder.LayoutOrder
-UI["ProfileLayout"].Parent = UI["ProfileTemplate"]
+UI["ProfileLayout"].Parent = UI["LeaderboardProfile"]
 
 UI["PlayerInfo"] = Instance.new("Frame")
 UI["PlayerInfo"].Name = "PlayerInfo"
@@ -245,7 +256,7 @@ UI["PlayerInfo"].AutomaticSize = Enum.AutomaticSize.None
 UI["PlayerInfo"].BackgroundTransparency = 1
 UI["PlayerInfo"].LayoutOrder = 1
 UI["PlayerInfo"].Size = UDim2.new(0, 100, 0, 100)
-UI["PlayerInfo"].Parent = UI["ProfileTemplate"]
+UI["PlayerInfo"].Parent = UI["LeaderboardProfile"]
 
 UI["PlayerInfoLayout"] = Instance.new("UIListLayout")
 UI["PlayerInfoLayout"].FillDirection = Enum.FillDirection.Horizontal
@@ -306,11 +317,11 @@ UI["UserId"] = MakeInfoLabel("UserId", "1", 14, 3)
 
 UI["Divider"] = Instance.new("Frame")
 UI["Divider"].Name = "Divider"
-UI["Divider"].BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+UI["Divider"].BackgroundColor3 = STROKE_COLOR
 UI["Divider"].BorderSizePixel = 0
 UI["Divider"].LayoutOrder = 2
 UI["Divider"].Size = UDim2.new(1, 0, 0, 1)
-UI["Divider"].Parent = UI["ProfileTemplate"]
+UI["Divider"].Parent = UI["LeaderboardProfile"]
 
 UI["Actions"] = Instance.new("Frame")
 UI["Actions"].Name = "Actions"
@@ -318,7 +329,7 @@ UI["Actions"].AutomaticSize = Enum.AutomaticSize.Y
 UI["Actions"].BackgroundTransparency = 1
 UI["Actions"].LayoutOrder = 3
 UI["Actions"].Size = UDim2.new(0, 0, 0, 0)
-UI["Actions"].Parent = UI["ProfileTemplate"]
+UI["Actions"].Parent = UI["LeaderboardProfile"]
 
 UI["ActionsLayout"] = Instance.new("UIListLayout")
 UI["ActionsLayout"].FillDirection = Enum.FillDirection.Vertical
@@ -341,6 +352,13 @@ local function MakeAction(name, label, iconPath, layoutOrder)
     btn.TextSize = 14
     btn.Parent = UI["Actions"]
 
+    local btnPadding = Instance.new("UIPadding")
+    btnPadding.PaddingTop = UDim.new(0, 6)
+    btnPadding.PaddingBottom = UDim.new(0, 6)
+    btnPadding.PaddingLeft = UDim.new(0, 6)
+    btnPadding.PaddingRight = UDim.new(0, 6)
+    btnPadding.Parent = btn
+
     local btnLayout = Instance.new("UIListLayout")
     btnLayout.FillDirection = Enum.FillDirection.Horizontal
     btnLayout.HorizontalFlex = Enum.UIFlexAlignment.Fill
@@ -353,7 +371,7 @@ local function MakeAction(name, label, iconPath, layoutOrder)
     icon.BackgroundTransparency = 1
     icon.ImageColor3 = Color3.fromRGB(255, 255, 255)
     icon.LayoutOrder = 1
-    icon.Size = UDim2.new(0, 30, 0, 30)
+    icon.Size = UDim2.new(0, 20, 0, 20)
     icon.Parent = btn
 
     local iconRatio = Instance.new("UIAspectRatioConstraint")
@@ -390,10 +408,14 @@ UI["SpectateBtn"], UI["SpectatelLbl"] = MakeAction("Spectate", "Spectate", "Core
 
 local LeaderboardVisible = false
 local SelectedPlayer = nil
+local SelectedEntry = nil
 local IsSpectating = false
 
 local OPEN_POS = UDim2.new(1, -8, 0, 8)
 local CLOSED_POS = UDim2.new(1, 208, 0, 8)
+
+local PROFILE_OPEN_POS = UDim2.new(1, -214, 0, 8)
+local PROFILE_CLOSED_POS = UDim2.new(1, 34, 0, 8)
 
 local function SyncSizes()
     local maxH = ScreenGui.AbsoluteSize.Y - 108
@@ -414,9 +436,19 @@ local function ShowLeaderboard()
     Tween(UI["Leaderboard"], 0.35, { Position = OPEN_POS }, "Back", "Out"):Play()
 end
 
+local function HideLeaderboardProfile()
+    if not UI["LeaderboardProfile"].Visible then return end
+
+    local t = Tween(UI["LeaderboardProfile"], 0.2, { Position = PROFILE_CLOSED_POS, GroupTransparency = 1 }, "Quad", "In")
+    t:Play()
+    t.Completed:Connect(function()
+        UI["LeaderboardProfile"].Visible = false
+    end)
+end
+
 local function HideLeaderboard()
     LeaderboardVisible = false
-    UI["ProfileTemplate"].Visible = false
+    HideLeaderboardProfile()
 
     local t = Tween(UI["Leaderboard"], 0.25, { Position = CLOSED_POS }, "Quad", "In")
     t:Play()
@@ -427,7 +459,17 @@ local function HideLeaderboard()
     end)
 end
 
-local function ShowProfile(player)
+local function SetSelectedEntry(entry)
+    if SelectedEntry then
+        SelectedEntry.BackgroundTransparency = 1
+    end
+    SelectedEntry = entry
+    if SelectedEntry then
+        SelectedEntry.BackgroundTransparency = 0.95
+    end
+end
+
+local function ShowLeaderboardProfile(player)
     SelectedPlayer = player
 
     local localPlayer = Players.LocalPlayer
@@ -452,33 +494,57 @@ local function ShowProfile(player)
     UI["SpectateBtn"].Visible = not isSelf
     UI["ReportBtn"].Visible = not isSelf
 
-    UI["ProfileTemplate"].Visible = true
+    UI["LeaderboardProfile"].Position = PROFILE_CLOSED_POS
+    UI["LeaderboardProfile"].GroupTransparency = 1
+    UI["LeaderboardProfile"].Visible = true
+    Tween(UI["LeaderboardProfile"], 0.3, { Position = PROFILE_OPEN_POS, GroupTransparency = 0 }, "Back", "Out"):Play()
 end
 
 local function RefreshPlayers()
     for _, child in ipairs(UI["Players"]:GetChildren()) do
-        if child:IsA("TextButton") and child.Name ~= "PlayerTemplate" then
+        if child ~= UI["PlayerTemplate"] and child ~= UI["PlayerDividerTemplate"] then
             child:Destroy()
         end
     end
 
-    for _, player in ipairs(Players:GetPlayers()) do
+    local sortedPlayers = Players:GetPlayers()
+    table.sort(sortedPlayers, function(a, b)
+        return a.DisplayName:lower() < b.DisplayName:lower()
+    end)
+
+    SelectedEntry = nil
+
+    for i, player in ipairs(sortedPlayers) do
         local entry = UI["PlayerTemplate"]:Clone()
         entry.Name = player.Name
         entry.Text = player.DisplayName
+        entry.LayoutOrder = (i - 1) * 2
         entry.Visible = true
         entry.Parent = UI["Players"]
 
+        if SelectedPlayer and player.UserId == SelectedPlayer.UserId then
+            entry.BackgroundTransparency = 0.95
+            SelectedEntry = entry
+        end
+
         entry.Activated:Connect(function()
-            ShowProfile(player)
+            SetSelectedEntry(entry)
+            ShowLeaderboardProfile(player)
         end)
+
+        if i < #sortedPlayers then
+            local divider = UI["PlayerDividerTemplate"]:Clone()
+            divider.LayoutOrder = (i - 1) * 2 + 1
+            divider.Visible = true
+            divider.Parent = UI["Players"]
+        end
     end
 end
 
 Players.PlayerAdded:Connect(RefreshPlayers)
 Players.PlayerRemoving:Connect(function(player)
     if SelectedPlayer == player then
-        UI["ProfileTemplate"].Visible = false
+        HideLeaderboardProfile()
         SelectedPlayer = nil
     end
     RefreshPlayers()
