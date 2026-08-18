@@ -116,7 +116,7 @@ Shared.CoreUI.Env = {
 local Files = {
     "Chat",
     "TouchGui",
-    -- "Leaderboard"
+    "Leaderboard"
 }
 
 for _, File in ipairs(Files) do
