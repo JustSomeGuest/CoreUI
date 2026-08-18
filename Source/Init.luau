@@ -103,6 +103,7 @@ Shared.CoreUI.Env = {
     StarterGui = StarterGui,
     TextChatService = TextChatService,
     UserInputService = UserInputService,
+    GuiService = GuiService,
     ScreenGui = ScreenGui,
     UID = UID,
     Error = Error,
