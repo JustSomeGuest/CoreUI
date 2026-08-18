@@ -52,8 +52,8 @@ end
 
 local MaxMessages = 20
 local ChatVisible = false
-local SlideInPos = UDim2.new(0, 16, 0, 2)
-local SlideOutPos = UDim2.new(0, -320, 0, 2)
+local SlideInPos = UDim2.new(0, 16, 0, 60)
+local SlideOutPos = UDim2.new(0, -320, 0, 60)
 
 local function GetMessageLabels()
     local Labels = {}
