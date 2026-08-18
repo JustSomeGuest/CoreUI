@@ -6,6 +6,7 @@ local Players = Env.Players
 local ScreenGui = Env.ScreenGui
 local StarterGui = Env.StarterGui
 local UserInputService = Env.UserInputService
+local GuiService = Env.GuiService
 local Tween = Env.Tween
 local UI = Env.Leaderboard
 
