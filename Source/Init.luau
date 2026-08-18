@@ -117,17 +117,24 @@ local Env = {
 
 local Files = {
     "Chat",
---    "Leaderboard"
+    -- "Leaderboard"
 }
 
 for _, File in ipairs(Files) do
     local Success, Result = pcall(function()
-        local Source = game:HttpGet("https://raw.githubusercontent.com/JustSomeGuest/CoreUI/Main/Source/Modules/" .. File .. ".luau")
-        local LoadedFunction = loadstring(Source)
+        local Source = game:HttpGet(
+            "https://raw.githubusercontent.com/JustSomeGuest/CoreUI/Main/Source/Modules/" .. File .. ".luau"
+        )
+
+        local LoadedFunction, Error = loadstring(Source)
+        if not LoadedFunction then
+            error(Error)
+        end
+
         setfenv(LoadedFunction, Env)
         return LoadedFunction()
     end)
-    
+
     if not Success then
         warn("[CoreUI]: Failed to load " .. File .. ": " .. tostring(Result))
     end
