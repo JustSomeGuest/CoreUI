@@ -228,7 +228,7 @@ UI["LeaderboardProfile"].BackgroundColor3 = Color3.fromRGB(10, 10, 10)
 UI["LeaderboardProfile"].BackgroundTransparency = 0.08
 UI["LeaderboardProfile"].BorderSizePixel = 0
 UI["LeaderboardProfile"].Position = UDim2.new(1, -214, 0, 8)
-UI["LeaderboardProfile"].Size = UDim2.new(0, 240, 0, 0)
+UI["LeaderboardProfile"].Size = UDim2.new(0, 240, 1, -16)
 UI["LeaderboardProfile"].Visible = false
 UI["LeaderboardProfile"].Parent = ScreenGui
 
