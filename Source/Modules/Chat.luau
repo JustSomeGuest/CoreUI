@@ -1,4 +1,4 @@
-local UI = Chat 
+local UI = Chat
 
 local NameColors = {
     Color3.fromRGB(255, 100, 100),
@@ -49,16 +49,16 @@ end
 
 local function AddMessage(DisplayName, MessageText, UserId)
     local Labels = GetMessageLabels()
-    
+
     table.sort(Labels, function(a, b)
         return a.LayoutOrder < b.LayoutOrder
     end)
-    
+
     while #Labels >= MaxMessages do
         Labels[1]:Destroy()
         table.remove(Labels, 1)
     end
-    
+
     Labels = GetMessageLabels()
     table.sort(Labels, function(a, b)
         return a.LayoutOrder < b.LayoutOrder
@@ -66,7 +66,7 @@ local function AddMessage(DisplayName, MessageText, UserId)
     for i, Label in ipairs(Labels) do
         Label.LayoutOrder = i
     end
-    
+
     local NameColor = RGBToHex(GetNameColor(UserId or 0))
     local Clone = UI["MessageTemplate"]:Clone()
     Clone.Text = string.format(
@@ -79,7 +79,7 @@ local function AddMessage(DisplayName, MessageText, UserId)
     Clone.Visible = true
     Clone.LayoutOrder = #Labels + 1
     Clone.Parent = UI["Messages"]
-    
+
     task.wait()
     UI["Messages"].CanvasPosition = Vector2.new(0, UI["Messages"].AbsoluteCanvasSize.Y)
 end
@@ -101,19 +101,13 @@ local function HideChat()
     end)
 end
 
+local RBXGeneral = TextChatService:WaitForChild("TextChannels"):WaitForChild("RBXGeneral")
+
 local function SendMessage()
     local Text = UI["Chatbox"].Text
-    if Text == "" then
-        return
-    end
+    if Text == "" then return end
     UI["Chatbox"].Text = ""
-    local Channel = TextChatService:FindFirstChild("TextChannels")
-    if Channel then
-        Channel = Channel:FindFirstChild("RBXGeneral")
-    end
-    if Channel then
-        Channel:SendAsync(Text)
-    end
+    RBXGeneral:SendAsync(Text)
 end
 
 UI["Chat"] = Instance.new("CanvasGroup")
@@ -315,11 +309,9 @@ UI["Chatbox"]["FocusLost"]:Connect(function(EnterPressed)
     end
 end)
 
-TextChatService.MessageReceived:Connect(function(Message)
+RBXGeneral.MessageReceived:Connect(function(Message)
     local Source = Message.TextSource
-    if not Source then
-        return
-    end
+    if not Source then return end
     local Player = Players:GetPlayerByUserId(Source.UserId)
     local DisplayName = Player and Player.DisplayName or tostring(Source.UserId)
     AddMessage(DisplayName, Message.Text, Source.UserId)
@@ -358,8 +350,9 @@ if OriginalChat then
 end
 
 local ChatBtn = UnibarMenu:FindFirstChild("IconHitArea_chat", true)
-
-if ChatBtn then
+if not ChatBtn then
+    warn("[CoreUI]: ChatBtn not found, chat toggle will not work")
+else
     ChatBtn.Activated:Connect(function()
         if ChatVisible then
             HideChat()
