@@ -116,13 +116,13 @@ local Env = {
 }
 
 local Files = {
-    "Chat.luau",
---    "Leaderboard.luau"
+    "Chat",
+--    "Leaderboard"
 }
 
 for _, File in ipairs(Files) do
     local Success, Result = pcall(function()
-        local Source = game:HttpGet("https://raw.githubusercontent.com/JustSomeGuest/CoreUI/Main/Source/Modules" .. File)
+        local Source = game:HttpGet("https://raw.githubusercontent.com/JustSomeGuest/CoreUI/Main/Source/Modules/" .. File .. ".luau")
         local LoadedFunction = loadstring(Source)
         setfenv(LoadedFunction, Env)
         return LoadedFunction()
