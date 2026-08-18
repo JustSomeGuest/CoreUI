@@ -114,6 +114,7 @@ Shared.CoreUI.Env = {
 
 local Files = {
     "Chat",
+    "TouchGui",
     -- "Leaderboard"
 }
 
