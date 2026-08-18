@@ -101,20 +101,22 @@ local function HideChat()
     end)
 end
 
+local RBXGeneral = TextChatService:WaitForChild("TextChannels"):WaitForChild("RBXGeneral")
+
 local function SendMessage()
     local Text = UI["Chatbox"].Text
-    if Text == "" then
-        return
-    end
+    if Text == "" then return end
     UI["Chatbox"].Text = ""
-    local Channel = TextChatService:FindFirstChild("TextChannels")
-    if Channel then
-        Channel = Channel:FindFirstChild("RBXGeneral")
-    end
-    if Channel then
-        Channel:SendAsync(Text)
-    end
+    RBXGeneral:SendAsync(Text)
 end
+
+RBXGeneral.MessageReceived:Connect(function(Message)
+    local Source = Message.TextSource
+    if not Source then return end
+    local Player = Players:GetPlayerByUserId(Source.UserId)
+    local DisplayName = Player and Player.DisplayName or tostring(Source.UserId)
+    AddMessage(DisplayName, Message.Text, Source.UserId)
+end)
 
 UI["Chat"] = Instance.new("CanvasGroup")
 UI["Chat"]["AnchorPoint"] = Vector2.new(0, 0)
