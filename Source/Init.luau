@@ -93,7 +93,7 @@ ScreenGui.ResetOnSpawn = false
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 ScreenGui.Parent = Hui
 
-local Env = {
+local Env = setmetatable({
     Hui = Hui,
     CoreGui = CoreGui,
     TweenService = TweenService,
@@ -111,7 +111,7 @@ local Env = {
 
     Chat = {},
     Leaderboard = {}
-}
+}, {__index = getfenv()})
 
 local Files = {
     "Chat",
