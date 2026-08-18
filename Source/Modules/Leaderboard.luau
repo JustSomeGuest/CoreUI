@@ -1,12 +1,13 @@
 local Shared = (type(getgenv) == "function" and getgenv()) or shared or _G
 local Env = Shared.CoreUI.Env
 
-local CoreGui      = Env.CoreGui
-local Players      = Env.Players
-local ScreenGui    = Env.ScreenGui
-local StarterGui   = Env.StarterGui
-local Tween        = Env.Tween
-local UI           = Env.Leaderboard
+local CoreGui          = Env.CoreGui
+local Players          = Env.Players
+local ScreenGui        = Env.ScreenGui
+local StarterGui       = Env.StarterGui
+local UserInputService = Env.UserInputService
+local Tween            = Env.Tween
+local UI               = Env.Leaderboard
 
 local WriteFile  = writefile  or function() end
 local IsFile     = isfile     or function() return false end
