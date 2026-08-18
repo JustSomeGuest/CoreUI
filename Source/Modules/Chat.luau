@@ -150,11 +150,6 @@ UI["ChatCorner"]["Name"] = "ChatCorner"
 UI["ChatCorner"]["CornerRadius"] = UDim.new(0, 8)
 UI["ChatCorner"]["Parent"] = UI["Chat"]
 
-UI["ChatStroke"] = Instance.new("UIStroke")
-UI["ChatStroke"]["Color"] = Color3.fromRGB(60, 60, 70)
-UI["ChatStroke"]["Name"] = "ChatStroke"
-UI["ChatStroke"]["Parent"] = UI["Chat"]
-
 UI["ChatLayout"] = Instance.new("UIListLayout")
 UI["ChatLayout"]["HorizontalFlex"] = Enum.UIFlexAlignment.Fill
 UI["ChatLayout"]["Name"] = "ChatLayout"
