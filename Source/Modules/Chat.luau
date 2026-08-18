@@ -140,13 +140,14 @@ UI["Chat"]["Visible"] = true
 UI["Chat"]["Parent"] = ScreenGui
 
 UI["ChatShadow"] = Instance.new("UIShadow")
-UI["ChatShadow"]["BlurRadius"] = UDim.new(0, 2)
+UI["ChatShadow"]["BlurRadius"] = UDim.new(0, 8)
+UI["ChatShadow"]["Color"] = Color3.fromRGB(0, 0, 0)
 UI["ChatShadow"]["Transparency"] = 0.5
 UI["ChatShadow"]["Parent"] = UI["Chat"]
 
 UI["ChatCorner"] = Instance.new("UICorner")
 UI["ChatCorner"]["Name"] = "ChatCorner"
-UI["ChatCorner"]["CornerRadius"] = UDim.new(0, 10)
+UI["ChatCorner"]["CornerRadius"] = UDim.new(0, 8)
 UI["ChatCorner"]["Parent"] = UI["Chat"]
 
 UI["ChatStroke"] = Instance.new("UIStroke")
@@ -185,11 +186,6 @@ UI["Messages"]["ScrollingDirection"] = Enum.ScrollingDirection.Y
 UI["Messages"]["Size"] = UDim2.new(1, -8, 1, -8)
 UI["Messages"]["Parent"] = UI["Chat"]
 
-UI["MessagesCorner"] = Instance.new("UICorner")
-UI["MessagesCorner"]["Name"] = "MessagesCorner"
-UI["MessagesCorner"]["CornerRadius"] = UDim.new(0, 12)
-UI["MessagesCorner"]["Parent"] = UI["Messages"]
-
 UI["MessagesLayout"] = Instance.new("UIListLayout")
 UI["MessagesLayout"]["HorizontalFlex"] = Enum.UIFlexAlignment.Fill
 UI["MessagesLayout"]["Name"] = "MessagesLayout"
@@ -222,8 +218,8 @@ UI["MessageTemplate"]["Visible"] = false
 UI["MessageTemplate"]["Parent"] = UI["Messages"]
 
 UI["ChatFrame"] = Instance.new("Frame")
-UI["ChatFrame"]["BackgroundColor3"] = Color3.fromRGB(25, 25, 28)
-UI["ChatFrame"]["BackgroundTransparency"] = 0.92
+UI["ChatFrame"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
+UI["ChatFrame"]["BackgroundTransparency"] = 0.8
 UI["ChatFrame"]["BorderSizePixel"] = 0
 UI["ChatFrame"]["LayoutOrder"] = 2
 UI["ChatFrame"]["Name"] = "ChatFrame"
@@ -232,7 +228,7 @@ UI["ChatFrame"]["Parent"] = UI["Chat"]
 
 UI["ChatFrameCorner"] = Instance.new("UICorner")
 UI["ChatFrameCorner"]["Name"] = "ChatFrameCorner"
-UI["ChatFrameCorner"]["CornerRadius"] = UDim.new(0, 8)
+UI["ChatFrameCorner"]["CornerRadius"] = UDim.new(0, 6)
 UI["ChatFrameCorner"]["Parent"] = UI["ChatFrame"]
 
 UI["ChatFrameStroke"] = Instance.new("UIStroke")
