@@ -531,8 +531,14 @@ local function RefreshPlayers()
         end
 
         entry.Activated:Connect(function()
-            SetSelectedEntry(entry)
-            ShowLeaderboardProfile(player)
+            if SelectedPlayer and player.UserId == SelectedPlayer.UserId then
+                SetSelectedEntry(nil)
+                SelectedPlayer = nil
+                HideLeaderboardProfile()
+            else
+                SetSelectedEntry(entry)
+                ShowLeaderboardProfile(player)
+            end
         end)
 
         if i < #sortedPlayers then
