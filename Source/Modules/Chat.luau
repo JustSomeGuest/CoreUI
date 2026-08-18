@@ -219,7 +219,7 @@ UI["MessageTemplate"]["Parent"] = UI["Messages"]
 
 UI["ChatFrame"] = Instance.new("Frame")
 UI["ChatFrame"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
-UI["ChatFrame"]["BackgroundTransparency"] = 0.8
+UI["ChatFrame"]["BackgroundTransparency"] = 0.9
 UI["ChatFrame"]["BorderSizePixel"] = 0
 UI["ChatFrame"]["LayoutOrder"] = 2
 UI["ChatFrame"]["Name"] = "ChatFrame"
