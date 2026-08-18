@@ -659,24 +659,31 @@ local topbarMenu = CoreGui
 local function HookLeaderboardBtn()
     for _, btn in ipairs(topbarMenu:GetChildren()) do
         local lbButton = btn:FindFirstChild("leaderboard", true)
+
         if lbButton then
             local clone = btn:Clone()
-            clone.Name = "LeaderboardBtn"
-            clone.Parent = topbarMenu
-
-            btn.Visible = false
-
-            clone.Activated:Connect(function()
-                if LeaderboardVisible then HideLeaderboard() else ShowLeaderboard() end
-            end)
+            clone.Name = "Leaderboard_Btn"
+            clone.Parent = Env.Hui
 
             pcall(function()
                 StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
             end)
 
+            clone.Parent = topbarMenu
+            clone.Visible = true
+
+            clone.Activated:Connect(function()
+                if LeaderboardVisible then
+                    HideLeaderboard()
+                else
+                    ShowLeaderboard()
+                end
+            end)
+
             return true
         end
     end
+
     return false
 end
 
