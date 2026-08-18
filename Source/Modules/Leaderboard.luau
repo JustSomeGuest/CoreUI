@@ -636,21 +636,32 @@ local topbarMenu = CoreGui
     :WaitForChild("UnibarLeftFrame", 10)
     :WaitForChild("UnibarMenu", 10)
 
-local function HookLeaderboardButton()
+local function HookLeaderboardBtn()
     local btn = topbarMenu:GetChildren()[4]
     local lbButton = btn and btn:FindFirstChild("leaderboard", true)
     if not lbButton then return false end
 
-    lbButton.Activated:Connect(function()
+    local clone = lbButton:Clone()
+    clone.Name = "LeaderboardBtn"
+    clone.Parent = lbButton.Parent
+
+    lbButton.Visible = false
+
+    clone.Activated:Connect(function()
         if LeaderboardVisible then HideLeaderboard() else ShowLeaderboard() end
     end)
+
+    pcall(function()
+        StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
+    end)
+
     return true
 end
 
-if not HookLeaderboardButton() then
+if not HookLeaderboardBtn() then
     local conn
     conn = topbarMenu.ChildAdded:Connect(function()
-        if HookLeaderboardButton() then conn:Disconnect() end
+        if HookLeaderboardBtn() then conn:Disconnect() end
     end)
 end
 
