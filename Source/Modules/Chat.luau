@@ -129,8 +129,8 @@ end
 
 UI["Chat"] = Instance.new("CanvasGroup")
 UI["Chat"]["AnchorPoint"] = Vector2.new(0, 0)
-UI["Chat"]["BackgroundColor3"] = Color3.fromRGB(25, 25, 25)
-UI["Chat"]["BackgroundTransparency"] = 0.05
+UI["Chat"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0)
+UI["Chat"]["BackgroundTransparency"] = 0.1
 UI["Chat"]["BorderSizePixel"] = 0
 UI["Chat"]["ClipsDescendants"] = true
 UI["Chat"]["Name"] = "Chat"
@@ -141,7 +141,7 @@ UI["Chat"]["Parent"] = ScreenGui
 
 UI["ChatCorner"] = Instance.new("UICorner")
 UI["ChatCorner"]["Name"] = "ChatCorner"
-UI["ChatCorner"]["CornerRadius"] = UDim.new(0, 12)
+UI["ChatCorner"]["CornerRadius"] = UDim.new(0, 10)
 UI["ChatCorner"]["Parent"] = UI["Chat"]
 
 UI["ChatStroke"] = Instance.new("UIStroke")
@@ -227,7 +227,7 @@ UI["ChatFrame"]["Parent"] = UI["Chat"]
 
 UI["ChatFrameCorner"] = Instance.new("UICorner")
 UI["ChatFrameCorner"]["Name"] = "ChatFrameCorner"
-UI["ChatFrameCorner"]["CornerRadius"] = UDim.new(0, 12)
+UI["ChatFrameCorner"]["CornerRadius"] = UDim.new(0, 8)
 UI["ChatFrameCorner"]["Parent"] = UI["ChatFrame"]
 
 UI["ChatFrameStroke"] = Instance.new("UIStroke")
@@ -293,17 +293,6 @@ UI["SendRatio"] = Instance.new("UIAspectRatioConstraint")
 UI["SendRatio"]["AspectRatio"] = 1
 UI["SendRatio"]["Name"] = "SendRatio"
 UI["SendRatio"]["Parent"] = UI["Send"]
-
-UI["SendCorner"] = Instance.new("UICorner")
-UI["SendCorner"]["Name"] = "SendCorner"
-UI["SendCorner"]["CornerRadius"] = UDim.new(0, 12)
-UI["SendCorner"]["Parent"] = UI["Send"]
-
-UI["SendStroke"] = Instance.new("UIStroke")
-UI["SendStroke"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border
-UI["SendStroke"]["Color"] = Color3.fromRGB(60, 60, 70)
-UI["SendStroke"]["Name"] = "SendStroke"
-UI["SendStroke"]["Parent"] = UI["Send"]
 
 UI["SendPadding"] = Instance.new("UIPadding")
 UI["SendPadding"]["Name"] = "SendPadding"
