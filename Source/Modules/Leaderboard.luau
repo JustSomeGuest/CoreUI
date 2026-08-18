@@ -79,7 +79,7 @@ local function GetAsset(path)
     return nil
 end
 
-local STROKE_COLOR = Color3.fromRGB(30, 30, 30)
+local SECONDARY_COLOR = Color3.fromRGB(50, 50, 50)
 
 UI["Leaderboard"] = Instance.new("CanvasGroup")
 UI["Leaderboard"].Name = "Leaderboard"
@@ -118,7 +118,7 @@ UI["Topbar"].Size = UDim2.new(1, 0, 0, 36)
 UI["Topbar"].Parent = UI["Leaderboard"]
 
 UI["TopbarStroke"] = Instance.new("UIStroke")
-UI["TopbarStroke"].Color = STROKE_COLOR
+UI["TopbarStroke"].Color = SECONDARY_COLOR
 UI["TopbarStroke"].Parent = UI["Topbar"]
 
 UI["TopbarPadding"] = Instance.new("UIPadding")
@@ -215,7 +215,7 @@ UI["TemplatePadding"].Parent = UI["PlayerTemplate"]
 
 UI["PlayerDividerTemplate"] = Instance.new("Frame")
 UI["PlayerDividerTemplate"].Name = "PlayerDivider"
-UI["PlayerDividerTemplate"].BackgroundColor3 = STROKE_COLOR
+UI["PlayerDividerTemplate"].BackgroundColor3 = SECONDARY_COLOR
 UI["PlayerDividerTemplate"].BorderSizePixel = 0
 UI["PlayerDividerTemplate"].Size = UDim2.new(1, 0, 0, 1)
 UI["PlayerDividerTemplate"].Visible = false
@@ -318,7 +318,7 @@ UI["UserId"] = MakeInfoLabel("UserId", "1", 14, 3)
 
 UI["Divider"] = Instance.new("Frame")
 UI["Divider"].Name = "Divider"
-UI["Divider"].BackgroundColor3 = STROKE_COLOR
+UI["Divider"].BackgroundColor3 = SECONDARY_COLOR
 UI["Divider"].BorderSizePixel = 0
 UI["Divider"].LayoutOrder = 2
 UI["Divider"].Size = UDim2.new(1, 0, 0, 1)
@@ -397,7 +397,7 @@ local function MakeAction(name, label, iconPath, layoutOrder)
     lbl.TextYAlignment = Enum.TextYAlignment.Center
     lbl.Parent = btn
 
-    return btn, lbl
+    return btn, lbl, icon
 end
 
 UI["AddFriendBtn"], UI["AddFriendLbl"] = MakeAction("AddFriend", "Add Friend", "CoreUI/AddFriend.png", 1)
@@ -405,12 +405,20 @@ UI["ExamineBtn"], UI["ExamineLbl"] = MakeAction("Examine", "Examine", "CoreUI/Ex
 UI["BlockBtn"], UI["BlockLbl"] = MakeAction("Block", "Block", "CoreUI/Block.png", 3)
 UI["GotoBtn"], UI["GotoLbl"] = MakeAction("Goto", "Goto", "CoreUI/Goto.png", 4)
 UI["ReportBtn"], UI["ReportLbl"] = MakeAction("Report", "Report", "CoreUI/Report.png", 5)
-UI["SpectateBtn"], UI["SpectatelLbl"] = MakeAction("Spectate", "Spectate", "CoreUI/Spectate.png", 6)
+UI["SpectateBtn"], UI["SpectatelLbl"], UI["SpectateIcon"] = MakeAction("Spectate", "Spectate", "CoreUI/Spectate.png", 6)
 
 local LeaderboardVisible = false
 local SelectedPlayer = nil
 local SelectedEntry = nil
 local IsSpectating = false
+
+local SpectateAsset = nil
+local UnspectateAsset = nil
+
+task.spawn(function()
+    SpectateAsset = GetAsset("CoreUI/Spectate.png")
+    UnspectateAsset = GetAsset("CoreUI/Unspectate.png")
+end)
 
 local OPEN_POS = UDim2.new(1, -8, 0, 8)
 local CLOSED_POS = UDim2.new(1, 208, 0, 8)
@@ -489,6 +497,9 @@ local function ShowLeaderboardProfile(player)
 
     UI["AddFriendLbl"].Text = isFriend and "Unfriend" or "Add Friend"
     UI["SpectatelLbl"].Text = IsSpectating and "Unspectate" or "Spectate"
+    if UI["SpectateIcon"] then
+        UI["SpectateIcon"].Image = (IsSpectating and UnspectateAsset) or SpectateAsset or UI["SpectateIcon"].Image
+    end
 
     UI["AddFriendBtn"].Visible = not isSelf
     UI["GotoBtn"].Visible = not isSelf
@@ -582,7 +593,6 @@ end)
 
 UI["ExamineBtn"].Activated:Connect(function()
     if not SelectedPlayer then return end
-
     GuiService:InspectPlayerFromUserId(SelectedPlayer.UserId)
 end)
 
@@ -617,6 +627,9 @@ UI["SpectateBtn"].Activated:Connect(function()
     if IsSpectating then
         IsSpectating = false
         UI["SpectatelLbl"].Text = "Spectate"
+        if UI["SpectateIcon"] and SpectateAsset then
+            UI["SpectateIcon"].Image = SpectateAsset
+        end
         camera.CameraSubject = Players.LocalPlayer.Character
             and Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
         camera.CameraType = Enum.CameraType.Custom
@@ -627,6 +640,9 @@ UI["SpectateBtn"].Activated:Connect(function()
 
         IsSpectating = true
         UI["SpectatelLbl"].Text = "Unspectate"
+        if UI["SpectateIcon"] and UnspectateAsset then
+            UI["SpectateIcon"].Image = UnspectateAsset
+        end
         camera.CameraSubject = humanoid
         camera.CameraType = Enum.CameraType.Custom
     end
