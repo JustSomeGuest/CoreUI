@@ -1,5 +1,5 @@
 # CoreUI
-Redesigns some parts of the CoreGui.
+Redesigns various parts of the CoreGui.
 
 # Loader
 ```lua
