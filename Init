@@ -1,2 +1,3 @@
 local HttpGet = game.HttpGetAsync or game.HttpGet
+
 loadstring(HttpGet(game, "https://raw.githubusercontent.com/JustSomeGuest/CoreUI/Main/Source/Init.luau"))()
