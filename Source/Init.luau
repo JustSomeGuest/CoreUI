@@ -16,6 +16,7 @@ local Players = GetService("Players")
 local StarterGui = GetService("StarterGui")
 local TextChatService = GetService("TextChatService")
 local UserInputService = GetService("UserInputService")
+local GuiService = GetService("GuiService")
 
 Shared.CoreUI = Shared.CoreUI or {}
 
