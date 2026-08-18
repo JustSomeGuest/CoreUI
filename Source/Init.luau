@@ -93,7 +93,7 @@ ScreenGui.ResetOnSpawn = false
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 ScreenGui.Parent = Hui
 
-local Env = setmetatable({
+Shared.CoreUI.Env = {
     Hui = Hui,
     CoreGui = CoreGui,
     TweenService = TweenService,
@@ -108,10 +108,9 @@ local Env = setmetatable({
     Protect = Protect,
     RGBToHex = RGBToHex,
     FindDescendant = FindDescendant,
-
     Chat = {},
     Leaderboard = {}
-}, {__index = getfenv()})
+}
 
 local Files = {
     "Chat",
@@ -127,7 +126,6 @@ for _, File in ipairs(Files) do
         if not LoadedFunction then
             error(LoadError)
         end
-        setfenv(LoadedFunction, Env)
         return LoadedFunction()
     end)
 
