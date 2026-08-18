@@ -573,56 +573,37 @@ end)
 
 UI["Close"].Activated:Connect(HideLeaderboard)
 
-local StarterGuiService = StarterGui
 pcall(function()
-    StarterGuiService:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
+    StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
 end)
 
-local TopBarApp = CoreGui:WaitForChild("TopBarApp", 10)
-if TopBarApp then
-    local TopBarAppInner = TopBarApp:WaitForChild("TopBarApp", 10)
-    if TopBarAppInner then
-        local UnibarLeftFrame = TopBarAppInner:WaitForChild("UnibarLeftFrame", 10)
-        if UnibarLeftFrame then
-            local UnibarMenu = UnibarLeftFrame:WaitForChild("UnibarMenu", 10)
-            if UnibarMenu then
-                local function TryHookLeaderboardBtn()
-                    local Children = UnibarMenu:GetChildren()
-                    local Btn = Children[4]
-                    if Btn then
-                        local NineDot = Btn:FindFirstChild("nine_dot", true)
-                        if NineDot then
-                            local ScrollFrame = NineDot:FindFirstChild("ScrollingFrame", true)
-                            if ScrollFrame then
-                                local MainCanvas = ScrollFrame:FindFirstChild("MainCanvas", true)
-                                if MainCanvas then
-                                    local LeaderboardBtn = MainCanvas:FindFirstChild("leaderboard", true)
-                                    if LeaderboardBtn then
-                                        LeaderboardBtn.Activated:Connect(function()
-                                            if LeaderboardVisible then
-                                                HideLeaderboard()
-                                            else
-                                                ShowLeaderboard()
-                                            end
-                                        end)
-                                        return true
-                                    end
-                                end
-                            end
-                        end
-                    end
-                    return false
-                end
+local Menu = CoreGui:WaitForChild("TopBarApp", 10)
+    :WaitForChild("TopBarApp", 10)
+    :WaitForChild("UnibarLeftFrame", 10)
+    :WaitForChild("UnibarMenu", 10)
 
-                if not TryHookLeaderboardBtn() then
-                    local Conn
-                    Conn = UnibarMenu.ChildAdded:Connect(function()
-                        if TryHookLeaderboardBtn() then
-                            Conn:Disconnect()
-                        end
-                    end)
-                end
+local function Hook()
+    local Btn = Menu:GetChildren()[4]
+    local Leaderboard = Btn
+        and Btn:FindFirstChild("leaderboard", true)
+
+    if Leaderboard then
+        Leaderboard.Activated:Connect(function()
+            if LeaderboardVisible then
+                HideLeaderboard()
+            else
+                ShowLeaderboard()
             end
-        end
+        end)
+        return true
     end
+end
+
+if not Hook() then
+    local Connection
+    Connection = Menu.ChildAdded:Connect(function()
+        if Hook() then
+            Connection:Disconnect()
+        end
+    end)
 end
