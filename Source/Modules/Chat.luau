@@ -130,7 +130,7 @@ end
 UI["Chat"] = Instance.new("CanvasGroup")
 UI["Chat"]["AnchorPoint"] = Vector2.new(0, 0)
 UI["Chat"]["BackgroundColor3"] = Color3.fromRGB(25, 25, 28)
-UI["Chat"]["BackgroundTransparency"] = 0.92
+UI["Chat"]["BackgroundTransparency"] = 0.05
 UI["Chat"]["BorderSizePixel"] = 0
 UI["Chat"]["ClipsDescendants"] = true
 UI["Chat"]["Name"] = "Chat"
