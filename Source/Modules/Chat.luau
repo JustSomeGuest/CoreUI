@@ -139,10 +139,10 @@ UI["Chat"]["Size"] = UDim2.new(0, 308, 0, 188)
 UI["Chat"]["Visible"] = true
 UI["Chat"]["Parent"] = ScreenGui
 
---[[
 UI["ChatShadow"] = Instance.new("UIShadow")
-UI["ChatShadow"]["BlurRadius"] = Vector2.new(0, )
-]]
+UI["ChatShadow"]["BlurRadius"] = UDim.new(0, 2)
+UI["ChatShadow"]["Transparency"] = 0.5
+UI["ChatShadow"]["Parent"] = UI["Chat"]
 
 UI["ChatCorner"] = Instance.new("UICorner")
 UI["ChatCorner"]["Name"] = "ChatCorner"
