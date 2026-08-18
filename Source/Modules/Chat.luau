@@ -1,4 +1,21 @@
-local UI = Chat
+local Shared = (type(getgenv) == "function" and getgenv()) or shared or _G
+local Env = Shared.CoreUI.Env
+
+local Hui = Env.Hui
+local CoreGui = Env.CoreGui
+local TweenService = Env.TweenService
+local Players = Env.Players
+local StarterGui = Env.StarterGui
+local TextChatService = Env.TextChatService
+local UserInputService = Env.UserInputService
+local ScreenGui = Env.ScreenGui
+local UID = Env.UID
+local Error = Env.Error
+local Tween = Env.Tween
+local Protect = Env.Protect
+local RGBToHex = Env.RGBToHex
+local FindDescendant = Env.FindDescendant
+local UI = Env.Chat
 
 local NameColors = {
     Color3.fromRGB(255, 100, 100),
