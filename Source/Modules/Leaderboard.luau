@@ -502,7 +502,10 @@ end
 
 local function RefreshPlayers()
     for _, child in ipairs(UI["Players"]:GetChildren()) do
-        if child ~= UI["PlayerTemplate"] and child ~= UI["PlayerDividerTemplate"] then
+        if child ~= UI["PlayerTemplate"]
+            and child ~= UI["PlayerDividerTemplate"]
+            and child ~= UI["PlayersLayout"] then
+
             child:Destroy()
         end
     end
