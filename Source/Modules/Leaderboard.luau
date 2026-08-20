@@ -669,7 +669,7 @@ local function HookLeaderboardBtn()
             btn.Visible = false
 
             local clone = btn:Clone()
-            clone.Name = "Leaderboard_Btn"
+            clone.Name = "lbv2"
             clone.Visible = true
             clone.Parent = topbarMenu
 
