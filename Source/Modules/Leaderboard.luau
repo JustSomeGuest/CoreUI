@@ -293,6 +293,7 @@ UI["InfoLayout"] = Instance.new("UIListLayout")
 UI["InfoLayout"].FillDirection = Enum.FillDirection.Vertical
 UI["InfoLayout"].HorizontalFlex = Enum.UIFlexAlignment.Fill
 UI["InfoLayout"].Padding = UDim.new(0, 2)
+UI["InfoLayout"].SortOrder = Enum.SortOrder.LayoutOrder
 UI["InfoLayout"].VerticalFlex = Enum.UIFlexAlignment.Fill
 UI["InfoLayout"].Parent = UI["Info"]
 
