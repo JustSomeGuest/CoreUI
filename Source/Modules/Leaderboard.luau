@@ -655,15 +655,20 @@ local topbarMenu = CoreGui
     :WaitForChild("UnibarLeftFrame", 10)
     :WaitForChild("UnibarMenu", 10)
 
-local function GetMainCanvas(subMenuHost)
-    local nineDot = subMenuHost:WaitForChild("nine_dot", 5)
+local subMenuHost = topbarMenu:WaitForChild("SubMenuHost", 10)
+
+local function GetMainCanvas()
+    local nineDot = subMenuHost:FindFirstChild("nine_dot")
     if not nineDot then return nil end
-    local sf = nineDot:WaitForChild("ScrollingFrame", 5)
+    local sf = nineDot:FindFirstChild("ScrollingFrame")
     if not sf then return nil end
-    return sf:WaitForChild("MainCanvas", 5)
+    return sf:FindFirstChild("MainCanvas")
 end
 
 local function CreateLB(mainCanvas)
+    local existing = mainCanvas:FindFirstChild("leaderboard")
+    if existing then existing:Destroy() end
+
     local btn = Instance.new("ImageButton")
     btn.Name = "leaderboard"
     btn.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
@@ -767,40 +772,11 @@ local function CreateLB(mainCanvas)
     btn.Parent = mainCanvas
 end
 
-local LAYOUT_ORDERS = {
-    leaderboard        = 1,
-    avatar_switcher    = 2,
-    selfie_view        = 3,
-    in_experience_shop = 4,
-    music_entrypoint   = 5,
-    camera_entrypoint  = 6,
-    connect_dropdown   = 7,
-    emotes             = 8,
-    respawn            = 9,
-    trust_and_safety   = 10,
-}
-
-local function ReorderButtons(mainCanvas)
-    for _, child in ipairs(mainCanvas:GetChildren()) do
-        local order = LAYOUT_ORDERS[child.Name]
-        if order then
-            child.LayoutOrder = order
-        end
+local function TryBuild()
+    local mainCanvas = GetMainCanvas()
+    if mainCanvas then
+        CreateLB(mainCanvas)
     end
-end
-
-local function PlaceIntoCanvas(subMenuHost)
-    local mainCanvas = GetMainCanvas(subMenuHost)
-    if not mainCanvas then
-        warn("[CoreUI] Could not find MainCanvas")
-        return
-    end
-
-    local existing = mainCanvas:FindFirstChild("leaderboard")
-    if existing then existing:Destroy() end
-
-    CreateLB(mainCanvas)
-    ReorderButtons(mainCanvas)
 end
 
 local function HookLB()
@@ -816,14 +792,11 @@ local function HookLB()
         StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
     end)
 
-    local subMenuHost = topbarMenu:FindFirstChild("SubMenuHost")
-    if subMenuHost then
-        task.defer(function() PlaceIntoCanvas(subMenuHost) end)
-    end
+    TryBuild()
 
-    topbarMenu.ChildAdded:Connect(function(child)
-        if child.Name == "SubMenuHost" then
-            task.defer(function() PlaceIntoCanvas(child) end)
+    subMenuHost.ChildAdded:Connect(function(child)
+        if child.Name == "nine_dot" then
+            task.defer(TryBuild)
         end
     end)
 end
