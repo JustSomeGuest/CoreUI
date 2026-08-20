@@ -655,8 +655,6 @@ local topbarMenu = CoreGui
     :WaitForChild("UnibarLeftFrame", 10)
     :WaitForChild("UnibarMenu", 10)
 
-local clonedBtn = nil
-
 local function GetMainCanvas(subMenuHost)
     local nineDot = subMenuHost:WaitForChild("nine_dot", 5)
     if not nineDot then return nil end
@@ -665,13 +663,13 @@ local function GetMainCanvas(subMenuHost)
     return sf:WaitForChild("MainCanvas", 5)
 end
 
-local function BuildLb()
+local function CreateLB(mainCanvas)
     local btn = Instance.new("ImageButton")
-    btn.Name = "LbV2"
+    btn.Name = "leaderboard"
     btn.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
     btn.BackgroundTransparency = 1
     btn.BorderSizePixel = 0
-    btn.LayoutOrder = 9
+    btn.LayoutOrder = 1
     btn.Size = UDim2.new(1, 0, 0, 56)
 
     local corner = Instance.new("UICorner")
@@ -681,7 +679,7 @@ local function BuildLb()
     rowLabel.Name = "RowLabel"
     rowLabel.BackgroundTransparency = 1
     rowLabel.BorderSizePixel = 0
-    rowLabel.LayoutOrder = 9
+    rowLabel.LayoutOrder = 1
     rowLabel.Size = UDim2.new(1, 0, 1, 0)
     rowLabel.Parent = btn
 
@@ -700,7 +698,7 @@ local function BuildLb()
     iconHost.Name = "IconHost"
     iconHost.BackgroundTransparency = 1
     iconHost.BorderSizePixel = 0
-    iconHost.LayoutOrder = 9
+    iconHost.LayoutOrder = 1
     iconHost.Size = UDim2.new(0, 44, 0, 44)
     iconHost.Parent = rowLabel
 
@@ -758,24 +756,7 @@ local function BuildLb()
     textConstraint.MinTextSize = 20
     textConstraint.Parent = textLabel
 
-    return btn
-end
-
-local function PlaceClone(subMenuHost)
-    local mainCanvas = GetMainCanvas(subMenuHost)
-    if not mainCanvas then
-        warn("[CoreUI] Could not find MainCanvas")
-        return
-    end
-
-    if clonedBtn then
-        clonedBtn.Parent = mainCanvas
-        return
-    end
-
-    clonedBtn = BuildLb()
-
-    clonedBtn.Activated:Connect(function()
+    btn.Activated:Connect(function()
         if LeaderboardVisible then
             HideLeaderboard()
         else
@@ -783,16 +764,51 @@ local function PlaceClone(subMenuHost)
         end
     end)
 
-    clonedBtn.Parent = mainCanvas
+    btn.Parent = mainCanvas
 end
 
-local function HookLb()
+local LAYOUT_ORDERS = {
+    leaderboard        = 1,
+    avatar_switcher    = 2,
+    selfie_view        = 3,
+    in_experience_shop = 4,
+    music_entrypoint   = 5,
+    camera_entrypoint  = 6,
+    connect_dropdown   = 7,
+    emotes             = 8,
+    respawn            = 9,
+    trust_and_safety   = 10,
+}
 
-    local existing = topbarMenu:FindFirstChild("leaderboard", true)
-    if existing then
-        existing.Visible = false
-        existing:GetPropertyChangedSignal("Visible"):Connect(function()
-            if existing.Visible then existing.Visible = false end
+local function ReorderButtons(mainCanvas)
+    for _, child in ipairs(mainCanvas:GetChildren()) do
+        local order = LAYOUT_ORDERS[child.Name]
+        if order then
+            child.LayoutOrder = order
+        end
+    end
+end
+
+local function PlaceIntoCanvas(subMenuHost)
+    local mainCanvas = GetMainCanvas(subMenuHost)
+    if not mainCanvas then
+        warn("[CoreUI] Could not find MainCanvas")
+        return
+    end
+
+    local existing = mainCanvas:FindFirstChild("leaderboard")
+    if existing then existing:Destroy() end
+
+    CreateLB(mainCanvas)
+    ReorderButtons(mainCanvas)
+end
+
+local function HookLB()
+    local existingOriginal = topbarMenu:FindFirstChild("leaderboard", true)
+    if existingOriginal then
+        existingOriginal.Visible = false
+        existingOriginal:GetPropertyChangedSignal("Visible"):Connect(function()
+            if existingOriginal.Visible then existingOriginal.Visible = false end
         end)
     end
 
@@ -802,17 +818,17 @@ local function HookLb()
 
     local subMenuHost = topbarMenu:FindFirstChild("SubMenuHost")
     if subMenuHost then
-        task.defer(function() PlaceClone(subMenuHost) end)
+        task.defer(function() PlaceIntoCanvas(subMenuHost) end)
     end
 
     topbarMenu.ChildAdded:Connect(function(child)
         if child.Name == "SubMenuHost" then
-            task.defer(function() PlaceClone(child) end)
+            task.defer(function() PlaceIntoCanvas(child) end)
         end
     end)
 end
 
-HookLb()
+HookLB()
 
 local tabDebounce = false
 
