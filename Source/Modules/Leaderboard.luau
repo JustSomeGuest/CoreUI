@@ -649,12 +649,6 @@ end)
 
 UI["Close"].Activated:Connect(HideLeaderboard)
 
-task.defer(function()
-    pcall(function()
-        StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
-    end)
-end)
-
 local topbarMenu = CoreGui
     :WaitForChild("TopBarApp", 10)
     :WaitForChild("TopBarApp", 10)
@@ -666,11 +660,17 @@ local function HookLeaderboardBtn()
         local lbButton = btn:FindFirstChild("leaderboard", true)
 
         if lbButton then
-            btn.Visible = false
-
             local clone = btn:Clone()
             clone.Name = "lbv2"
             clone.Visible = true
+            clone.Parent = Hui
+
+            pcall(function()
+                StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
+            end)
+
+            btn.Visible = false
+
             clone.Parent = topbarMenu
 
             clone.Activated:Connect(function()
