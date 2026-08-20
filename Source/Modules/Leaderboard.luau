@@ -655,80 +655,164 @@ local topbarMenu = CoreGui
     :WaitForChild("UnibarLeftFrame", 10)
     :WaitForChild("UnibarMenu", 10)
 
-local originalBtn = nil
 local clonedBtn = nil
 
 local function GetMainCanvas(subMenuHost)
     local nineDot = subMenuHost:WaitForChild("nine_dot", 5)
     if not nineDot then return nil end
-    local scrollingFrame = nineDot:WaitForChild("ScrollingFrame", 5)
-    if not scrollingFrame then return nil end
-    return scrollingFrame:WaitForChild("MainCanvas", 5)
+    local sf = nineDot:WaitForChild("ScrollingFrame", 5)
+    if not sf then return nil end
+    return sf:WaitForChild("MainCanvas", 5)
 end
 
-local function PlaceClone()
-    local subMenuHost = topbarMenu:FindFirstChild("SubMenuHost")
-    if not subMenuHost then return end
+local function BuildLb()
+    local btn = Instance.new("ImageButton")
+    btn.Name = "LbV2"
+    btn.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    btn.BackgroundTransparency = 1
+    btn.BorderSizePixel = 0
+    btn.LayoutOrder = 9
+    btn.Size = UDim2.new(1, 0, 0, 56)
 
+    local corner = Instance.new("UICorner")
+    corner.Parent = btn
+
+    local rowLabel = Instance.new("Frame")
+    rowLabel.Name = "RowLabel"
+    rowLabel.BackgroundTransparency = 1
+    rowLabel.BorderSizePixel = 0
+    rowLabel.LayoutOrder = 9
+    rowLabel.Size = UDim2.new(1, 0, 1, 0)
+    rowLabel.Parent = btn
+
+    local rowLayout = Instance.new("UIListLayout")
+    rowLayout.FillDirection = Enum.FillDirection.Horizontal
+    rowLayout.VerticalAlignment = Enum.VerticalAlignment.Center
+    rowLayout.Padding = UDim.new(0, 8)
+    rowLayout.Parent = rowLabel
+
+    local rowPadding = Instance.new("UIPadding")
+    rowPadding.PaddingLeft = UDim.new(0, 8)
+    rowPadding.PaddingRight = UDim.new(0, 8)
+    rowPadding.Parent = rowLabel
+
+    local iconHost = Instance.new("Frame")
+    iconHost.Name = "IconHost"
+    iconHost.BackgroundTransparency = 1
+    iconHost.BorderSizePixel = 0
+    iconHost.LayoutOrder = 9
+    iconHost.Size = UDim2.new(0, 44, 0, 44)
+    iconHost.Parent = rowLabel
+
+    local iconFrame = Instance.new("Frame")
+    iconFrame.Name = "IntegrationIconFrame"
+    iconFrame.BackgroundTransparency = 1
+    iconFrame.BorderSizePixel = 0
+    iconFrame.Size = UDim2.new(1, 0, 1, 0)
+    iconFrame.Parent = iconHost
+
+    local iconFrameLayout = Instance.new("UIListLayout")
+    iconFrameLayout.FillDirection = Enum.FillDirection.Horizontal
+    iconFrameLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+    iconFrameLayout.VerticalAlignment = Enum.VerticalAlignment.Center
+    iconFrameLayout.Parent = iconFrame
+
+    local icon = Instance.new("TextLabel")
+    icon.Name = "IntegrationIcon"
+    icon.BackgroundTransparency = 1
+    icon.FontFace = Font.new("rbxasset://LuaPackages/Packages/_Index/BuilderIcons/BuilderIcons/BuilderIcons.json")
+    icon.Text = "trophy"
+    icon.TextColor3 = Color3.fromRGB(247, 247, 248)
+    icon.TextSize = 24
+    icon.Size = UDim2.new(0, 36, 0, 36)
+    icon.Parent = iconFrame
+
+    local label = Instance.new("Frame")
+    label.Name = "Label"
+    label.BackgroundTransparency = 1
+    label.BorderSizePixel = 0
+    label.Size = UDim2.new(0, 0, 1, 0)
+    label.Parent = rowLabel
+
+    local flexItem = Instance.new("UIFlexItem")
+    flexItem.FlexMode = Enum.UIFlexMode.Fill
+    flexItem.Parent = label
+
+    local textLabel = Instance.new("TextLabel")
+    textLabel.Name = "StyledTextLabel"
+    textLabel.BackgroundTransparency = 1
+    textLabel.FontFace = Font.new("rbxasset://fonts/families/BuilderSans.json", Enum.FontWeight.Bold)
+    textLabel.RichText = true
+    textLabel.Text = "Leaderboard"
+    textLabel.TextColor3 = Color3.fromRGB(247, 247, 248)
+    textLabel.TextScaled = true
+    textLabel.TextSize = 20
+    textLabel.TextTruncate = Enum.TextTruncate.AtEnd
+    textLabel.TextWrapped = true
+    textLabel.TextXAlignment = Enum.TextXAlignment.Left
+    textLabel.Size = UDim2.new(1, 0, 1, 0)
+    textLabel.Parent = label
+
+    local textConstraint = Instance.new("UITextSizeConstraint")
+    textConstraint.MaxTextSize = 20
+    textConstraint.MinTextSize = 20
+    textConstraint.Parent = textLabel
+
+    return btn
+end
+
+local function PlaceClone(subMenuHost)
     local mainCanvas = GetMainCanvas(subMenuHost)
-    if not mainCanvas then return end
-
-    if not clonedBtn then
-        clonedBtn = originalBtn:Clone()
-        clonedBtn.Name = "lbv2"
-        clonedBtn.Visible = true
-
-        clonedBtn.Activated:Connect(function()
-            if LeaderboardVisible then
-                HideLeaderboard()
-            else
-                ShowLeaderboard()
-            end
-        end)
+    if not mainCanvas then
+        warn("[CoreUI] Could not find MainCanvas")
+        return
     end
+
+    if clonedBtn then
+        clonedBtn.Parent = mainCanvas
+        return
+    end
+
+    clonedBtn = BuildLb()
+
+    clonedBtn.Activated:Connect(function()
+        if LeaderboardVisible then
+            HideLeaderboard()
+        else
+            ShowLeaderboard()
+        end
+    end)
 
     clonedBtn.Parent = mainCanvas
 end
 
-local function HookLeaderboardBtn()
-    for _, btn in ipairs(topbarMenu:GetChildren()) do
-        local lbButton = btn:FindFirstChild("leaderboard", true)
+local function HookLb()
 
-        if lbButton then
-            originalBtn = btn
-
-            pcall(function()
-                StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
-            end)
-
-            btn.Visible = false
-            btn:GetPropertyChangedSignal("Visible"):Connect(function()
-                if btn.Visible then
-                    btn.Visible = false
-                end
-            end)
-
-            PlaceClone()
-
-            topbarMenu.ChildAdded:Connect(function(child)
-                if child.Name == "SubMenuHost" then
-                    task.defer(PlaceClone)
-                end
-            end)
-
-            return true
-        end
+    local existing = topbarMenu:FindFirstChild("leaderboard", true)
+    if existing then
+        existing.Visible = false
+        existing:GetPropertyChangedSignal("Visible"):Connect(function()
+            if existing.Visible then existing.Visible = false end
+        end)
     end
 
-    return false
-end
+    pcall(function()
+        StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
+    end)
 
-if not HookLeaderboardBtn() then
-    local conn
-    conn = topbarMenu.ChildAdded:Connect(function()
-        if HookLeaderboardBtn() then conn:Disconnect() end
+    local subMenuHost = topbarMenu:FindFirstChild("SubMenuHost")
+    if subMenuHost then
+        task.defer(function() PlaceClone(subMenuHost) end)
+    end
+
+    topbarMenu.ChildAdded:Connect(function(child)
+        if child.Name == "SubMenuHost" then
+            task.defer(function() PlaceClone(child) end)
+        end
     end)
 end
+
+HookLb()
 
 local tabDebounce = false
 
