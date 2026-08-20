@@ -649,11 +649,19 @@ end)
 
 UI["Close"].Activated:Connect(HideLeaderboard)
 
-local topbarMenu = CoreGui
+local CoreGuiService = game:GetService("CoreGui")
+
+local topbarMenu = CoreGuiService
     :WaitForChild("TopBarApp", 10)
     :WaitForChild("TopBarApp", 10)
     :WaitForChild("UnibarLeftFrame", 10)
     :WaitForChild("UnibarMenu", 10)
+
+local subMenuHost = topbarMenu:WaitForChild("SubMenuHost", 10)
+
+if not subMenuHost then
+    warn("[CoreUI] SubMenuHost not found under UnibarMenu — check hierarchy with :GetChildren()")
+end
 
 local function HookLeaderboardBtn()
     for _, btn in ipairs(topbarMenu:GetChildren()) do
@@ -663,15 +671,13 @@ local function HookLeaderboardBtn()
             local clone = btn:Clone()
             clone.Name = "lbv2"
             clone.Visible = true
-            clone.Parent = Hui
+            clone.Parent = subMenuHost
 
             pcall(function()
                 StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
             end)
 
             btn.Visible = false
-
-            clone.Parent = topbarMenu
 
             clone.Activated:Connect(function()
                 if LeaderboardVisible then
