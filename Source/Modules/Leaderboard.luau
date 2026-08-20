@@ -649,19 +649,13 @@ end)
 
 UI["Close"].Activated:Connect(HideLeaderboard)
 
-local CoreGuiService = game:GetService("CoreGui")
-
-local topbarMenu = CoreGuiService
+local topbarMenu = CoreGui
     :WaitForChild("TopBarApp", 10)
     :WaitForChild("TopBarApp", 10)
     :WaitForChild("UnibarLeftFrame", 10)
     :WaitForChild("UnibarMenu", 10)
 
 local subMenuHost = topbarMenu:WaitForChild("SubMenuHost", 10)
-
-if not subMenuHost then
-    warn("[CoreUI] SubMenuHost not found under UnibarMenu — check hierarchy with :GetChildren()")
-end
 
 local function HookLeaderboardBtn()
     for _, btn in ipairs(topbarMenu:GetChildren()) do
@@ -678,6 +672,11 @@ local function HookLeaderboardBtn()
             end)
 
             btn.Visible = false
+            btn:GetPropertyChangedSignal("Visible"):Connect(function()
+                if btn.Visible then
+                    btn.Visible = false
+                end
+            end)
 
             clone.Activated:Connect(function()
                 if LeaderboardVisible then
