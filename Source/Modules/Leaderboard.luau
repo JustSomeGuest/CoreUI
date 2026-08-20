@@ -655,17 +655,47 @@ local topbarMenu = CoreGui
     :WaitForChild("UnibarLeftFrame", 10)
     :WaitForChild("UnibarMenu", 10)
 
-local subMenuHost = topbarMenu:WaitForChild("SubMenuHost", 10)
+local originalBtn = nil
+local clonedBtn = nil
+
+local function GetMainCanvas(subMenuHost)
+    local nineDot = subMenuHost:WaitForChild("nine_dot", 5)
+    if not nineDot then return nil end
+    local scrollingFrame = nineDot:WaitForChild("ScrollingFrame", 5)
+    if not scrollingFrame then return nil end
+    return scrollingFrame:WaitForChild("MainCanvas", 5)
+end
+
+local function PlaceClone()
+    local subMenuHost = topbarMenu:FindFirstChild("SubMenuHost")
+    if not subMenuHost then return end
+
+    local mainCanvas = GetMainCanvas(subMenuHost)
+    if not mainCanvas then return end
+
+    if not clonedBtn then
+        clonedBtn = originalBtn:Clone()
+        clonedBtn.Name = "lbv2"
+        clonedBtn.Visible = true
+
+        clonedBtn.Activated:Connect(function()
+            if LeaderboardVisible then
+                HideLeaderboard()
+            else
+                ShowLeaderboard()
+            end
+        end)
+    end
+
+    clonedBtn.Parent = mainCanvas
+end
 
 local function HookLeaderboardBtn()
     for _, btn in ipairs(topbarMenu:GetChildren()) do
         local lbButton = btn:FindFirstChild("leaderboard", true)
 
         if lbButton then
-            local clone = btn:Clone()
-            clone.Name = "lbv2"
-            clone.Visible = true
-            clone.Parent = subMenuHost
+            originalBtn = btn
 
             pcall(function()
                 StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
@@ -678,11 +708,11 @@ local function HookLeaderboardBtn()
                 end
             end)
 
-            clone.Activated:Connect(function()
-                if LeaderboardVisible then
-                    HideLeaderboard()
-                else
-                    ShowLeaderboard()
+            PlaceClone()
+
+            topbarMenu.ChildAdded:Connect(function(child)
+                if child.Name == "SubMenuHost" then
+                    task.defer(PlaceClone)
                 end
             end)
 
