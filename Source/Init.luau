@@ -88,6 +88,14 @@ local function FindDescendant(Parent, ...)
     return Current
 end
 
+local function Notify(Text, Duration)
+    StarterGui:SetCore("SendNotification", {
+        Title = "CoreUI",
+        Text = Text,
+        Duration = Duration
+    })
+end
+  
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Name = UID()
 ScreenGui.ResetOnSpawn = false
@@ -111,6 +119,7 @@ Shared.CoreUI.Env = {
     Protect = Protect,
     RGBToHex = RGBToHex,
     FindDescendant = FindDescendant,
+    Notify = Notify,
       
     Chat = {},
     Leaderboard = {}
