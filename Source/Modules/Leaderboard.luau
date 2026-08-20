@@ -780,14 +780,6 @@ local function TryBuild()
 end
 
 local function HookLB()
-    local existingOriginal = topbarMenu:FindFirstChild("leaderboard", true)
-    if existingOriginal then
-        existingOriginal.Visible = false
-        existingOriginal:GetPropertyChangedSignal("Visible"):Connect(function()
-            if existingOriginal.Visible then existingOriginal.Visible = false end
-        end)
-    end
-
     pcall(function()
         StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
     end)
