@@ -81,230 +81,230 @@ end
 
 local SECONDARY_COLOR = Color3.fromRGB(50, 50, 50)
 
-UI["Folder"] = Instance.new("Folder")
-UI["Folder"].Name = "Leaderboard"
-UI["Folder"].Parent = ScreenGui
+UI.Folder = Instance.new("Folder")
+UI.Folder.Name = "Leaderboard"
+UI.Folder.Parent = ScreenGui
 
-UI["PlayersList"] = Instance.new("CanvasGroup")
-UI["PlayersList"].Name = "PlayersList"
-UI["PlayersList"].AnchorPoint = Vector2.new(1, 0)
-UI["PlayersList"].AutomaticSize = Enum.AutomaticSize.Y
-UI["PlayersList"].BackgroundColor3 = Color3.fromRGB(10, 10, 10)
-UI["PlayersList"].BackgroundTransparency = 0.08
-UI["PlayersList"].BorderSizePixel = 0
-UI["PlayersList"].ClipsDescendants = false
-UI["PlayersList"].Position = UDim2.new(1, 8, 0, 8)
-UI["PlayersList"].Size = UDim2.new(0, 200, 0, 0)
-UI["PlayersList"].Visible = false
-UI["PlayersList"].Parent = UI["Folder"]
+UI.PlayersList = Instance.new("CanvasGroup")
+UI.PlayersList.Name = "PlayersList"
+UI.PlayersList.AnchorPoint = Vector2.new(1, 0)
+UI.PlayersList.AutomaticSize = Enum.AutomaticSize.Y
+UI.PlayersList.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
+UI.PlayersList.BackgroundTransparency = 0.08
+UI.PlayersList.BorderSizePixel = 0
+UI.PlayersList.ClipsDescendants = false
+UI.PlayersList.Position = UDim2.new(1, 8, 0, 8)
+UI.PlayersList.Size = UDim2.new(0, 200, 0, 0)
+UI.PlayersList.Visible = false
+UI.PlayersList.Parent = UI.Folder
 
-UI["LeaderboardCorner"] = Instance.new("UICorner")
-UI["LeaderboardCorner"].CornerRadius = UDim.new(0, 8)
-UI["LeaderboardCorner"].Parent = UI["PlayersList"]
+UI.LeaderboardCorner = Instance.new("UICorner")
+UI.LeaderboardCorner.CornerRadius = UDim.new(0, 8)
+UI.LeaderboardCorner.Parent = UI.PlayersList
 
-UI["LeaderboardSizeConstraint"] = Instance.new("UISizeConstraint")
-UI["LeaderboardSizeConstraint"].MinSize = Vector2.new(200, 0)
-UI["LeaderboardSizeConstraint"].MaxSize = Vector2.new(200, 314)
-UI["LeaderboardSizeConstraint"].Parent = UI["PlayersList"]
+UI.LeaderboardConst = Instance.new("UISizeConstraint")
+UI.LeaderboardConst.MinSize = Vector2.new(200, 0)
+UI.LeaderboardConst.MaxSize = Vector2.new(200, 314)
+UI.LeaderboardConst.Parent = UI.PlayersList
 
-UI["LeaderboardLayout"] = Instance.new("UIListLayout")
-UI["LeaderboardLayout"].FillDirection = Enum.FillDirection.Vertical
-UI["LeaderboardLayout"].HorizontalFlex = Enum.UIFlexAlignment.Fill
-UI["LeaderboardLayout"].SortOrder = Enum.SortOrder.LayoutOrder
-UI["LeaderboardLayout"].Parent = UI["PlayersList"]
+UI.LeaderboardLayout = Instance.new("UIListLayout")
+UI.LeaderboardLayout.FillDirection = Enum.FillDirection.Vertical
+UI.LeaderboardLayout.HorizontalFlex = Enum.UIFlexAlignment.Fill
+UI.LeaderboardLayout.SortOrder = Enum.SortOrder.LayoutOrder
+UI.LeaderboardLayout.Parent = UI.PlayersList
 
-UI["Topbar"] = Instance.new("Frame")
-UI["Topbar"].Name = "Topbar"
-UI["Topbar"].AutomaticSize = Enum.AutomaticSize.Y
-UI["Topbar"].BackgroundTransparency = 1
-UI["Topbar"].BorderSizePixel = 0
-UI["Topbar"].LayoutOrder = 1
-UI["Topbar"].Size = UDim2.new(1, 0, 0, 36)
-UI["Topbar"].Parent = UI["PlayersList"]
+UI.Topbar = Instance.new("Frame")
+UI.Topbar.Name = "Topbar"
+UI.Topbar.AutomaticSize = Enum.AutomaticSize.Y
+UI.Topbar.BackgroundTransparency = 1
+UI.Topbar.BorderSizePixel = 0
+UI.Topbar.LayoutOrder = 1
+UI.Topbar.Size = UDim2.new(1, 0, 0, 36)
+UI.Topbar.Parent = UI.PlayersList
 
-UI["TopbarStroke"] = Instance.new("UIStroke")
-UI["TopbarStroke"].Color = SECONDARY_COLOR
-UI["TopbarStroke"].Parent = UI["Topbar"]
+UI.TopbarStroke = Instance.new("UIStroke")
+UI.TopbarStroke.Color = SECONDARY_COLOR
+UI.TopbarStroke.Parent = UI.Topbar
 
-UI["TopbarPadding"] = Instance.new("UIPadding")
-UI["TopbarPadding"].PaddingBottom = UDim.new(0, 8)
-UI["TopbarPadding"].PaddingLeft = UDim.new(0, 16)
-UI["TopbarPadding"].PaddingRight = UDim.new(0, 16)
-UI["TopbarPadding"].PaddingTop = UDim.new(0, 8)
-UI["TopbarPadding"].Parent = UI["Topbar"]
+UI.TopbarPadding = Instance.new("UIPadding")
+UI.TopbarPadding.PaddingBottom = UDim.new(0, 8)
+UI.TopbarPadding.PaddingLeft = UDim.new(0, 16)
+UI.TopbarPadding.PaddingRight = UDim.new(0, 16)
+UI.TopbarPadding.PaddingTop = UDim.new(0, 8)
+UI.TopbarPadding.Parent = UI.Topbar
 
-UI["TopbarLayout"] = Instance.new("UIListLayout")
-UI["TopbarLayout"].FillDirection = Enum.FillDirection.Horizontal
-UI["TopbarLayout"].HorizontalFlex = Enum.UIFlexAlignment.Fill
-UI["TopbarLayout"].Padding = UDim.new(0, 8)
-UI["TopbarLayout"].SortOrder = Enum.SortOrder.LayoutOrder
-UI["TopbarLayout"].VerticalAlignment = Enum.VerticalAlignment.Center
-UI["TopbarLayout"].VerticalFlex = Enum.UIFlexAlignment.Fill
-UI["TopbarLayout"].Parent = UI["Topbar"]
+UI.TopbarLayout = Instance.new("UIListLayout")
+UI.TopbarLayout.FillDirection = Enum.FillDirection.Horizontal
+UI.TopbarLayout.HorizontalFlex = Enum.UIFlexAlignment.Fill
+UI.TopbarLayout.Padding = UDim.new(0, 8)
+UI.TopbarLayout.SortOrder = Enum.SortOrder.LayoutOrder
+UI.TopbarLayout.VerticalAlignment = Enum.VerticalAlignment.Center
+UI.TopbarLayout.VerticalFlex = Enum.UIFlexAlignment.Fill
+UI.TopbarLayout.Parent = UI.Topbar
 
-UI["Title"] = Instance.new("TextLabel")
-UI["Title"].FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.SemiBold)
-UI["Title"].LayoutOrder = 1
-UI["Title"].BackgroundTransparency = 1
-UI["Title"].Size = UDim2.new(0, 0, 0, 0)
-UI["Title"].Text = "Leaderboard"
-UI["Title"].TextColor3 = Color3.fromRGB(255, 255, 255)
-UI["Title"].TextScaled = true
-UI["Title"].TextXAlignment = Enum.TextXAlignment.Left
-UI["Title"].TextYAlignment = Enum.TextYAlignment.Center
-UI["Title"].Parent = UI["Topbar"]
+UI.Title = Instance.new("TextLabel")
+UI.Title.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.SemiBold)
+UI.Title.LayoutOrder = 1
+UI.Title.BackgroundTransparency = 1
+UI.Title.Size = UDim2.new(0, 0, 0, 0)
+UI.Title.Text = "Leaderboard"
+UI.Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+UI.Title.TextScaled = true
+UI.Title.TextXAlignment = Enum.TextXAlignment.Left
+UI.Title.TextYAlignment = Enum.TextYAlignment.Center
+UI.Title.Parent = UI.Topbar
 
-UI["TitleSizeConstraint"] = Instance.new("UISizeConstraint")
-UI["TitleSizeConstraint"].MaxSize = Vector2.new(1e6, 36)
-UI["TitleSizeConstraint"].Parent = UI["Title"]
+UI.TitleConst = Instance.new("UISizeConstraint")
+UI.TitleConst.MaxSize = Vector2.new(1e6, 36)
+UI.TitleConst.Parent = UI.Title
 
-UI["Close"] = Instance.new("TextButton")
-UI["Close"].FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.SemiBold)
-UI["Close"].LayoutOrder = 2
-UI["Close"].BackgroundTransparency = 1
-UI["Close"].Size = UDim2.new(0, 0, 0, 0)
-UI["Close"].Text = "╳"
-UI["Close"].TextColor3 = Color3.fromRGB(255, 255, 255)
-UI["Close"].TextScaled = true
-UI["Close"].Parent = UI["Topbar"]
+UI.Close = Instance.new("TextButton")
+UI.Close.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.SemiBold)
+UI.Close.LayoutOrder = 2
+UI.Close.BackgroundTransparency = 1
+UI.Close.Size = UDim2.new(0, 0, 0, 0)
+UI.Close.Text = "╳"
+UI.Close.TextColor3 = Color3.fromRGB(255, 255, 255)
+UI.Close.TextScaled = true
+UI.Close.Parent = UI.Topbar
 
-UI["CloseRatio"] = Instance.new("UIAspectRatioConstraint")
-UI["CloseRatio"].AspectRatio = 1
-UI["CloseRatio"].Parent = UI["Close"]
+UI.CloseRatio = Instance.new("UIAspectRatioConstraint")
+UI.CloseRatio.AspectRatio = 1
+UI.CloseRatio.Parent = UI.Close
 
-UI["ClosePadding"] = Instance.new("UIPadding")
-UI["ClosePadding"].PaddingBottom = UDim.new(0, 3)
-UI["ClosePadding"].PaddingTop = UDim.new(0, 3)
-UI["ClosePadding"].Parent = UI["Close"]
+UI.ClosePadding = Instance.new("UIPadding")
+UI.ClosePadding.PaddingBottom = UDim.new(0, 3)
+UI.ClosePadding.PaddingTop = UDim.new(0, 3)
+UI.ClosePadding.Parent = UI.Close
 
-UI["Players"] = Instance.new("ScrollingFrame")
-UI["Players"].Name = "Players"
-UI["Players"].AutomaticCanvasSize = Enum.AutomaticSize.Y
-UI["Players"].AutomaticSize = Enum.AutomaticSize.Y
-UI["Players"].BackgroundTransparency = 1
-UI["Players"].BorderSizePixel = 0
-UI["Players"].CanvasSize = UDim2.new(0, 0, 0, 0)
-UI["Players"].LayoutOrder = 2
-UI["Players"].ScrollBarThickness = 0
-UI["Players"].ScrollingDirection = Enum.ScrollingDirection.Y
-UI["Players"].Size = UDim2.new(1, 0, 0, 0)
-UI["Players"].Parent = UI["PlayersList"]
+UI.Players = Instance.new("ScrollingFrame")
+UI.Players.Name = "Players"
+UI.Players.AutomaticCanvasSize = Enum.AutomaticSize.Y
+UI.Players.AutomaticSize = Enum.AutomaticSize.Y
+UI.Players.BackgroundTransparency = 1
+UI.Players.BorderSizePixel = 0
+UI.Players.CanvasSize = UDim2.new(0, 0, 0, 0)
+UI.Players.LayoutOrder = 2
+UI.Players.ScrollBarThickness = 0
+UI.Players.ScrollingDirection = Enum.ScrollingDirection.Y
+UI.Players.Size = UDim2.new(1, 0, 0, 0)
+UI.Players.Parent = UI.PlayersList
 
-UI["PlayersLayout"] = Instance.new("UIListLayout")
-UI["PlayersLayout"].HorizontalFlex = Enum.UIFlexAlignment.Fill
-UI["PlayersLayout"].Padding = UDim.new(0, 1)
-UI["PlayersLayout"].SortOrder = Enum.SortOrder.LayoutOrder
-UI["PlayersLayout"].Parent = UI["Players"]
+UI.PlayersLayout = Instance.new("UIListLayout")
+UI.PlayersLayout.HorizontalFlex = Enum.UIFlexAlignment.Fill
+UI.PlayersLayout.Padding = UDim.new(0, 1)
+UI.PlayersLayout.SortOrder = Enum.SortOrder.LayoutOrder
+UI.PlayersLayout.Parent = UI.Players
 
-UI["PlayerTemplate"] = Instance.new("TextButton")
-UI["PlayerTemplate"].Name = "PlayerTemplate"
-UI["PlayerTemplate"].AutomaticSize = Enum.AutomaticSize.Y
-UI["PlayerTemplate"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-UI["PlayerTemplate"].BackgroundTransparency = 1
-UI["PlayerTemplate"].BorderSizePixel = 0
-UI["PlayerTemplate"].FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json")
-UI["PlayerTemplate"].Size = UDim2.new(0, 100, 0, 0)
-UI["PlayerTemplate"].Text = "Display Name"
-UI["PlayerTemplate"].TextColor3 = Color3.fromRGB(230, 230, 230)
-UI["PlayerTemplate"].TextSize = 16
-UI["PlayerTemplate"].TextXAlignment = Enum.TextXAlignment.Left
-UI["PlayerTemplate"].Visible = false
-UI["PlayerTemplate"].Parent = UI["Players"]
+UI.PlayerTemplate = Instance.new("TextButton")
+UI.PlayerTemplate.Name = "PlayerTemplate"
+UI.PlayerTemplate.AutomaticSize = Enum.AutomaticSize.Y
+UI.PlayerTemplate.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+UI.PlayerTemplate.BackgroundTransparency = 1
+UI.PlayerTemplate.BorderSizePixel = 0
+UI.PlayerTemplate.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json")
+UI.PlayerTemplate.Size = UDim2.new(0, 100, 0, 0)
+UI.PlayerTemplate.Text = "Display Name"
+UI.PlayerTemplate.TextColor3 = Color3.fromRGB(230, 230, 230)
+UI.PlayerTemplate.TextSize = 16
+UI.PlayerTemplate.TextXAlignment = Enum.TextXAlignment.Left
+UI.PlayerTemplate.Visible = false
+UI.PlayerTemplate.Parent = UI.Players
 
-UI["TemplatePadding"] = Instance.new("UIPadding")
-UI["TemplatePadding"].PaddingBottom = UDim.new(0, 8)
-UI["TemplatePadding"].PaddingLeft = UDim.new(0, 16)
-UI["TemplatePadding"].PaddingRight = UDim.new(0, 16)
-UI["TemplatePadding"].PaddingTop = UDim.new(0, 8)
-UI["TemplatePadding"].Parent = UI["PlayerTemplate"]
+UI.TemplatePadding = Instance.new("UIPadding")
+UI.TemplatePadding.PaddingBottom = UDim.new(0, 8)
+UI.TemplatePadding.PaddingLeft = UDim.new(0, 16)
+UI.TemplatePadding.PaddingRight = UDim.new(0, 16)
+UI.TemplatePadding.PaddingTop = UDim.new(0, 8)
+UI.TemplatePadding.Parent = UI.PlayerTemplate
 
-UI["PlayerDividerTemplate"] = Instance.new("Frame")
-UI["PlayerDividerTemplate"].Name = "PlayerDivider"
-UI["PlayerDividerTemplate"].BackgroundColor3 = SECONDARY_COLOR
-UI["PlayerDividerTemplate"].BorderSizePixel = 0
-UI["PlayerDividerTemplate"].Size = UDim2.new(1, 0, 0, 1)
-UI["PlayerDividerTemplate"].Visible = false
-UI["PlayerDividerTemplate"].Parent = UI["Players"]
+UI.PlayerDividerTemplate = Instance.new("Frame")
+UI.PlayerDividerTemplate.Name = "PlayerDivider"
+UI.PlayerDividerTemplate.BackgroundColor3 = SECONDARY_COLOR
+UI.PlayerDividerTemplate.BorderSizePixel = 0
+UI.PlayerDividerTemplate.Size = UDim2.new(1, 0, 0, 1)
+UI.PlayerDividerTemplate.Visible = false
+UI.PlayerDividerTemplate.Parent = UI.Players
 
-UI["Profile"] = Instance.new("CanvasGroup")
-UI["Profile"].Name = "Profile"
-UI["Profile"].AnchorPoint = Vector2.new(1, 0)
-UI["Profile"].AutomaticSize = Enum.AutomaticSize.None
-UI["Profile"].BackgroundColor3 = Color3.fromRGB(10, 10, 10)
-UI["Profile"].BackgroundTransparency = 0.08
-UI["Profile"].BorderSizePixel = 0
-UI["Profile"].Position = UDim2.new(1, -214, 0, 8)
-UI["Profile"].Size = UDim2.new(0, 240, 1, -16)
-UI["Profile"].Visible = false
-UI["Profile"].Parent = UI["Folder"]
+UI.Profile = Instance.new("CanvasGroup")
+UI.Profile.Name = "Profile"
+UI.Profile.AnchorPoint = Vector2.new(1, 0)
+UI.Profile.AutomaticSize = Enum.AutomaticSize.None
+UI.Profile.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
+UI.Profile.BackgroundTransparency = 0.08
+UI.Profile.BorderSizePixel = 0
+UI.Profile.Position = UDim2.new(1, -214, 0, 8)
+UI.Profile.Size = UDim2.new(0, 240, 1, -16)
+UI.Profile.Visible = false
+UI.Profile.Parent = UI.Folder
 
-UI["ProfileCorner"] = Instance.new("UICorner")
-UI["ProfileCorner"].CornerRadius = UDim.new(0, 8)
-UI["ProfileCorner"].Parent = UI["Profile"]
+UI.ProfileCorner = Instance.new("UICorner")
+UI.ProfileCorner.CornerRadius = UDim.new(0, 8)
+UI.ProfileCorner.Parent = UI.Profile
 
-UI["ProfileSizeConstraint"] = Instance.new("UISizeConstraint")
-UI["ProfileSizeConstraint"].MaxSize = Vector2.new(240, 414)
-UI["ProfileSizeConstraint"].Parent = UI["Profile"]
+UI.ProfileConst = Instance.new("UISizeConstraint")
+UI.ProfileConst.MaxSize = Vector2.new(240, 414)
+UI.ProfileConst.Parent = UI.Profile
 
-UI["ProfilePadding"] = Instance.new("UIPadding")
-UI["ProfilePadding"].PaddingBottom = UDim.new(0, 8)
-UI["ProfilePadding"].PaddingLeft = UDim.new(0, 8)
-UI["ProfilePadding"].PaddingRight = UDim.new(0, 8)
-UI["ProfilePadding"].PaddingTop = UDim.new(0, 8)
-UI["ProfilePadding"].Parent = UI["Profile"]
+UI.ProfilePadding = Instance.new("UIPadding")
+UI.ProfilePadding.PaddingBottom = UDim.new(0, 8)
+UI.ProfilePadding.PaddingLeft = UDim.new(0, 8)
+UI.ProfilePadding.PaddingRight = UDim.new(0, 8)
+UI.ProfilePadding.PaddingTop = UDim.new(0, 8)
+UI.ProfilePadding.Parent = UI.Profile
 
-UI["ProfileLayout"] = Instance.new("UIListLayout")
-UI["ProfileLayout"].FillDirection = Enum.FillDirection.Vertical
-UI["ProfileLayout"].HorizontalFlex = Enum.UIFlexAlignment.Fill
-UI["ProfileLayout"].Padding = UDim.new(0, 10)
-UI["ProfileLayout"].SortOrder = Enum.SortOrder.LayoutOrder
-UI["ProfileLayout"].Parent = UI["Profile"]
+UI.ProfileLayout = Instance.new("UIListLayout")
+UI.ProfileLayout.FillDirection = Enum.FillDirection.Vertical
+UI.ProfileLayout.HorizontalFlex = Enum.UIFlexAlignment.Fill
+UI.ProfileLayout.Padding = UDim.new(0, 10)
+UI.ProfileLayout.SortOrder = Enum.SortOrder.LayoutOrder
+UI.ProfileLayout.Parent = UI.Profile
 
-UI["PlayerInfo"] = Instance.new("Frame")
-UI["PlayerInfo"].Name = "PlayerInfo"
-UI["PlayerInfo"].AutomaticSize = Enum.AutomaticSize.None
-UI["PlayerInfo"].BackgroundTransparency = 1
-UI["PlayerInfo"].LayoutOrder = 1
-UI["PlayerInfo"].Size = UDim2.new(0, 100, 0, 100)
-UI["PlayerInfo"].Parent = UI["Profile"]
+UI.PlayerInfo = Instance.new("Frame")
+UI.PlayerInfo.Name = "PlayerInfo"
+UI.PlayerInfo.AutomaticSize = Enum.AutomaticSize.None
+UI.PlayerInfo.BackgroundTransparency = 1
+UI.PlayerInfo.LayoutOrder = 1
+UI.PlayerInfo.Size = UDim2.new(0, 100, 0, 100)
+UI.PlayerInfo.Parent = UI.Profile
 
-UI["PlayerInfoLayout"] = Instance.new("UIListLayout")
-UI["PlayerInfoLayout"].FillDirection = Enum.FillDirection.Horizontal
-UI["PlayerInfoLayout"].HorizontalFlex = Enum.UIFlexAlignment.Fill
-UI["PlayerInfoLayout"].Padding = UDim.new(0, 6)
-UI["PlayerInfoLayout"].VerticalFlex = Enum.UIFlexAlignment.Fill
-UI["PlayerInfoLayout"].Parent = UI["PlayerInfo"]
+UI.PlayerInfoLayout = Instance.new("UIListLayout")
+UI.PlayerInfoLayout.FillDirection = Enum.FillDirection.Horizontal
+UI.PlayerInfoLayout.HorizontalFlex = Enum.UIFlexAlignment.Fill
+UI.PlayerInfoLayout.Padding = UDim.new(0, 6)
+UI.PlayerInfoLayout.VerticalFlex = Enum.UIFlexAlignment.Fill
+UI.PlayerInfoLayout.Parent = UI.PlayerInfo
 
-UI["Headshot"] = Instance.new("ImageLabel")
-UI["Headshot"].Name = "Headshot"
-UI["Headshot"].BackgroundTransparency = 1
-UI["Headshot"].Image = "rbxasset://textures/ui/GuiImagePlaceholder.png"
-UI["Headshot"].LayoutOrder = 1
-UI["Headshot"].Size = UDim2.new(0, 100, 0, 100)
-UI["Headshot"].Parent = UI["PlayerInfo"]
+UI.Headshot = Instance.new("ImageLabel")
+UI.Headshot.Name = "Headshot"
+UI.Headshot.BackgroundTransparency = 1
+UI.Headshot.Image = "rbxasset://textures/ui/GuiImagePlaceholder.png"
+UI.Headshot.LayoutOrder = 1
+UI.Headshot.Size = UDim2.new(0, 100, 0, 100)
+UI.Headshot.Parent = UI.PlayerInfo
 
-UI["HeadshotRatio"] = Instance.new("UIAspectRatioConstraint")
-UI["HeadshotRatio"].AspectRatio = 1
-UI["HeadshotRatio"].Parent = UI["Headshot"]
+UI.HeadshotRatio = Instance.new("UIAspectRatioConstraint")
+UI.HeadshotRatio.AspectRatio = 1
+UI.HeadshotRatio.Parent = UI.Headshot
 
-UI["HeadshotCorner"] = Instance.new("UICorner")
-UI["HeadshotCorner"].CornerRadius = UDim.new(1, 0)
-UI["HeadshotCorner"].Parent = UI["Headshot"]
+UI.HeadshotCorner = Instance.new("UICorner")
+UI.HeadshotCorner.CornerRadius = UDim.new(1, 0)
+UI.HeadshotCorner.Parent = UI.Headshot
 
-UI["Info"] = Instance.new("Frame")
-UI["Info"].Name = "Info"
-UI["Info"].BackgroundTransparency = 1
-UI["Info"].LayoutOrder = 2
-UI["Info"].Size = UDim2.new(0, 0, 0, 0)
-UI["Info"].Parent = UI["PlayerInfo"]
+UI.Info = Instance.new("Frame")
+UI.Info.Name = "Info"
+UI.Info.BackgroundTransparency = 1
+UI.Info.LayoutOrder = 2
+UI.Info.Size = UDim2.new(0, 0, 0, 0)
+UI.Info.Parent = UI.PlayerInfo
 
-UI["InfoLayout"] = Instance.new("UIListLayout")
-UI["InfoLayout"].FillDirection = Enum.FillDirection.Vertical
-UI["InfoLayout"].HorizontalFlex = Enum.UIFlexAlignment.Fill
-UI["InfoLayout"].Padding = UDim.new(0, 2)
-UI["InfoLayout"].SortOrder = Enum.SortOrder.LayoutOrder
-UI["InfoLayout"].VerticalFlex = Enum.UIFlexAlignment.Fill
-UI["InfoLayout"].Parent = UI["Info"]
+UI.InfoLayout = Instance.new("UIListLayout")
+UI.InfoLayout.FillDirection = Enum.FillDirection.Vertical
+UI.InfoLayout.HorizontalFlex = Enum.UIFlexAlignment.Fill
+UI.InfoLayout.Padding = UDim.new(0, 2)
+UI.InfoLayout.SortOrder = Enum.SortOrder.LayoutOrder
+UI.InfoLayout.VerticalFlex = Enum.UIFlexAlignment.Fill
+UI.InfoLayout.Parent = UI.Info
 
 local function MakeInfoLabel(name, defaultText, textSize, layoutOrder)
     local lbl = Instance.new("TextLabel")
@@ -318,36 +318,36 @@ local function MakeInfoLabel(name, defaultText, textSize, layoutOrder)
     lbl.TextSize = textSize
     lbl.TextXAlignment = Enum.TextXAlignment.Left
     lbl.TextYAlignment = Enum.TextYAlignment.Center
-    lbl.Parent = UI["Info"]
+    lbl.Parent = UI.Info
     return lbl
 end
 
-UI["DisplayName"] = MakeInfoLabel("DisplayName", "DisplayName", 16, 1)
-UI["Username"] = MakeInfoLabel("Username", "@Username", 14, 2)
-UI["UserId"] = MakeInfoLabel("UserId", "1", 14, 3)
+UI.DisplayName = MakeInfoLabel("DisplayName", "DisplayName", 16, 1)
+UI.Username = MakeInfoLabel("Username", "@Username", 14, 2)
+UI.UserId = MakeInfoLabel("UserId", "1", 14, 3)
 
-UI["Divider"] = Instance.new("Frame")
-UI["Divider"].Name = "Divider"
-UI["Divider"].BackgroundColor3 = SECONDARY_COLOR
-UI["Divider"].BorderSizePixel = 0
-UI["Divider"].LayoutOrder = 2
-UI["Divider"].Size = UDim2.new(1, 0, 0, 1)
-UI["Divider"].Parent = UI["Profile"]
+UI.Divider = Instance.new("Frame")
+UI.Divider.Name = "Divider"
+UI.Divider.BackgroundColor3 = SECONDARY_COLOR
+UI.Divider.BorderSizePixel = 0
+UI.Divider.LayoutOrder = 2
+UI.Divider.Size = UDim2.new(1, 0, 0, 1)
+UI.Divider.Parent = UI.Profile
 
-UI["Actions"] = Instance.new("Frame")
-UI["Actions"].Name = "Actions"
-UI["Actions"].AutomaticSize = Enum.AutomaticSize.Y
-UI["Actions"].BackgroundTransparency = 1
-UI["Actions"].LayoutOrder = 3
-UI["Actions"].Size = UDim2.new(0, 0, 0, 0)
-UI["Actions"].Parent = UI["Profile"]
+UI.Actions = Instance.new("Frame")
+UI.Actions.Name = "Actions"
+UI.Actions.AutomaticSize = Enum.AutomaticSize.Y
+UI.Actions.BackgroundTransparency = 1
+UI.Actions.LayoutOrder = 3
+UI.Actions.Size = UDim2.new(0, 0, 0, 0)
+UI.Actions.Parent = UI.Profile
 
-UI["ActionsLayout"] = Instance.new("UIListLayout")
-UI["ActionsLayout"].FillDirection = Enum.FillDirection.Vertical
-UI["ActionsLayout"].HorizontalFlex = Enum.UIFlexAlignment.Fill
-UI["ActionsLayout"].Padding = UDim.new(0, 6)
-UI["ActionsLayout"].SortOrder = Enum.SortOrder.LayoutOrder
-UI["ActionsLayout"].Parent = UI["Actions"]
+UI.ActionsLayout = Instance.new("UIListLayout")
+UI.ActionsLayout.FillDirection = Enum.FillDirection.Vertical
+UI.ActionsLayout.HorizontalFlex = Enum.UIFlexAlignment.Fill
+UI.ActionsLayout.Padding = UDim.new(0, 6)
+UI.ActionsLayout.SortOrder = Enum.SortOrder.LayoutOrder
+UI.ActionsLayout.Parent = UI.Actions
 
 local function MakeAction(name, label, iconPath, layoutOrder)
     local btn = Instance.new("TextButton")
@@ -361,7 +361,7 @@ local function MakeAction(name, label, iconPath, layoutOrder)
     btn.Text = ""
     btn.TextColor3 = Color3.fromRGB(255, 255, 255)
     btn.TextSize = 14
-    btn.Parent = UI["Actions"]
+    btn.Parent = UI.Actions
 
     local btnPadding = Instance.new("UIPadding")
     btnPadding.PaddingTop = UDim.new(0, 6)
@@ -410,12 +410,12 @@ local function MakeAction(name, label, iconPath, layoutOrder)
     return btn, lbl, icon
 end
 
-UI["AddFriendBtn"], UI["AddFriendLbl"] = MakeAction("AddFriend", "Add Friend", "CoreUI/AddFriend.png", 1)
-UI["ExamineBtn"], UI["ExamineLbl"] = MakeAction("Examine", "Examine", "CoreUI/Examine.png", 2)
-UI["BlockBtn"], UI["BlockLbl"] = MakeAction("Block", "Block", "CoreUI/Block.png", 3)
-UI["GotoBtn"], UI["GotoLbl"] = MakeAction("Goto", "Goto", "CoreUI/Goto.png", 4)
-UI["ReportBtn"], UI["ReportLbl"] = MakeAction("Report", "Report", "CoreUI/Report.png", 5)
-UI["SpectateBtn"], UI["SpectatelLbl"], UI["SpectateIcon"] = MakeAction("Spectate", "Spectate", "CoreUI/Spectate.png", 6)
+UI.AddFriendBtn, UI.AddFriendLbl = MakeAction("AddFriend", "Add Friend", "CoreUI/AddFriend.png", 1)
+UI.ExamineBtn, UI.ExamineLbl = MakeAction("Examine", "Examine", "CoreUI/Examine.png", 2)
+UI.BlockBtn, UI.BlockLbl = MakeAction("Block", "Block", "CoreUI/Block.png", 3)
+UI.GotoBtn, UI.GotoLbl = MakeAction("Goto", "Goto", "CoreUI/Goto.png", 4)
+UI.ReportBtn, UI.ReportLbl = MakeAction("Report", "Report", "CoreUI/Report.png", 5)
+UI.SpectateBtn, UI.SpectatelLbl, UI.SpectateIcon = MakeAction("Spectate", "Spectate", "CoreUI/Spectate.png", 6)
 
 local LeaderboardVisible = false
 local SelectedPlayer = nil
@@ -438,17 +438,17 @@ local PROFILE_CLOSED_POS = UDim2.new(1, 34, 0, 8)
 
 local function ShowLeaderboard()
     LeaderboardVisible = true
-    UI["PlayersList"].Visible = true
-    Tween(UI["PlayersList"], 0.35, { Position = OPEN_POS }, "Back", "Out"):Play()
+    UI.PlayersList.Visible = true
+    Tween(UI.PlayersList, 0.35, { Position = OPEN_POS }, "Back", "Out"):Play()
 end
 
 local function HideProfile()
-    if not UI["Profile"].Visible then return end
+    if not UI.Profile.Visible then return end
 
-    local t = Tween(UI["Profile"], 0.2, { Position = PROFILE_CLOSED_POS, GroupTransparency = 1 }, "Quad", "In")
+    local t = Tween(UI.Profile, 0.2, { Position = PROFILE_CLOSED_POS, GroupTransparency = 1 }, "Quad", "In")
     t:Play()
     t.Completed:Connect(function()
-        UI["Profile"].Visible = false
+        UI.Profile.Visible = false
     end)
 end
 
@@ -456,11 +456,11 @@ local function HideLeaderboard()
     LeaderboardVisible = false
     HideProfile()
 
-    local t = Tween(UI["PlayersList"], 0.25, { Position = CLOSED_POS }, "Quad", "In")
+    local t = Tween(UI.PlayersList, 0.25, { Position = CLOSED_POS }, "Quad", "In")
     t:Play()
     t.Completed:Connect(function()
         if not LeaderboardVisible then
-            UI["PlayersList"].Visible = false
+            UI.PlayersList.Visible = false
         end
     end)
 end
@@ -482,38 +482,38 @@ local function ShowProfile(player)
     local isSelf = player.UserId == localPlayer.UserId
     local isFriend = localPlayer:IsFriendsWith(player.UserId)
 
-    UI["DisplayName"].Text = player.DisplayName
-    UI["Username"].Text = "@" .. player.Name
-    UI["UserId"].Text = tostring(player.UserId)
+    UI.DisplayName.Text = player.DisplayName
+    UI.Username.Text = "@" .. player.Name
+    UI.UserId.Text = tostring(player.UserId)
 
-    UI["Headshot"].Image = Players:GetUserThumbnailAsync(
+    UI.Headshot.Image = Players:GetUserThumbnailAsync(
         player.UserId,
         Enum.ThumbnailType.HeadShot,
         Enum.ThumbnailSize.Size100x100
     )
 
-    UI["AddFriendLbl"].Text = isFriend and "Unfriend" or "Add Friend"
-    UI["SpectatelLbl"].Text = IsSpectating and "Unspectate" or "Spectate"
-    if UI["SpectateIcon"] then
-        UI["SpectateIcon"].Image = (IsSpectating and UnspectateAsset) or SpectateAsset or UI["SpectateIcon"].Image
+    UI.AddFriendLbl.Text = isFriend and "Unfriend" or "Add Friend"
+    UI.SpectatelLbl.Text = IsSpectating and "Unspectate" or "Spectate"
+    if UI.SpectateIcon then
+        UI.SpectateIcon.Image = (IsSpectating and UnspectateAsset) or SpectateAsset or UI.SpectateIcon.Image
     end
 
-    UI["AddFriendBtn"].Visible = not isSelf
-    UI["GotoBtn"].Visible = not isSelf
-    UI["SpectateBtn"].Visible = not isSelf
-    UI["ReportBtn"].Visible = not isSelf
+    UI.AddFriendBtn.Visible = not isSelf
+    UI.GotoBtn.Visible = not isSelf
+    UI.SpectateBtn.Visible = not isSelf
+    UI.ReportBtn.Visible = not isSelf
 
-    UI["Profile"].Position = PROFILE_CLOSED_POS
-    UI["Profile"].GroupTransparency = 1
-    UI["Profile"].Visible = true
-    Tween(UI["Profile"], 0.3, { Position = PROFILE_OPEN_POS, GroupTransparency = 0 }, "Back", "Out"):Play()
+    UI.Profile.Position = PROFILE_CLOSED_POS
+    UI.Profile.GroupTransparency = 1
+    UI.Profile.Visible = true
+    Tween(UI.Profile, 0.3, { Position = PROFILE_OPEN_POS, GroupTransparency = 0 }, "Back", "Out"):Play()
 end
 
 local function RefreshPlayers()
-    for _, child in ipairs(UI["Players"]:GetChildren()) do
-        if child ~= UI["PlayerTemplate"]
-            and child ~= UI["PlayerDividerTemplate"]
-            and child ~= UI["PlayersLayout"] then
+    for _, child in ipairs(UI.Players:GetChildren()) do
+        if child ~= UI.PlayerTemplate
+            and child ~= UI.PlayerDividerTemplate
+            and child ~= UI.PlayersLayout then
             child:Destroy()
         end
     end
@@ -526,12 +526,12 @@ local function RefreshPlayers()
     SelectedEntry = nil
 
     for i, player in ipairs(sortedPlayers) do
-        local entry = UI["PlayerTemplate"]:Clone()
+        local entry = UI.PlayerTemplate:Clone()
         entry.Name = player.Name
         entry.Text = player.DisplayName
         entry.LayoutOrder = (i - 1) * 2
         entry.Visible = true
-        entry.Parent = UI["Players"]
+        entry.Parent = UI.Players
 
         if SelectedPlayer and player.UserId == SelectedPlayer.UserId then
             entry.BackgroundTransparency = 0.95
@@ -550,10 +550,10 @@ local function RefreshPlayers()
         end)
 
         if i < #sortedPlayers then
-            local divider = UI["PlayerDividerTemplate"]:Clone()
+            local divider = UI.PlayerDividerTemplate:Clone()
             divider.LayoutOrder = (i - 1) * 2 + 1
             divider.Visible = true
-            divider.Parent = UI["Players"]
+            divider.Parent = UI.Players
         end
     end
 end
@@ -569,35 +569,35 @@ end)
 
 RefreshPlayers()
 
-UI["UserId"].InputBegan:Connect(function(input)
+UI.UserId.InputBegan:Connect(function(input)
     if input.UserInputType == Enum.UserInputType.MouseButton1
     or input.UserInputType == Enum.UserInputType.Touch then
         local SetClip = setclipboard or toclipboard or (Clipboard and Clipboard.set)
-        if SetClip then SetClip(UI["UserId"].Text) end
+        if SetClip then SetClip(UI.UserId.Text) end
     end
 end)
 
-UI["AddFriendBtn"].Activated:Connect(function()
+UI.AddFriendBtn.Activated:Connect(function()
     if not SelectedPlayer then return end
     if Players.LocalPlayer:IsFriendsWith(SelectedPlayer.UserId) then
-        UI["AddFriendLbl"].Text = "Add Friend"
+        UI.AddFriendLbl.Text = "Add Friend"
     else
         StarterGui:SetCore("PromptSendFriendRequest", SelectedPlayer)
-        UI["AddFriendLbl"].Text = "Unfriend"
+        UI.AddFriendLbl.Text = "Unfriend"
     end
 end)
 
-UI["ExamineBtn"].Activated:Connect(function()
+UI.ExamineBtn.Activated:Connect(function()
     if not SelectedPlayer then return end
     GuiService:InspectPlayerFromUserId(SelectedPlayer.UserId)
 end)
 
-UI["BlockBtn"].Activated:Connect(function()
+UI.BlockBtn.Activated:Connect(function()
     if not SelectedPlayer then return end
     StarterGui:SetCore("PromptBlockPlayer", SelectedPlayer)
 end)
 
-UI["GotoBtn"].Activated:Connect(function()
+UI.GotoBtn.Activated:Connect(function()
     if not SelectedPlayer then return end
     local targetChar = SelectedPlayer.Character
     local localChar = Players.LocalPlayer.Character
@@ -611,20 +611,20 @@ UI["GotoBtn"].Activated:Connect(function()
     end
 end)
 
-UI["ReportBtn"].Activated:Connect(function()
+UI.ReportBtn.Activated:Connect(function()
     if not SelectedPlayer then return end
     StarterGui:SetCore("PromptReportPlayer", SelectedPlayer)
 end)
 
-UI["SpectateBtn"].Activated:Connect(function()
+UI.SpectateBtn.Activated:Connect(function()
     if not SelectedPlayer then return end
     local camera = workspace.CurrentCamera
 
     if IsSpectating then
         IsSpectating = false
-        UI["SpectatelLbl"].Text = "Spectate"
-        if UI["SpectateIcon"] and SpectateAsset then
-            UI["SpectateIcon"].Image = SpectateAsset
+        UI.SpectatelLbl.Text = "Spectate"
+        if UI.SpectateIcon and SpectateAsset then
+            UI.SpectateIcon.Image = SpectateAsset
         end
         camera.CameraSubject = Players.LocalPlayer.Character
             and Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
@@ -635,16 +635,16 @@ UI["SpectateBtn"].Activated:Connect(function()
         if not humanoid then return end
 
         IsSpectating = true
-        UI["SpectatelLbl"].Text = "Unspectate"
-        if UI["SpectateIcon"] and UnspectateAsset then
-            UI["SpectateIcon"].Image = UnspectateAsset
+        UI.SpectatelLbl.Text = "Unspectate"
+        if UI.SpectateIcon and UnspectateAsset then
+            UI.SpectateIcon.Image = UnspectateAsset
         end
         camera.CameraSubject = humanoid
         camera.CameraType = Enum.CameraType.Custom
     end
 end)
 
-UI["Close"].Activated:Connect(HideLeaderboard)
+UI.Close.Activated:Connect(HideLeaderboard)
 
 local topbarMenu = CoreGui
     :WaitForChild("TopBarApp", 10)
