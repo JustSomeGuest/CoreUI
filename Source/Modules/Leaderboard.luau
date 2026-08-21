@@ -81,32 +81,37 @@ end
 
 local SECONDARY_COLOR = Color3.fromRGB(50, 50, 50)
 
-UI["Leaderboard"] = Instance.new("CanvasGroup")
-UI["Leaderboard"].Name = "Leaderboard"
-UI["Leaderboard"].AnchorPoint = Vector2.new(1, 0)
-UI["Leaderboard"].AutomaticSize = Enum.AutomaticSize.Y
-UI["Leaderboard"].BackgroundColor3 = Color3.fromRGB(10, 10, 10)
-UI["Leaderboard"].BackgroundTransparency = 0.08
-UI["Leaderboard"].BorderSizePixel = 0
-UI["Leaderboard"].ClipsDescendants = false
-UI["Leaderboard"].Position = UDim2.new(1, 8, 0, 8)
-UI["Leaderboard"].Size = UDim2.new(0, 200, 0, 0)
-UI["Leaderboard"].Visible = false
-UI["Leaderboard"].Parent = ScreenGui
+UI["Folder"] = Instance.new("Folder")
+UI["Folder"].Name = "Leaderboard"
+UI["Folder"].Parent = ScreenGui
+
+UI["PlayersList"] = Instance.new("CanvasGroup")
+UI["PlayersList"].Name = "PlayersList"
+UI["PlayersList"].AnchorPoint = Vector2.new(1, 0)
+UI["PlayersList"].AutomaticSize = Enum.AutomaticSize.Y
+UI["PlayersList"].BackgroundColor3 = Color3.fromRGB(10, 10, 10)
+UI["PlayersList"].BackgroundTransparency = 0.08
+UI["PlayersList"].BorderSizePixel = 0
+UI["PlayersList"].ClipsDescendants = false
+UI["PlayersList"].Position = UDim2.new(1, 8, 0, 8)
+UI["PlayersList"].Size = UDim2.new(0, 200, 0, 0)
+UI["PlayersList"].Visible = false
+UI["PlayersList"].Parent = UI["Folder"]
 
 UI["LeaderboardCorner"] = Instance.new("UICorner")
 UI["LeaderboardCorner"].CornerRadius = UDim.new(0, 8)
-UI["LeaderboardCorner"].Parent = UI["Leaderboard"]
+UI["LeaderboardCorner"].Parent = UI["PlayersList"]
 
 UI["LeaderboardSizeConstraint"] = Instance.new("UISizeConstraint")
 UI["LeaderboardSizeConstraint"].MinSize = Vector2.new(200, 0)
-UI["LeaderboardSizeConstraint"].Parent = UI["Leaderboard"]
+UI["LeaderboardSizeConstraint"].MaxSize = Vector2.new(200, 314)
+UI["LeaderboardSizeConstraint"].Parent = UI["PlayersList"]
 
 UI["LeaderboardLayout"] = Instance.new("UIListLayout")
 UI["LeaderboardLayout"].FillDirection = Enum.FillDirection.Vertical
 UI["LeaderboardLayout"].HorizontalFlex = Enum.UIFlexAlignment.Fill
 UI["LeaderboardLayout"].SortOrder = Enum.SortOrder.LayoutOrder
-UI["LeaderboardLayout"].Parent = UI["Leaderboard"]
+UI["LeaderboardLayout"].Parent = UI["PlayersList"]
 
 UI["Topbar"] = Instance.new("Frame")
 UI["Topbar"].Name = "Topbar"
@@ -115,7 +120,7 @@ UI["Topbar"].BackgroundTransparency = 1
 UI["Topbar"].BorderSizePixel = 0
 UI["Topbar"].LayoutOrder = 1
 UI["Topbar"].Size = UDim2.new(1, 0, 0, 36)
-UI["Topbar"].Parent = UI["Leaderboard"]
+UI["Topbar"].Parent = UI["PlayersList"]
 
 UI["TopbarStroke"] = Instance.new("UIStroke")
 UI["TopbarStroke"].Color = SECONDARY_COLOR
@@ -175,7 +180,7 @@ UI["ClosePadding"].Parent = UI["Close"]
 UI["Players"] = Instance.new("ScrollingFrame")
 UI["Players"].Name = "Players"
 UI["Players"].AutomaticCanvasSize = Enum.AutomaticSize.Y
-UI["Players"].AutomaticSize = Enum.AutomaticSize.None
+UI["Players"].AutomaticSize = Enum.AutomaticSize.Y
 UI["Players"].BackgroundTransparency = 1
 UI["Players"].BorderSizePixel = 0
 UI["Players"].CanvasSize = UDim2.new(0, 0, 0, 0)
@@ -183,7 +188,7 @@ UI["Players"].LayoutOrder = 2
 UI["Players"].ScrollBarThickness = 0
 UI["Players"].ScrollingDirection = Enum.ScrollingDirection.Y
 UI["Players"].Size = UDim2.new(1, 0, 0, 0)
-UI["Players"].Parent = UI["Leaderboard"]
+UI["Players"].Parent = UI["PlayersList"]
 
 UI["PlayersLayout"] = Instance.new("UIListLayout")
 UI["PlayersLayout"].HorizontalFlex = Enum.UIFlexAlignment.Fill
@@ -221,35 +226,39 @@ UI["PlayerDividerTemplate"].Size = UDim2.new(1, 0, 0, 1)
 UI["PlayerDividerTemplate"].Visible = false
 UI["PlayerDividerTemplate"].Parent = UI["Players"]
 
-UI["LeaderboardProfile"] = Instance.new("CanvasGroup")
-UI["LeaderboardProfile"].Name = "LeaderboardProfile"
-UI["LeaderboardProfile"].AnchorPoint = Vector2.new(1, 0)
-UI["LeaderboardProfile"].AutomaticSize = Enum.AutomaticSize.None
-UI["LeaderboardProfile"].BackgroundColor3 = Color3.fromRGB(10, 10, 10)
-UI["LeaderboardProfile"].BackgroundTransparency = 0.08
-UI["LeaderboardProfile"].BorderSizePixel = 0
-UI["LeaderboardProfile"].Position = UDim2.new(1, -214, 0, 8)
-UI["LeaderboardProfile"].Size = UDim2.new(0, 240, 1, -16)
-UI["LeaderboardProfile"].Visible = false
-UI["LeaderboardProfile"].Parent = ScreenGui
+UI["Profile"] = Instance.new("CanvasGroup")
+UI["Profile"].Name = "Profile"
+UI["Profile"].AnchorPoint = Vector2.new(1, 0)
+UI["Profile"].AutomaticSize = Enum.AutomaticSize.None
+UI["Profile"].BackgroundColor3 = Color3.fromRGB(10, 10, 10)
+UI["Profile"].BackgroundTransparency = 0.08
+UI["Profile"].BorderSizePixel = 0
+UI["Profile"].Position = UDim2.new(1, -214, 0, 8)
+UI["Profile"].Size = UDim2.new(0, 240, 1, -16)
+UI["Profile"].Visible = false
+UI["Profile"].Parent = UI["Folder"]
 
 UI["ProfileCorner"] = Instance.new("UICorner")
 UI["ProfileCorner"].CornerRadius = UDim.new(0, 8)
-UI["ProfileCorner"].Parent = UI["LeaderboardProfile"]
+UI["ProfileCorner"].Parent = UI["Profile"]
+
+UI["ProfileSizeConstraint"] = Instance.new("UISizeConstraint")
+UI["ProfileSizeConstraint"].MaxSize = Vector2.new(240, 414)
+UI["ProfileSizeConstraint"].Parent = UI["Profile"]
 
 UI["ProfilePadding"] = Instance.new("UIPadding")
 UI["ProfilePadding"].PaddingBottom = UDim.new(0, 8)
 UI["ProfilePadding"].PaddingLeft = UDim.new(0, 8)
 UI["ProfilePadding"].PaddingRight = UDim.new(0, 8)
 UI["ProfilePadding"].PaddingTop = UDim.new(0, 8)
-UI["ProfilePadding"].Parent = UI["LeaderboardProfile"]
+UI["ProfilePadding"].Parent = UI["Profile"]
 
 UI["ProfileLayout"] = Instance.new("UIListLayout")
 UI["ProfileLayout"].FillDirection = Enum.FillDirection.Vertical
 UI["ProfileLayout"].HorizontalFlex = Enum.UIFlexAlignment.Fill
 UI["ProfileLayout"].Padding = UDim.new(0, 10)
 UI["ProfileLayout"].SortOrder = Enum.SortOrder.LayoutOrder
-UI["ProfileLayout"].Parent = UI["LeaderboardProfile"]
+UI["ProfileLayout"].Parent = UI["Profile"]
 
 UI["PlayerInfo"] = Instance.new("Frame")
 UI["PlayerInfo"].Name = "PlayerInfo"
@@ -257,7 +266,7 @@ UI["PlayerInfo"].AutomaticSize = Enum.AutomaticSize.None
 UI["PlayerInfo"].BackgroundTransparency = 1
 UI["PlayerInfo"].LayoutOrder = 1
 UI["PlayerInfo"].Size = UDim2.new(0, 100, 0, 100)
-UI["PlayerInfo"].Parent = UI["LeaderboardProfile"]
+UI["PlayerInfo"].Parent = UI["Profile"]
 
 UI["PlayerInfoLayout"] = Instance.new("UIListLayout")
 UI["PlayerInfoLayout"].FillDirection = Enum.FillDirection.Horizontal
@@ -323,7 +332,7 @@ UI["Divider"].BackgroundColor3 = SECONDARY_COLOR
 UI["Divider"].BorderSizePixel = 0
 UI["Divider"].LayoutOrder = 2
 UI["Divider"].Size = UDim2.new(1, 0, 0, 1)
-UI["Divider"].Parent = UI["LeaderboardProfile"]
+UI["Divider"].Parent = UI["Profile"]
 
 UI["Actions"] = Instance.new("Frame")
 UI["Actions"].Name = "Actions"
@@ -331,7 +340,7 @@ UI["Actions"].AutomaticSize = Enum.AutomaticSize.Y
 UI["Actions"].BackgroundTransparency = 1
 UI["Actions"].LayoutOrder = 3
 UI["Actions"].Size = UDim2.new(0, 0, 0, 0)
-UI["Actions"].Parent = UI["LeaderboardProfile"]
+UI["Actions"].Parent = UI["Profile"]
 
 UI["ActionsLayout"] = Instance.new("UIListLayout")
 UI["ActionsLayout"].FillDirection = Enum.FillDirection.Vertical
@@ -427,44 +436,31 @@ local CLOSED_POS = UDim2.new(1, 208, 0, 8)
 local PROFILE_OPEN_POS = UDim2.new(1, -214, 0, 8)
 local PROFILE_CLOSED_POS = UDim2.new(1, 34, 0, 8)
 
-local function SyncSizes()
-    local maxH = ScreenGui.AbsoluteSize.Y - 108
-    local content = UI["PlayersLayout"].AbsoluteContentSize.Y
-    local topH = UI["Topbar"].AbsoluteSize.Y
-    UI["LeaderboardSizeConstraint"].MaxSize = Vector2.new(200, maxH)
-    UI["Players"].Size = UDim2.new(1, 0, 0, math.min(content, maxH - topH))
-end
-
-UI["PlayersLayout"]:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(SyncSizes)
-UI["Topbar"]:GetPropertyChangedSignal("AbsoluteSize"):Connect(SyncSizes)
-ScreenGui:GetPropertyChangedSignal("AbsoluteSize"):Connect(SyncSizes)
-task.defer(SyncSizes)
-
 local function ShowLeaderboard()
     LeaderboardVisible = true
-    UI["Leaderboard"].Visible = true
-    Tween(UI["Leaderboard"], 0.35, { Position = OPEN_POS }, "Back", "Out"):Play()
+    UI["PlayersList"].Visible = true
+    Tween(UI["PlayersList"], 0.35, { Position = OPEN_POS }, "Back", "Out"):Play()
 end
 
-local function HideLeaderboardProfile()
-    if not UI["LeaderboardProfile"].Visible then return end
+local function HideProfile()
+    if not UI["Profile"].Visible then return end
 
-    local t = Tween(UI["LeaderboardProfile"], 0.2, { Position = PROFILE_CLOSED_POS, GroupTransparency = 1 }, "Quad", "In")
+    local t = Tween(UI["Profile"], 0.2, { Position = PROFILE_CLOSED_POS, GroupTransparency = 1 }, "Quad", "In")
     t:Play()
     t.Completed:Connect(function()
-        UI["LeaderboardProfile"].Visible = false
+        UI["Profile"].Visible = false
     end)
 end
 
 local function HideLeaderboard()
     LeaderboardVisible = false
-    HideLeaderboardProfile()
+    HideProfile()
 
-    local t = Tween(UI["Leaderboard"], 0.25, { Position = CLOSED_POS }, "Quad", "In")
+    local t = Tween(UI["PlayersList"], 0.25, { Position = CLOSED_POS }, "Quad", "In")
     t:Play()
     t.Completed:Connect(function()
         if not LeaderboardVisible then
-            UI["Leaderboard"].Visible = false
+            UI["PlayersList"].Visible = false
         end
     end)
 end
@@ -479,7 +475,7 @@ local function SetSelectedEntry(entry)
     end
 end
 
-local function ShowLeaderboardProfile(player)
+local function ShowProfile(player)
     SelectedPlayer = player
 
     local localPlayer = Players.LocalPlayer
@@ -507,10 +503,10 @@ local function ShowLeaderboardProfile(player)
     UI["SpectateBtn"].Visible = not isSelf
     UI["ReportBtn"].Visible = not isSelf
 
-    UI["LeaderboardProfile"].Position = PROFILE_CLOSED_POS
-    UI["LeaderboardProfile"].GroupTransparency = 1
-    UI["LeaderboardProfile"].Visible = true
-    Tween(UI["LeaderboardProfile"], 0.3, { Position = PROFILE_OPEN_POS, GroupTransparency = 0 }, "Back", "Out"):Play()
+    UI["Profile"].Position = PROFILE_CLOSED_POS
+    UI["Profile"].GroupTransparency = 1
+    UI["Profile"].Visible = true
+    Tween(UI["Profile"], 0.3, { Position = PROFILE_OPEN_POS, GroupTransparency = 0 }, "Back", "Out"):Play()
 end
 
 local function RefreshPlayers()
@@ -546,10 +542,10 @@ local function RefreshPlayers()
             if SelectedPlayer and player.UserId == SelectedPlayer.UserId then
                 SetSelectedEntry(nil)
                 SelectedPlayer = nil
-                HideLeaderboardProfile()
+                HideProfile()
             else
                 SetSelectedEntry(entry)
-                ShowLeaderboardProfile(player)
+                ShowProfile(player)
             end
         end)
 
@@ -565,7 +561,7 @@ end
 Players.PlayerAdded:Connect(RefreshPlayers)
 Players.PlayerRemoving:Connect(function(player)
     if SelectedPlayer == player then
-        HideLeaderboardProfile()
+        HideProfile()
         SelectedPlayer = nil
     end
     RefreshPlayers()
