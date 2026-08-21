@@ -139,11 +139,13 @@ local Files = {
 
 for _, File in ipairs(Files) do
     local Success, Result = pcall(function()
-        local Source = game:HttpGet("https://raw.githubusercontent.com/JustSomeGuest/CoreUI/Main/Source/Modules/" .. File .. ".luau")
+        local Source = HttpGet("https://raw.githubusercontent.com/JustSomeGuest/CoreUI/Main/Source/Modules/" .. File .. ".luau")
         local LoadedFunction, LoadError = loadstring(Source)
+
         if not LoadedFunction then
             error(LoadError)
         end
+
         return LoadedFunction()
     end)
 
