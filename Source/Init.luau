@@ -58,7 +58,7 @@ local function Tween(Object, Speed, Props, Style, Dir)
     )
 end
 
-local function HttpGet(Url)
+local function Load(Url)
     local HttpGet = game.HttpGetAsync or game.HttpGet
     return loadstring(HttpGet(game, Url))()
 end
@@ -121,7 +121,7 @@ Shared.CoreUI.Env = {
     UID = UID,
     Error = Error,
     Tween = Tween,
-    HttpGet = HttpGet,
+    Load = Load,
     Protect = Protect,
     RGBToHex = RGBToHex,
     FindDescendant = FindDescendant,
@@ -139,7 +139,7 @@ local Files = {
 
 for _, File in ipairs(Files) do
     local Success, Result = pcall(function()
-        local Source = HttpGet("https://raw.githubusercontent.com/JustSomeGuest/CoreUI/Main/Source/Modules/" .. File .. ".luau")
+        local Source = Load("https://raw.githubusercontent.com/JustSomeGuest/CoreUI/Main/Source/Modules/" .. File .. ".luau")
         local LoadedFunction, LoadError = loadstring(Source)
 
         if not LoadedFunction then
