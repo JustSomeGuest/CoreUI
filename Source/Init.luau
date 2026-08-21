@@ -58,6 +58,11 @@ local function Tween(Object, Speed, Props, Style, Dir)
     )
 end
 
+local function HttpGet(Url)
+    local HttpGet = game.HttpGetAsync or game.HttpGet
+    return loadstring(HttpGet(game, Url))()
+end
+
 local function Protect(Object, Property, Value)
     Object[Property] = Value
     Object:GetPropertyChangedSignal(Property):Connect(function()
@@ -116,6 +121,7 @@ Shared.CoreUI.Env = {
     UID = UID,
     Error = Error,
     Tween = Tween,
+    HttpGet = HttpGet,
     Protect = Protect,
     RGBToHex = RGBToHex,
     FindDescendant = FindDescendant,
