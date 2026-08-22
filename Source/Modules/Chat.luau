@@ -330,8 +330,6 @@ if not PlayerGui then
     Error("PlayerGui was not found")
 end
 
-local TopbarStandard = FindDescendant(PlayerGui, "TopbarStandard")
-local Holders = FindDescendant(TopbarStandard, "Holders")
 local TopBarApp = FindDescendant(CoreGui, "TopBarApp")
 local TopBarAppInner = FindDescendant(TopBarApp, "TopBarApp")
 local UnibarLeftFrame = FindDescendant(TopBarAppInner, "UnibarLeftFrame")
