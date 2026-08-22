@@ -1,3 +1,7 @@
+if not game:IsLoaded() then
+    game.Loaded:Wait()
+end
+
 local Shared = (type(getgenv) == "function" and getgenv()) or shared or _G
 local Env = Shared.CoreUI.Env
 
@@ -16,7 +20,8 @@ local Tween = Env.Tween
 local Protect = Env.Protect
 local RGBToHex = Env.RGBToHex
 local FindDescendant = Env.FindDescendant
-local UI = Env.Chat
+
+local UI = {}
 
 local NameColors = {
     Color3.fromRGB(255, 100, 100),
@@ -55,10 +60,247 @@ local ChatVisible = false
 local SlideInPos = UDim2.new(0, 16, 0, 60)
 local SlideOutPos = UDim2.new(0, -320, 0, 60)
 
+UI.Chat = Instance.new("CanvasGroup")
+UI.Chat.Name = "Chat"
+UI.Chat.AnchorPoint = Vector2.new(0, 0)
+UI.Chat.AutomaticSize = Enum.AutomaticSize.None
+UI.Chat.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+UI.Chat.BackgroundTransparency = 0.3
+UI.Chat.BorderSizePixel = 0
+UI.Chat.ClipsDescendants = false
+UI.Chat.GroupColor3 = Color3.fromRGB(255, 255, 255)
+UI.Chat.GroupTransparency = 0
+UI.Chat.LayoutOrder = 0
+UI.Chat.Position = UDim2.new(0, -320, 0, 60)
+UI.Chat.Rotation = 0
+UI.Chat.Size = UDim2.new(0, 350, 0, 200)
+UI.Chat.Visible = false
+UI.Chat.ZIndex = 1
+UI.Chat.Parent = ScreenGui
+
+UI.ChatCorner = Instance.new("UICorner")
+UI.ChatCorner.Name = "ChatCorner"
+UI.ChatCorner.CornerRadius = UDim.new(0, 12)
+UI.ChatCorner.Parent = UI.Chat
+
+UI.ChatPadding = Instance.new("UIPadding")
+UI.ChatPadding.Name = "ChatPadding"
+UI.ChatPadding.PaddingBottom = UDim.new(0, 8)
+UI.ChatPadding.PaddingLeft = UDim.new(0, 8)
+UI.ChatPadding.PaddingRight = UDim.new(0, 8)
+UI.ChatPadding.PaddingTop = UDim.new(0, 8)
+UI.ChatPadding.Parent = UI.Chat
+
+UI.ChatLayout = Instance.new("UIListLayout")
+UI.ChatLayout.Name = "ChatLayout"
+UI.ChatLayout.FillDirection = Enum.FillDirection.Vertical
+UI.ChatLayout.HorizontalAlignment = Enum.HorizontalAlignment.Left
+UI.ChatLayout.HorizontalFlex = Enum.UIFlexAlignment.Fill
+UI.ChatLayout.ItemLineAlignment = Enum.ItemLineAlignment.Automatic
+UI.ChatLayout.Padding = UDim.new(0, 8)
+UI.ChatLayout.SortOrder = Enum.SortOrder.LayoutOrder
+UI.ChatLayout.VerticalAlignment = Enum.VerticalAlignment.Top
+UI.ChatLayout.VerticalFlex = Enum.UIFlexAlignment.Fill
+UI.ChatLayout.Wraps = false
+UI.ChatLayout.Parent = UI.Chat
+
+UI.Messages = Instance.new("ScrollingFrame")
+UI.Messages.Name = "Messages"
+UI.Messages.AnchorPoint = Vector2.new(0, 0)
+UI.Messages.AutomaticCanvasSize = Enum.AutomaticSize.Y
+UI.Messages.AutomaticSize = Enum.AutomaticSize.None
+UI.Messages.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+UI.Messages.BackgroundTransparency = 1
+UI.Messages.BorderSizePixel = 0
+UI.Messages.BottomImage = "rbxasset://textures/ui/Scroll/scroll-bottom.png"
+UI.Messages.CanvasPosition = Vector2.new(0, 0)
+UI.Messages.CanvasSize = UDim2.new(0, 0, 0, 0)
+UI.Messages.ClipsDescendants = true
+UI.Messages.ElasticBehavior = Enum.ElasticBehavior.WhenScrollable
+UI.Messages.HorizontalScrollBarInset = Enum.ScrollBarInset.None
+UI.Messages.LayoutOrder = 1
+UI.Messages.MidImage = "rbxasset://textures/ui/Scroll/scroll-middle.png"
+UI.Messages.Position = UDim2.new(0, 0, 0, 0)
+UI.Messages.ScrollBarImageColor3 = Color3.fromRGB(0, 0, 0)
+UI.Messages.ScrollBarImageTransparency = 0
+UI.Messages.ScrollBarThickness = 4
+UI.Messages.ScrollingDirection = Enum.ScrollingDirection.Y
+UI.Messages.ScrollingEnabled = true
+UI.Messages.Size = UDim2.new(1, 0, 1, -60)
+UI.Messages.TopImage = "rbxasset://textures/ui/Scroll/scroll-top.png"
+UI.Messages.VerticalScrollBarInset = Enum.ScrollBarInset.None
+UI.Messages.VerticalScrollBarPosition = Enum.VerticalScrollBarPosition.Right
+UI.Messages.Visible = true
+UI.Messages.ZIndex = 1
+UI.Messages.Parent = UI.Chat
+
+UI.MessagesLayout = Instance.new("UIListLayout")
+UI.MessagesLayout.Name = "MessagesLayout"
+UI.MessagesLayout.FillDirection = Enum.FillDirection.Vertical
+UI.MessagesLayout.HorizontalAlignment = Enum.HorizontalAlignment.Left
+UI.MessagesLayout.HorizontalFlex = Enum.UIFlexAlignment.Fill
+UI.MessagesLayout.ItemLineAlignment = Enum.ItemLineAlignment.Automatic
+UI.MessagesLayout.Padding = UDim.new(0, 4)
+UI.MessagesLayout.SortOrder = Enum.SortOrder.LayoutOrder
+UI.MessagesLayout.VerticalAlignment = Enum.VerticalAlignment.Top
+UI.MessagesLayout.Wraps = false
+UI.MessagesLayout.Parent = UI.Messages
+
+UI.MessagesPadding = Instance.new("UIPadding")
+UI.MessagesPadding.Name = "MessagesPadding"
+UI.MessagesPadding.PaddingRight = UDim.new(0, 10)
+UI.MessagesPadding.Parent = UI.Messages
+
+UI.MessageTemplate = Instance.new("TextLabel")
+UI.MessageTemplate.Name = "MessageTemplate"
+UI.MessageTemplate.AutomaticSize = Enum.AutomaticSize.Y
+UI.MessageTemplate.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+UI.MessageTemplate.BackgroundTransparency = 1
+UI.MessageTemplate.BorderSizePixel = 0
+UI.MessageTemplate.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+UI.MessageTemplate.Position = UDim2.new(0, 0, 0, 0)
+UI.MessageTemplate.RichText = true
+UI.MessageTemplate.Size = UDim2.new(1, 0, 0, 0)
+UI.MessageTemplate.Text = [[<font color="#4DA6FF">[DisplayName]:</font> <font color="#FFFFFF">Message</font>]]
+UI.MessageTemplate.TextColor3 = Color3.fromRGB(255, 255, 255)
+UI.MessageTemplate.TextSize = 14
+UI.MessageTemplate.TextWrapped = true
+UI.MessageTemplate.TextXAlignment = Enum.TextXAlignment.Left
+UI.MessageTemplate.TextYAlignment = Enum.TextYAlignment.Top
+UI.MessageTemplate.Visible = false
+UI.MessageTemplate.Parent = UI.Messages
+
+UI.ChatboxFrame = Instance.new("Frame")
+UI.ChatboxFrame.Name = "ChatboxFrame"
+UI.ChatboxFrame.AnchorPoint = Vector2.new(0, 0)
+UI.ChatboxFrame.AutomaticSize = Enum.AutomaticSize.None
+UI.ChatboxFrame.BackgroundColor3 = Color3.fromRGB(18, 20, 26)
+UI.ChatboxFrame.BackgroundTransparency = 0.08
+UI.ChatboxFrame.BorderSizePixel = 0
+UI.ChatboxFrame.ClipsDescendants = false
+UI.ChatboxFrame.LayoutOrder = 2
+UI.ChatboxFrame.Position = UDim2.new(0, 0, 0, 0)
+UI.ChatboxFrame.Rotation = 0
+UI.ChatboxFrame.Size = UDim2.new(1, 0, 0, 44)
+UI.ChatboxFrame.Style = Enum.FrameStyle.Custom
+UI.ChatboxFrame.Visible = true
+UI.ChatboxFrame.ZIndex = 1
+UI.ChatboxFrame.Parent = UI.Chat
+
+UI.ChatboxSizeConstraint = Instance.new("UISizeConstraint")
+UI.ChatboxSizeConstraint.Name = "ChatboxSizeConstraint"
+UI.ChatboxSizeConstraint.MaxSize = Vector2.new(1000000, 44)
+UI.ChatboxSizeConstraint.MinSize = Vector2.new(0, 0)
+UI.ChatboxSizeConstraint.Parent = UI.ChatboxFrame
+
+UI.ChatboxFrameCorner = Instance.new("UICorner")
+UI.ChatboxFrameCorner.Name = "ChatboxFrameCorner"
+UI.ChatboxFrameCorner.CornerRadius = UDim.new(0, 10)
+UI.ChatboxFrameCorner.Parent = UI.ChatboxFrame
+
+UI.ChatboxFrameStroke = Instance.new("UIStroke")
+UI.ChatboxFrameStroke.Name = "ChatboxFrameStroke"
+UI.ChatboxFrameStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+UI.ChatboxFrameStroke.Color = Color3.fromRGB(55, 58, 70)
+UI.ChatboxFrameStroke.Enabled = true
+UI.ChatboxFrameStroke.LineJoinMode = Enum.LineJoinMode.Round
+UI.ChatboxFrameStroke.Thickness = 1
+UI.ChatboxFrameStroke.Transparency = 0.25
+UI.ChatboxFrameStroke.Parent = UI.ChatboxFrame
+
+UI.ChatboxFrameLayout = Instance.new("UIListLayout")
+UI.ChatboxFrameLayout.Name = "ChatboxFrameLayout"
+UI.ChatboxFrameLayout.FillDirection = Enum.FillDirection.Horizontal
+UI.ChatboxFrameLayout.HorizontalAlignment = Enum.HorizontalAlignment.Left
+UI.ChatboxFrameLayout.HorizontalFlex = Enum.UIFlexAlignment.Fill
+UI.ChatboxFrameLayout.ItemLineAlignment = Enum.ItemLineAlignment.Automatic
+UI.ChatboxFrameLayout.Padding = UDim.new(0, 4)
+UI.ChatboxFrameLayout.SortOrder = Enum.SortOrder.LayoutOrder
+UI.ChatboxFrameLayout.VerticalAlignment = Enum.VerticalAlignment.Center
+UI.ChatboxFrameLayout.VerticalFlex = Enum.UIFlexAlignment.Fill
+UI.ChatboxFrameLayout.Wraps = false
+UI.ChatboxFrameLayout.Parent = UI.ChatboxFrame
+
+UI.Chatbox = Instance.new("TextBox")
+UI.Chatbox.Name = "Chatbox"
+UI.Chatbox.AnchorPoint = Vector2.new(0, 0)
+UI.Chatbox.AutomaticSize = Enum.AutomaticSize.None
+UI.Chatbox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+UI.Chatbox.BackgroundTransparency = 1
+UI.Chatbox.BorderSizePixel = 0
+UI.Chatbox.ClearTextOnFocus = false
+UI.Chatbox.CursorPosition = -1
+UI.Chatbox.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+UI.Chatbox.LayoutOrder = 1
+UI.Chatbox.MultiLine = false
+UI.Chatbox.PlaceholderColor3 = Color3.fromRGB(145, 150, 165)
+UI.Chatbox.PlaceholderText = "Click here to chat..."
+UI.Chatbox.Position = UDim2.new(0, 0, 0, 0)
+UI.Chatbox.Rotation = 0
+UI.Chatbox.SelectionStart = -1
+UI.Chatbox.ShowNativeInput = true
+UI.Chatbox.Size = UDim2.new(1, 0, 1, 0)
+UI.Chatbox.Text = ""
+UI.Chatbox.TextColor3 = Color3.fromRGB(255, 255, 255)
+UI.Chatbox.TextEditable = true
+UI.Chatbox.TextScaled = false
+UI.Chatbox.TextSize = 16
+UI.Chatbox.TextTruncate = Enum.TextTruncate.AtEnd
+UI.Chatbox.TextWrapped = false
+UI.Chatbox.TextXAlignment = Enum.TextXAlignment.Left
+UI.Chatbox.TextYAlignment = Enum.TextYAlignment.Center
+UI.Chatbox.Visible = true
+UI.Chatbox.ZIndex = 1
+UI.Chatbox.Parent = UI.ChatboxFrame
+
+UI.ChatboxPadding = Instance.new("UIPadding")
+UI.ChatboxPadding.Name = "ChatboxPadding"
+UI.ChatboxPadding.PaddingBottom = UDim.new(0, 0)
+UI.ChatboxPadding.PaddingLeft = UDim.new(0, 6)
+UI.ChatboxPadding.PaddingRight = UDim.new(0, 0)
+UI.ChatboxPadding.PaddingTop = UDim.new(0, 0)
+UI.ChatboxPadding.Parent = UI.Chatbox
+
+UI.Send = Instance.new("TextButton")
+UI.Send.Name = "Send"
+UI.Send.AnchorPoint = Vector2.new(0, 0)
+UI.Send.AutoButtonColor = true
+UI.Send.AutomaticSize = Enum.AutomaticSize.None
+UI.Send.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+UI.Send.BackgroundTransparency = 1
+UI.Send.BorderSizePixel = 0
+UI.Send.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+UI.Send.LayoutOrder = 2
+UI.Send.Modal = true
+UI.Send.Position = UDim2.new(0, 0, 0, 0)
+UI.Send.Rotation = 0
+UI.Send.Size = UDim2.new(0, 0, 0, 0)
+UI.Send.Text = "↑"
+UI.Send.TextColor3 = Color3.fromRGB(114, 114, 114)
+UI.Send.TextScaled = true
+UI.Send.TextSize = 14
+UI.Send.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+UI.Send.TextStrokeTransparency = 1
+UI.Send.TextTransparency = 0
+UI.Send.TextTruncate = Enum.TextTruncate.None
+UI.Send.TextWrapped = false
+UI.Send.TextXAlignment = Enum.TextXAlignment.Center
+UI.Send.TextYAlignment = Enum.TextYAlignment.Center
+UI.Send.Visible = true
+UI.Send.ZIndex = 1
+UI.Send.Parent = UI.ChatboxFrame
+
+UI.SendRatio = Instance.new("UIAspectRatioConstraint")
+UI.SendRatio.Name = "SendRatio"
+UI.SendRatio.AspectRatio = 1
+UI.SendRatio.AspectType = Enum.AspectType.FitWithinMaxSize
+UI.SendRatio.DominantAxis = Enum.DominantAxis.Width
+UI.SendRatio.Parent = UI.Send
+
 local function GetMessageLabels()
     local Labels = {}
-    for _, Child in ipairs(UI["Messages"]:GetChildren()) do
-        if Child:IsA("TextLabel") and Child.Name ~= UI["MessageTemplate"].Name then
+    for _, Child in ipairs(UI.Messages:GetChildren()) do
+        if Child:IsA("TextLabel") and Child.Name ~= UI.MessageTemplate.Name then
             table.insert(Labels, Child)
         end
     end
@@ -86,7 +328,7 @@ local function AddMessage(DisplayName, MessageText, UserId)
     end
 
     local NameColor = RGBToHex(GetNameColor(UserId or 0))
-    local Clone = UI["MessageTemplate"]:Clone()
+    local Clone = UI.MessageTemplate:Clone()
     Clone.Text = string.format(
         [[<font color="%s">[%s]:</font> <font color="#FFFFFF">%s</font>]],
         NameColor,
@@ -96,25 +338,25 @@ local function AddMessage(DisplayName, MessageText, UserId)
     Clone.Name = "Message_" .. tostring(UserId) .. "_" .. tostring(os.time())
     Clone.Visible = true
     Clone.LayoutOrder = #Labels + 1
-    Clone.Parent = UI["Messages"]
+    Clone.Parent = UI.Messages
 
     task.wait()
-    UI["Messages"].CanvasPosition = Vector2.new(0, UI["Messages"].AbsoluteCanvasSize.Y)
+    UI.Messages.CanvasPosition = Vector2.new(0, UI.Messages.AbsoluteCanvasSize.Y)
 end
 
 local function ShowChat()
     ChatVisible = true
-    UI["Chat"].Visible = true
-    Tween(UI["Chat"], 0.35, {Position = SlideInPos}, "Back", "Out"):Play()
+    UI.Chat.Visible = true
+    Tween(UI.Chat, 0.35, {Position = SlideInPos}, "Back", "Out"):Play()
 end
 
 local function HideChat()
     ChatVisible = false
-    local T = Tween(UI["Chat"], 0.25, {Position = SlideOutPos}, "Quad", "In")
+    local T = Tween(UI.Chat, 0.25, {Position = SlideOutPos}, "Quad", "In")
     T:Play()
     T.Completed:Connect(function()
         if not ChatVisible then
-            UI["Chat"].Visible = false
+            UI.Chat.Visible = false
         end
     end)
 end
@@ -122,191 +364,20 @@ end
 local RBXGeneral = TextChatService:WaitForChild("TextChannels"):WaitForChild("RBXGeneral")
 
 local function SendMessage()
-    local Text = UI["Chatbox"].Text
+    local Text = UI.Chatbox.Text
     if Text == "" then return end
-    UI["Chatbox"].Text = ""
+    UI.Chatbox.Text = ""
     RBXGeneral:SendAsync(Text)
 end
 
-UI["Chat"] = Instance.new("CanvasGroup")
-UI["Chat"]["AnchorPoint"] = Vector2.new(0, 0)
-UI["Chat"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0)
-UI["Chat"]["BackgroundTransparency"] = 0.1
-UI["Chat"]["BorderSizePixel"] = 0
-UI["Chat"]["ClipsDescendants"] = true
-UI["Chat"]["Name"] = "Chat"
-UI["Chat"]["Position"] = UDim2.new(0, -320, 0, 60)
-UI["Chat"]["Size"] = UDim2.new(0, 308, 0, 188)
-UI["Chat"]["Visible"] = true
-UI["Chat"]["Parent"] = ScreenGui
-
-UI["ChatShadow"] = Instance.new("UIShadow")
-UI["ChatShadow"]["BlurRadius"] = UDim.new(0, 8)
-UI["ChatShadow"]["Color"] = Color3.fromRGB(0, 0, 0)
-UI["ChatShadow"]["Transparency"] = 0.5
-UI["ChatShadow"]["Parent"] = UI["Chat"]
-
-UI["ChatCorner"] = Instance.new("UICorner")
-UI["ChatCorner"]["Name"] = "ChatCorner"
-UI["ChatCorner"]["CornerRadius"] = UDim.new(0, 8)
-UI["ChatCorner"]["Parent"] = UI["Chat"]
-
-UI["ChatLayout"] = Instance.new("UIListLayout")
-UI["ChatLayout"]["HorizontalFlex"] = Enum.UIFlexAlignment.Fill
-UI["ChatLayout"]["Name"] = "ChatLayout"
-UI["ChatLayout"]["Padding"] = UDim.new(0, 2)
-UI["ChatLayout"]["SortOrder"] = Enum.SortOrder.LayoutOrder
-UI["ChatLayout"]["VerticalFlex"] = Enum.UIFlexAlignment.Fill
-UI["ChatLayout"]["Parent"] = UI["Chat"]
-
-UI["ChatPadding"] = Instance.new("UIPadding")
-UI["ChatPadding"]["Name"] = "ChatPadding"
-UI["ChatPadding"]["PaddingBottom"] = UDim.new(0, 4)
-UI["ChatPadding"]["PaddingLeft"] = UDim.new(0, 4)
-UI["ChatPadding"]["PaddingRight"] = UDim.new(0, 4)
-UI["ChatPadding"]["PaddingTop"] = UDim.new(0, 4)
-UI["ChatPadding"]["Parent"] = UI["Chat"]
-
-UI["Messages"] = Instance.new("ScrollingFrame")
-UI["Messages"]["AnchorPoint"] = Vector2.new(0.5, 0.5)
-UI["Messages"]["AutomaticCanvasSize"] = Enum.AutomaticSize.Y
-UI["Messages"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
-UI["Messages"]["BackgroundTransparency"] = 1
-UI["Messages"]["BorderSizePixel"] = 0
-UI["Messages"]["CanvasSize"] = UDim2.new(0, 0, 0, 0)
-UI["Messages"]["LayoutOrder"] = 1
-UI["Messages"]["Name"] = "Messages"
-UI["Messages"]["Position"] = UDim2.new(0.5, 0, 0.5, 0)
-UI["Messages"]["ScrollBarThickness"] = 4
-UI["Messages"]["ScrollingDirection"] = Enum.ScrollingDirection.Y
-UI["Messages"]["Size"] = UDim2.new(1, -8, 1, -8)
-UI["Messages"]["Parent"] = UI["Chat"]
-
-UI["MessagesLayout"] = Instance.new("UIListLayout")
-UI["MessagesLayout"]["HorizontalFlex"] = Enum.UIFlexAlignment.Fill
-UI["MessagesLayout"]["Name"] = "MessagesLayout"
-UI["MessagesLayout"]["Padding"] = UDim.new(0, 2)
-UI["MessagesLayout"]["SortOrder"] = Enum.SortOrder.LayoutOrder
-UI["MessagesLayout"]["Parent"] = UI["Messages"]
-
-UI["MessagesPadding"] = Instance.new("UIPadding")
-UI["MessagesPadding"]["Name"] = "MessagesPadding"
-UI["MessagesPadding"]["PaddingRight"] = UDim.new(0, 6)
-UI["MessagesPadding"]["Parent"] = UI["Messages"]
-
-UI["MessageTemplate"] = Instance.new("TextLabel")
-UI["MessageTemplate"]["AutomaticSize"] = Enum.AutomaticSize.Y
-UI["MessageTemplate"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
-UI["MessageTemplate"]["BackgroundTransparency"] = 1
-UI["MessageTemplate"]["BorderSizePixel"] = 0
-UI["MessageTemplate"]["FontFace"] = Font.new("rbxasset://fonts/families/BuilderSans.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
-UI["MessageTemplate"]["Name"] = "MessageTemplate"
-UI["MessageTemplate"]["Position"] = UDim2.new(0, 0, 0, 0)
-UI["MessageTemplate"]["RichText"] = true
-UI["MessageTemplate"]["Size"] = UDim2.new(1, 0, 0, 0)
-UI["MessageTemplate"]["Text"] = [[<font color="#4DA6FF">[DisplayName]:</font> <font color="#FFFFFF">Message</font>]]
-UI["MessageTemplate"]["TextColor3"] = Color3.fromRGB(255, 255, 255)
-UI["MessageTemplate"]["TextSize"] = 18
-UI["MessageTemplate"]["TextWrapped"] = true
-UI["MessageTemplate"]["TextXAlignment"] = Enum.TextXAlignment.Left
-UI["MessageTemplate"]["TextYAlignment"] = Enum.TextYAlignment.Top
-UI["MessageTemplate"]["Visible"] = false
-UI["MessageTemplate"]["Parent"] = UI["Messages"]
-
-UI["ChatFrame"] = Instance.new("Frame")
-UI["ChatFrame"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
-UI["ChatFrame"]["BackgroundTransparency"] = 0.9
-UI["ChatFrame"]["BorderSizePixel"] = 0
-UI["ChatFrame"]["LayoutOrder"] = 2
-UI["ChatFrame"]["Name"] = "ChatFrame"
-UI["ChatFrame"]["Size"] = UDim2.new(1, 0, 0, 44)
-UI["ChatFrame"]["Parent"] = UI["Chat"]
-
-UI["ChatFrameCorner"] = Instance.new("UICorner")
-UI["ChatFrameCorner"]["Name"] = "ChatFrameCorner"
-UI["ChatFrameCorner"]["CornerRadius"] = UDim.new(0, 6)
-UI["ChatFrameCorner"]["Parent"] = UI["ChatFrame"]
-
-UI["ChatFrameStroke"] = Instance.new("UIStroke")
-UI["ChatFrameStroke"]["Color"] = Color3.fromRGB(60, 60, 70)
-UI["ChatFrameStroke"]["Name"] = "ChatFrameStroke"
-UI["ChatFrameStroke"]["Parent"] = UI["ChatFrame"]
-
-UI["ChatFrameLayout"] = Instance.new("UIListLayout")
-UI["ChatFrameLayout"]["FillDirection"] = Enum.FillDirection.Horizontal
-UI["ChatFrameLayout"]["HorizontalFlex"] = Enum.UIFlexAlignment.Fill
-UI["ChatFrameLayout"]["Name"] = "ChatFrameLayout"
-UI["ChatFrameLayout"]["Padding"] = UDim.new(0, 4)
-UI["ChatFrameLayout"]["SortOrder"] = Enum.SortOrder.LayoutOrder
-UI["ChatFrameLayout"]["VerticalAlignment"] = Enum.VerticalAlignment.Center
-UI["ChatFrameLayout"]["VerticalFlex"] = Enum.UIFlexAlignment.Fill
-UI["ChatFrameLayout"]["Parent"] = UI["ChatFrame"]
-
-UI["ChatFramePadding"] = Instance.new("UIPadding")
-UI["ChatFramePadding"]["Name"] = "ChatFramePadding"
-UI["ChatFramePadding"]["PaddingBottom"] = UDim.new(0, 2)
-UI["ChatFramePadding"]["PaddingLeft"] = UDim.new(0, 10)
-UI["ChatFramePadding"]["PaddingRight"] = UDim.new(0, 2)
-UI["ChatFramePadding"]["PaddingTop"] = UDim.new(0, 2)
-UI["ChatFramePadding"]["Parent"] = UI["ChatFrame"]
-
-UI["Chatbox"] = Instance.new("TextBox")
-UI["Chatbox"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
-UI["Chatbox"]["BackgroundTransparency"] = 1
-UI["Chatbox"]["BorderSizePixel"] = 0
-UI["Chatbox"]["FontFace"] = Font.new("rbxasset://fonts/families/BuilderSans.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
-UI["Chatbox"]["LayoutOrder"] = 1
-UI["Chatbox"]["Name"] = "Chatbox"
-UI["Chatbox"]["PlaceholderColor3"] = Color3.fromRGB(114, 114, 114)
-UI["Chatbox"]["PlaceholderText"] = "Tap here to chat"
-UI["Chatbox"]["Text"] = ""
-UI["Chatbox"]["TextColor3"] = Color3.fromRGB(255, 255, 255)
-UI["Chatbox"]["TextScaled"] = true
-UI["Chatbox"]["TextSize"] = 18
-UI["Chatbox"]["TextWrapped"] = true
-UI["Chatbox"]["TextXAlignment"] = Enum.TextXAlignment.Left
-UI["Chatbox"]["Parent"] = UI["ChatFrame"]
-
-UI["TextConstraint"] = Instance.new("UITextSizeConstraint")
-UI["TextConstraint"]["MaxTextSize"] = 22
-UI["TextConstraint"]["Name"] = "TextConstraint"
-UI["TextConstraint"]["Parent"] = UI["Chatbox"]
-
-UI["Send"] = Instance.new("TextButton")
-UI["Send"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
-UI["Send"]["BackgroundTransparency"] = 1
-UI["Send"]["BorderSizePixel"] = 0
-UI["Send"]["FontFace"] = Font.new("rbxasset://fonts/families/BuilderSans.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
-UI["Send"]["LayoutOrder"] = 2
-UI["Send"]["Name"] = "Send"
-UI["Send"]["Size"] = UDim2.new(0, 36, 0, 36)
-UI["Send"]["Text"] = "↑"
-UI["Send"]["TextColor3"] = Color3.fromRGB(114, 114, 114)
-UI["Send"]["TextScaled"] = true
-UI["Send"]["TextWrapped"] = true
-UI["Send"]["Parent"] = UI["ChatFrame"]
-
-UI["SendRatio"] = Instance.new("UIAspectRatioConstraint")
-UI["SendRatio"]["AspectRatio"] = 1
-UI["SendRatio"]["Name"] = "SendRatio"
-UI["SendRatio"]["Parent"] = UI["Send"]
-
-UI["SendPadding"] = Instance.new("UIPadding")
-UI["SendPadding"]["Name"] = "SendPadding"
-UI["SendPadding"]["PaddingBottom"] = UDim.new(0, 2)
-UI["SendPadding"]["PaddingLeft"] = UDim.new(0, 2)
-UI["SendPadding"]["PaddingRight"] = UDim.new(0, 2)
-UI["SendPadding"]["PaddingTop"] = UDim.new(0, 2)
-UI["SendPadding"]["Parent"] = UI["Send"]
-
-UI["Chatbox"]:GetPropertyChangedSignal("Text"):Connect(function()
-    local TargetColor = UI["Chatbox"].Text ~= "" and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(114, 114, 114)
-    Tween(UI["Send"], 0.2, {TextColor3 = TargetColor}):Play()
+UI.Chatbox:GetPropertyChangedSignal("Text"):Connect(function()
+    local TargetColor = UI.Chatbox.Text ~= "" and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(114, 114, 114)
+    Tween(UI.Send, 0.2, {TextColor3 = TargetColor}):Play()
 end)
 
-UI["Send"]["Activated"]:Connect(SendMessage)
+UI.Send.Activated:Connect(SendMessage)
 
-UI["Chatbox"]["FocusLost"]:Connect(function(EnterPressed)
+UI.Chatbox.FocusLost:Connect(function(EnterPressed)
     if EnterPressed then
         SendMessage()
     end
@@ -319,16 +390,6 @@ RBXGeneral.MessageReceived:Connect(function(Message)
     local DisplayName = Player and Player.DisplayName or tostring(Source.UserId)
     AddMessage(DisplayName, Message.Text, Source.UserId)
 end)
-
-local LocalPlayer = Players.LocalPlayer
-if not LocalPlayer then
-    Error("LocalPlayer was not found")
-end
-
-local PlayerGui = LocalPlayer:FindFirstChildOfClass("PlayerGui")
-if not PlayerGui then
-    Error("PlayerGui was not found")
-end
 
 local TopBarApp = FindDescendant(CoreGui, "TopBarApp")
 local TopBarAppInner = FindDescendant(TopBarApp, "TopBarApp")
