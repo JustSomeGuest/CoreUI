@@ -103,9 +103,10 @@ UI.Messages.Parent = UI.Chat
 
 UI.MessagesLayout = Instance.new("UIListLayout")
 UI.MessagesLayout.Name = "MessagesLayout"
-UI.Messages.HorizontalFlex = Enum.UIFlexAlignment.Fill
-UI.Messages.Padding = UDim.new(0, 4)
-UI.Messages.Parent = UI.Messages
+UI.MessagesLayout.HorizontalFlex = Enum.UIFlexAlignment.Fill
+UI.MessagesLayout.Padding = UDim.new(0, 4)
+UI.MessagesLayout.SortOrder = Enum.SortOrder.LayoutOrder
+UI.MessagesLayout.Parent = UI.Messages
 
 UI.MessagesPadding = Instance.new("UIPadding")
 UI.MessagesPadding.Name = "MessagesPadding"
