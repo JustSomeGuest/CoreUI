@@ -93,6 +93,7 @@ UI.ChatLayout.Parent = UI.Chat
 UI.Messages = Instance.new("ScrollingFrame")
 UI.Messages.Name = "Messages"
 UI.Messages.AutomaticCanvasSize = Enum.AutomaticSize.Y
+UI.Messages.CanvasSize = UDim2.new(0, 0, 0, 0)
 UI.Messages.BackgroundTransparency = 1
 UI.Messages.ScrollBarImageColor3 = Color3.fromRGB(120, 80, 255)
 UI.Messages.ScrollBarImageTransparency = 0.2
