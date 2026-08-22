@@ -172,6 +172,7 @@ UI.Chatbox.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json")
 UI.Chatbox.LayoutOrder = 1
 UI.Chatbox.MultiLine = false
 UI.Chatbox.PlaceholderColor3 = Color3.fromRGB(145, 150, 165)
+UI.Chatbox.Text = ""
 UI.Chatbox.PlaceholderText = "Click here to chat..."
 UI.Chatbox.Size = UDim2.new(1, 0, 1, 0)
 UI.Chatbox.TextColor3 = Color3.fromRGB(255, 255, 255)
