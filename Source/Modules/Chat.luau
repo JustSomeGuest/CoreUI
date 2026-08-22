@@ -86,6 +86,7 @@ UI.ChatLayout = Instance.new("UIListLayout")
 UI.ChatLayout.Name = "ChatLayout"
 UI.ChatLayout.HorizontalFlex = Enum.UIFlexAlignment.Fill
 UI.ChatLayout.Padding = UDim.new(0, 8)
+UI.ChatLayout.SortOrder = Enum.SortOrder.LayoutOrder
 UI.ChatLayout.VerticalFlex = Enum.UIFlexAlignment.Fill
 UI.ChatLayout.Parent = UI.Chat
 
@@ -102,9 +103,9 @@ UI.Messages.Parent = UI.Chat
 
 UI.MessagesLayout = Instance.new("UIListLayout")
 UI.MessagesLayout.Name = "MessagesLayout"
-UI.MessagesLayout.HorizontalFlex = Enum.UIFlexAlignment.Fill
-UI.MessagesLayout.Padding = UDim.new(0, 4)
-UI.MessagesLayout.Parent = UI.Messages
+UI.Messages.HorizontalFlex = Enum.UIFlexAlignment.Fill
+UI.Messages.Padding = UDim.new(0, 4)
+UI.Messages.Parent = UI.Messages
 
 UI.MessagesPadding = Instance.new("UIPadding")
 UI.MessagesPadding.Name = "MessagesPadding"
@@ -156,6 +157,7 @@ UI.ChatboxFrameLayout.Name = "ChatboxFrameLayout"
 UI.ChatboxFrameLayout.FillDirection = Enum.FillDirection.Horizontal
 UI.ChatboxFrameLayout.HorizontalFlex = Enum.UIFlexAlignment.Fill
 UI.ChatboxFrameLayout.Padding = UDim.new(0, 4)
+UI.ChatboxFrameLayout.SortOrder = Enum.SortOrder.LayoutOrder
 UI.ChatboxFrameLayout.VerticalAlignment = Enum.VerticalAlignment.Center
 UI.ChatboxFrameLayout.VerticalFlex = Enum.UIFlexAlignment.Fill
 UI.ChatboxFrameLayout.Parent = UI.ChatboxFrame
@@ -184,6 +186,7 @@ UI.ChatboxPadding.Parent = UI.Chatbox
 
 UI.Send = Instance.new("TextButton")
 UI.Send.Name = "Send"
+UI.Send.BackgroundTransparency = 1
 UI.Send.LayoutOrder = 2
 UI.Send.Modal = true
 UI.Send.Text = "↑"
