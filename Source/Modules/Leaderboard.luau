@@ -571,7 +571,7 @@ UI.UserId.InputBegan:Connect(function(Input)
 
         if SetClip then
             SetClip(UI.UserId.Text)
-            Notify("UserId copied!", 3)
+            Notify("UserId copied!", 2)
         end
     end
 end)
