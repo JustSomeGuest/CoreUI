@@ -5,17 +5,25 @@ end
 local Shared = (type(getgenv) == "function" and getgenv()) or shared or _G
 local Env = Shared.CoreUI.Env
 
+local Hui = Env.Hui
 local CoreGui = Env.CoreGui
+local TweenService = Env.TweenService
 local Players = Env.Players
+local StarterGui = Env.StarterGui
 local TextChatService = Env.TextChatService
+local UserInputService = Env.UserInputService
 
 local ScreenGui = Env.ScreenGui
+local UID = Env.UID
+local Error = Env.Error
 local Tween = Env.Tween
 local Protect = Env.Protect
 local RGBToHex = Env.RGBToHex
 local FindDescendant = Env.FindDescendant
 
 local UI = {}
+
+local SECONDARY_COLOR = Color3.fromRGB(50, 50, 50)
 
 local NameColors = {
     Color3.fromRGB(255, 100, 100),
@@ -56,23 +64,16 @@ local SlideOutPos = UDim2.new(0, -340, 0, 60)
 
 UI.Chat = Instance.new("CanvasGroup")
 UI.Chat.Name = "Chat"
-UI.Chat.BackgroundColor3 = Color3.fromRGB(10, 11, 16)
+UI.Chat.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
 UI.Chat.BackgroundTransparency = 0.08
 UI.Chat.Position = UDim2.new(0, -340, 0, 60)
 UI.Chat.Size = UDim2.new(0, 360, 0, 220)
 UI.Chat.Visible = false
 UI.Chat.Parent = ScreenGui
 
-UI.ChatStroke = Instance.new("UIStroke")
-UI.ChatStroke.Name = "ChatStroke"
-UI.ChatStroke.Color = Color3.fromRGB(50, 55, 75)
-UI.ChatStroke.Thickness = 1
-UI.ChatStroke.Transparency = 0.1
-UI.ChatStroke.Parent = UI.Chat
-
 UI.ChatCorner = Instance.new("UICorner")
 UI.ChatCorner.Name = "ChatCorner"
-UI.ChatCorner.CornerRadius = UDim.new(0, 12)
+UI.ChatCorner.CornerRadius = UDim.new(0, 8)
 UI.ChatCorner.Parent = UI.Chat
 
 UI.ChatLayout = Instance.new("UIListLayout")
@@ -88,9 +89,7 @@ UI.Messages.Name = "Messages"
 UI.Messages.AutomaticCanvasSize = Enum.AutomaticSize.Y
 UI.Messages.CanvasSize = UDim2.new(0, 0, 0, 0)
 UI.Messages.BackgroundTransparency = 1
-UI.Messages.ScrollBarImageColor3 = Color3.fromRGB(90, 60, 200)
-UI.Messages.ScrollBarImageTransparency = 0.3
-UI.Messages.ScrollBarThickness = 4
+UI.Messages.ScrollBarThickness = 0
 UI.Messages.ScrollingDirection = Enum.ScrollingDirection.Y
 UI.Messages.Size = UDim2.fromScale(1, 1)
 UI.Messages.Parent = UI.Chat
@@ -98,16 +97,16 @@ UI.Messages.Parent = UI.Chat
 UI.MessagesLayout = Instance.new("UIListLayout")
 UI.MessagesLayout.Name = "MessagesLayout"
 UI.MessagesLayout.HorizontalFlex = Enum.UIFlexAlignment.Fill
-UI.MessagesLayout.Padding = UDim.new(0, 5)
+UI.MessagesLayout.Padding = UDim.new(0, 1)
 UI.MessagesLayout.SortOrder = Enum.SortOrder.LayoutOrder
 UI.MessagesLayout.Parent = UI.Messages
 
 UI.MessagesPadding = Instance.new("UIPadding")
 UI.MessagesPadding.Name = "MessagesPadding"
-UI.MessagesPadding.PaddingBottom = UDim.new(0, 10)
-UI.MessagesPadding.PaddingLeft = UDim.new(0, 10)
-UI.MessagesPadding.PaddingRight = UDim.new(0, 12)
-UI.MessagesPadding.PaddingTop = UDim.new(0, 10)
+UI.MessagesPadding.PaddingBottom = UDim.new(0, 8)
+UI.MessagesPadding.PaddingLeft = UDim.new(0, 16)
+UI.MessagesPadding.PaddingRight = UDim.new(0, 16)
+UI.MessagesPadding.PaddingTop = UDim.new(0, 8)
 UI.MessagesPadding.Parent = UI.Messages
 
 UI.MessageTemplate = Instance.new("TextLabel")
@@ -117,8 +116,7 @@ UI.MessageTemplate.BackgroundTransparency = 1
 UI.MessageTemplate.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json")
 UI.MessageTemplate.RichText = true
 UI.MessageTemplate.Size = UDim2.new(1, 0, 0, 0)
-UI.MessageTemplate.Text = [[<font color="#4DA6FF">[DisplayName]:</font> <font color="#D0D4E8">Message</font>]]
-UI.MessageTemplate.TextSize = 13
+UI.MessageTemplate.TextSize = 14
 UI.MessageTemplate.TextWrapped = true
 UI.MessageTemplate.TextXAlignment = Enum.TextXAlignment.Left
 UI.MessageTemplate.TextYAlignment = Enum.TextYAlignment.Top
@@ -127,7 +125,7 @@ UI.MessageTemplate.Parent = UI.Messages
 
 UI.Divider = Instance.new("Frame")
 UI.Divider.Name = "Divider"
-UI.Divider.BackgroundColor3 = Color3.fromRGB(45, 50, 68)
+UI.Divider.BackgroundColor3 = SECONDARY_COLOR
 UI.Divider.BorderSizePixel = 0
 UI.Divider.LayoutOrder = 2
 UI.Divider.Size = UDim2.new(1, 0, 0, 1)
@@ -137,27 +135,27 @@ UI.ChatboxInner = Instance.new("Frame")
 UI.ChatboxInner.Name = "ChatboxInner"
 UI.ChatboxInner.BackgroundTransparency = 1
 UI.ChatboxInner.LayoutOrder = 3
-UI.ChatboxInner.Size = UDim2.new(1, 0, 0, 46)
+UI.ChatboxInner.Size = UDim2.new(1, 0, 0, 44)
 UI.ChatboxInner.Parent = UI.Chat
 
 UI.ChatboxInnerConst = Instance.new("UISizeConstraint")
 UI.ChatboxInnerConst.Name = "ChatboxInnerConst"
-UI.ChatboxInnerConst.MaxSize = Vector2.new(1e9, 46)
+UI.ChatboxInnerConst.MaxSize = Vector2.new(1e9, 44)
 UI.ChatboxInnerConst.Parent = UI.ChatboxInner
 
 UI.ChatboxInnerPadding = Instance.new("UIPadding")
 UI.ChatboxInnerPadding.Name = "ChatboxInnerPadding"
-UI.ChatboxInnerPadding.PaddingLeft = UDim.new(0, 6)
-UI.ChatboxInnerPadding.PaddingRight = UDim.new(0, 6)
-UI.ChatboxInnerPadding.PaddingTop = UDim.new(0, 5)
-UI.ChatboxInnerPadding.PaddingBottom = UDim.new(0, 5)
+UI.ChatboxInnerPadding.PaddingLeft = UDim.new(0, 16)
+UI.ChatboxInnerPadding.PaddingRight = UDim.new(0, 8)
+UI.ChatboxInnerPadding.PaddingTop = UDim.new(0, 6)
+UI.ChatboxInnerPadding.PaddingBottom = UDim.new(0, 6)
 UI.ChatboxInnerPadding.Parent = UI.ChatboxInner
 
 UI.ChatboxInnerLayout = Instance.new("UIListLayout")
 UI.ChatboxInnerLayout.Name = "ChatboxInnerLayout"
 UI.ChatboxInnerLayout.FillDirection = Enum.FillDirection.Horizontal
 UI.ChatboxInnerLayout.HorizontalFlex = Enum.UIFlexAlignment.Fill
-UI.ChatboxInnerLayout.Padding = UDim.new(0, 4)
+UI.ChatboxInnerLayout.Padding = UDim.new(0, 8)
 UI.ChatboxInnerLayout.SortOrder = Enum.SortOrder.LayoutOrder
 UI.ChatboxInnerLayout.VerticalAlignment = Enum.VerticalAlignment.Center
 UI.ChatboxInnerLayout.VerticalFlex = Enum.UIFlexAlignment.Fill
@@ -170,49 +168,31 @@ UI.Chatbox.ClearTextOnFocus = false
 UI.Chatbox.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json")
 UI.Chatbox.LayoutOrder = 1
 UI.Chatbox.MultiLine = false
-UI.Chatbox.PlaceholderColor3 = Color3.fromRGB(90, 95, 115)
+UI.Chatbox.PlaceholderColor3 = Color3.fromRGB(100, 100, 100)
 UI.Chatbox.Text = ""
 UI.Chatbox.PlaceholderText = "Send a message..."
 UI.Chatbox.Size = UDim2.new(1, 0, 1, 0)
-UI.Chatbox.TextColor3 = Color3.fromRGB(220, 225, 240)
-UI.Chatbox.TextSize = 14
+UI.Chatbox.TextColor3 = Color3.fromRGB(230, 230, 230)
+UI.Chatbox.TextSize = 16
 UI.Chatbox.TextTruncate = Enum.TextTruncate.AtEnd
 UI.Chatbox.TextXAlignment = Enum.TextXAlignment.Left
 UI.Chatbox.TextYAlignment = Enum.TextYAlignment.Center
 UI.Chatbox.Parent = UI.ChatboxInner
 
-UI.ChatboxPadding = Instance.new("UIPadding")
-UI.ChatboxPadding.Name = "ChatboxPadding"
-UI.ChatboxPadding.PaddingLeft = UDim.new(0, 10)
-UI.ChatboxPadding.Parent = UI.Chatbox
-
 UI.Send = Instance.new("TextButton")
 UI.Send.Name = "Send"
-UI.Send.BackgroundColor3 = Color3.fromRGB(88, 60, 210)
+UI.Send.BackgroundTransparency = 1
 UI.Send.LayoutOrder = 2
 UI.Send.Modal = true
 UI.Send.Text = "↑"
-UI.Send.TextColor3 = Color3.fromRGB(200, 190, 255)
+UI.Send.TextColor3 = Color3.fromRGB(100, 100, 100)
 UI.Send.TextScaled = true
 UI.Send.Parent = UI.ChatboxInner
-
-UI.SendCorner = Instance.new("UICorner")
-UI.SendCorner.Name = "SendCorner"
-UI.SendCorner.CornerRadius = UDim.new(0, 8)
-UI.SendCorner.Parent = UI.Send
 
 UI.SendRatio = Instance.new("UIAspectRatioConstraint")
 UI.SendRatio.Name = "SendRatio"
 UI.SendRatio.AspectRatio = 1
 UI.SendRatio.Parent = UI.Send
-
-UI.SendPadding = Instance.new("UIPadding")
-UI.SendPadding.Name = "SendPadding"
-UI.SendPadding.PaddingLeft = UDim.new(0, 3)
-UI.SendPadding.PaddingRight = UDim.new(0, 3)
-UI.SendPadding.PaddingTop = UDim.new(0, 3)
-UI.SendPadding.PaddingBottom = UDim.new(0, 3)
-UI.SendPadding.Parent = UI.Send
 
 local function GetMessageLabels()
     local Labels = {}
@@ -247,7 +227,7 @@ local function AddMessage(DisplayName, MessageText, UserId)
     local NameColor = RGBToHex(GetNameColor(UserId or 0))
     local Clone = UI.MessageTemplate:Clone()
     Clone.Text = string.format(
-        [[<font color="%s"><b>[%s]</b></font><font color="#555A72">:</font> <font color="#C8CDE0">%s</font>]],
+        [[<font color="%s">%s:</font> <font color="#E6E6E6">%s</font>]],
         NameColor,
         DisplayName,
         MessageText
@@ -289,9 +269,8 @@ end
 
 UI.Chatbox:GetPropertyChangedSignal("Text"):Connect(function()
     local HasText = UI.Chatbox.Text ~= ""
-    local TargetBg = HasText and Color3.fromRGB(50, 120, 220) or Color3.fromRGB(40, 90, 180)
-    local TargetText = HasText and Color3.fromRGB(225, 240, 255) or Color3.fromRGB(190, 215, 255)
-    Tween(UI.Send, 0.15, {BackgroundColor3 = TargetBg, TextColor3 = TargetText}):Play()
+    local TargetColor = HasText and Color3.fromRGB(247, 247, 248) or Color3.fromRGB(100, 100, 100)
+    Tween(UI.Send, 0.15, {TextColor3 = TargetColor}):Play()
 end)
 
 UI.Send.Activated:Connect(SendMessage)
