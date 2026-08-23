@@ -204,7 +204,7 @@ UI.Send.Parent = UI.ChatboxInner
 
 UI.SendCorner = Instance.new("UICorner")
 UI.SendCorner.Name = "SendCorner"
-UI.SendCorner.CornerRadius = UDim.new(0, 7)
+UI.SendCorner.CornerRadius = UDim.new(0, 8)
 UI.SendCorner.Parent = UI.Send
 
 UI.SendRatio = Instance.new("UIAspectRatioConstraint")
