@@ -79,6 +79,10 @@ local function GetAsset(path)
     return nil
 end
 
+local function Notify(Text, Duration)
+    return Env.Notify(Text, Duration)
+end
+
 local SECONDARY_COLOR = Color3.fromRGB(50, 50, 50)
 
 UI.Folder = Instance.new("Folder")
@@ -560,11 +564,15 @@ end)
 
 RefreshPlayers()
 
-UI.UserId.InputBegan:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1
-    or input.UserInputType == Enum.UserInputType.Touch then
+UI.UserId.InputBegan:Connect(function(Input)
+    if Input.UserInputType == Enum.UserInputType.MouseButton1
+    or Input.UserInputType == Enum.UserInputType.Touch then
         local SetClip = setclipboard or toclipboard or (Clipboard and Clipboard.set)
-        if SetClip then SetClip(UI.UserId.Text) end
+
+        if SetClip then
+            SetClip(UI.UserId.Text)
+            Notify("UserId copied!", 3)
+        end
     end
 end)
 
