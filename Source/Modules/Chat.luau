@@ -319,14 +319,7 @@ else
 end
 
 UserInputService.InputBegan:Connect(function(Input)
-    if Input.KeyCode == Enum.KeyCode.Slash then
-        task.delay(0.15, function()
-            local FocusedTextBox = UserInputService:GetFocusedTextBox()
-            if FocusedTextBox then
-                FocusedTextBox:ReleaseFocus()
-            end
-
-            UI.Chatbox:CaptureFocus()
-        end)
+    if Input.KeyCode == Enum.KeyCode.Quote then
+        UI.Chatbox:CaptureFocus()
     end
 end)
