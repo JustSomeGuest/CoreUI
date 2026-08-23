@@ -15,6 +15,7 @@ local IsFile = isfile or function() return false end
 local IsFolder = isfolder or function() return false end
 local MakeFolder = makefolder or function() end
 local LoadAsset = getcustomasset or getsynasset
+local SetClipboard = setclipboard or toclipboard or (Clipboard and Clipboard.set)
 
 local BASE_URL = "https://raw.githubusercontent.com/JustSomeGuest/CoreUI/Main/Source/Assets/"
 
@@ -564,13 +565,31 @@ end)
 
 RefreshPlayers()
 
+UI.DisplayName.InputBegan:Connect(function(Input)
+    if Input.UserInputType == Enum.UserInputType.MouseButton1
+    or Input.UserInputType == Enum.UserInputType.Touch then
+        if SetClipboard then
+            SetClipboard(UI.DisplayName.Text)
+            Notify("Display name copied!", 2)
+        end
+    end
+end)
+
+UI.Username.InputBegan:Connect(function(Input)
+    if Input.UserInputType == Enum.UserInputType.MouseButton1
+    or Input.UserInputType == Enum.UserInputType.Touch then
+        if SetClipboard then
+            SetClipboard(UI.Username.Text:sub(2))
+            Notify("Username copied!", 2)
+        end
+    end
+end)
+
 UI.UserId.InputBegan:Connect(function(Input)
     if Input.UserInputType == Enum.UserInputType.MouseButton1
     or Input.UserInputType == Enum.UserInputType.Touch then
-        local SetClip = setclipboard or toclipboard or (Clipboard and Clipboard.set)
-
-        if SetClip then
-            SetClip(UI.UserId.Text)
+        if SetClipboard then
+            SetClipboard(UI.UserId.Text)
             Notify("UserId copied!", 2)
         end
     end
