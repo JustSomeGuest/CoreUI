@@ -8,13 +8,15 @@ local Env = Shared.CoreUI.Env
 local CoreGui = Env.CoreGui
 local Players = Env.Players
 local TextChatService = Env.TextChatService
+local UserInputService = Env.UserInputService
 
 local ScreenGui = Env.ScreenGui
 local Tween = Env.Tween
 local Protect = Env.Protect
 local RGBToHex = Env.RGBToHex
 local FindDescendant = Env.FindDescendant
-
+local IsMobile = Env.IsMobile
+local IsDesktop = Env.IsDesktop
 local UI = {}
 
 local SECONDARY_COLOR = Color3.fromRGB(50, 50, 50)
@@ -61,7 +63,7 @@ UI.Chat.Name = "Chat"
 UI.Chat.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
 UI.Chat.BackgroundTransparency = 0.08
 UI.Chat.Position = UDim2.new(0, -340, 0, 60)
-UI.Chat.Size = UDim2.new(0, 360, 0, 220)
+UI.Chat.Size = IsMobile() and UDim2.new(0, 360, 0, 220) or IsDesktop() and UDim2.new(0, 540, 0, 330)
 UI.Chat.Visible = false
 UI.Chat.Parent = ScreenGui
 
