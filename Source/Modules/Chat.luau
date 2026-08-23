@@ -295,8 +295,8 @@ end
 
 UI.Chatbox:GetPropertyChangedSignal("Text"):Connect(function()
     local HasText = UI.Chatbox.Text ~= ""
-    local TargetBg = HasText and Color3.fromRGB(100, 70, 230) or Color3.fromRGB(88, 60, 210)
-    local TargetText = HasText and Color3.fromRGB(230, 225, 255) or Color3.fromRGB(200, 190, 255)
+    local TargetBg = HasText and Color3.fromRGB(50, 120, 220) or Color3.fromRGB(40, 90, 180)
+    local TargetText = HasText and Color3.fromRGB(225, 240, 255) or Color3.fromRGB(190, 215, 255)
     Tween(UI.Send, 0.15, {BackgroundColor3 = TargetBg, TextColor3 = TargetText}):Play()
 end)
 
