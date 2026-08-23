@@ -139,66 +139,31 @@ UI.Divider.LayoutOrder = 2
 UI.Divider.Size = UDim2.new(1, 0, 0, 1)
 UI.Divider.Parent = UI.Chat
 
-UI.ChatboxFrame = Instance.new("Frame")
-UI.ChatboxFrame.Name = "ChatboxFrame"
-UI.ChatboxFrame.BackgroundColor3 = Color3.fromRGB(15, 17, 23)
-UI.ChatboxFrame.BackgroundTransparency = 0
-UI.ChatboxFrame.LayoutOrder = 3
-UI.ChatboxFrame.Size = UDim2.new(1, 0, 0, 46)
-UI.ChatboxFrame.Parent = UI.Chat
-
-UI.ChatboxFrameCorner = Instance.new("UICorner")
-UI.ChatboxFrameCorner.Name = "ChatboxFrameCorner"
-UI.ChatboxFrameCorner.CornerRadius = UDim.new(0, 12)
-UI.ChatboxFrameCorner.Parent = UI.ChatboxFrame
-
-UI.ChatboxFrameConst = Instance.new("UISizeConstraint")
-UI.ChatboxFrameConst.Name = "ChatboxFrameConst"
-UI.ChatboxFrameConst.MaxSize = Vector2.new(1e9, 46)
-UI.ChatboxFrameConst.Parent = UI.ChatboxFrame
-
-UI.ChatboxFramePadding = Instance.new("UIPadding")
-UI.ChatboxFramePadding.Name = "ChatboxFramePadding"
-UI.ChatboxFramePadding.PaddingLeft = UDim.new(0, 6)
-UI.ChatboxFramePadding.PaddingRight = UDim.new(0, 6)
-UI.ChatboxFramePadding.PaddingTop = UDim.new(0, 5)
-UI.ChatboxFramePadding.PaddingBottom = UDim.new(0, 5)
-UI.ChatboxFramePadding.Parent = UI.ChatboxFrame
-
-UI.ChatboxFrameLayout = Instance.new("UIListLayout")
-UI.ChatboxFrameLayout.Name = "ChatboxFrameLayout"
-UI.ChatboxFrameLayout.FillDirection = Enum.FillDirection.Horizontal
-UI.ChatboxFrameLayout.HorizontalFlex = Enum.UIFlexAlignment.Fill
-UI.ChatboxFrameLayout.Padding = UDim.new(0, 4)
-UI.ChatboxFrameLayout.SortOrder = Enum.SortOrder.LayoutOrder
-UI.ChatboxFrameLayout.VerticalAlignment = Enum.VerticalAlignment.Center
-UI.ChatboxFrameLayout.VerticalFlex = Enum.UIFlexAlignment.Fill
-UI.ChatboxFrameLayout.Parent = UI.ChatboxFrame
-
 UI.ChatboxInner = Instance.new("Frame")
 UI.ChatboxInner.Name = "ChatboxInner"
-UI.ChatboxInner.BackgroundColor3 = Color3.fromRGB(22, 25, 35)
-UI.ChatboxInner.LayoutOrder = 1
-UI.ChatboxInner.Size = UDim2.new(1, 0, 1, 0)
-UI.ChatboxInner.Parent = UI.ChatboxFrame
+UI.ChatboxInner.BackgroundTransparency = 1
+UI.ChatboxInner.LayoutOrder = 3
+UI.ChatboxInner.Size = UDim2.new(1, 0, 0, 46)
+UI.ChatboxInner.Parent = UI.Chat
 
-UI.ChatboxInnerCorner = Instance.new("UICorner")
-UI.ChatboxInnerCorner.Name = "ChatboxInnerCorner"
-UI.ChatboxInnerCorner.CornerRadius = UDim.new(0, 8)
-UI.ChatboxInnerCorner.Parent = UI.ChatboxInner
+UI.ChatboxInnerConst = Instance.new("UISizeConstraint")
+UI.ChatboxInnerConst.Name = "ChatboxInnerConst"
+UI.ChatboxInnerConst.MaxSize = Vector2.new(1e9, 46)
+UI.ChatboxInnerConst.Parent = UI.ChatboxInner
 
-UI.ChatboxInnerStroke = Instance.new("UIStroke")
-UI.ChatboxInnerStroke.Name = "ChatboxInnerStroke"
-UI.ChatboxInnerStroke.Color = Color3.fromRGB(55, 60, 82)
-UI.ChatboxInnerStroke.Thickness = 1
-UI.ChatboxInnerStroke.Transparency = 0.3
-UI.ChatboxInnerStroke.Parent = UI.ChatboxInner
+UI.ChatboxInnerPadding = Instance.new("UIPadding")
+UI.ChatboxInnerPadding.Name = "ChatboxInnerPadding"
+UI.ChatboxInnerPadding.PaddingLeft = UDim.new(0, 6)
+UI.ChatboxInnerPadding.PaddingRight = UDim.new(0, 6)
+UI.ChatboxInnerPadding.PaddingTop = UDim.new(0, 5)
+UI.ChatboxInnerPadding.PaddingBottom = UDim.new(0, 5)
+UI.ChatboxInnerPadding.Parent = UI.ChatboxInner
 
 UI.ChatboxInnerLayout = Instance.new("UIListLayout")
 UI.ChatboxInnerLayout.Name = "ChatboxInnerLayout"
 UI.ChatboxInnerLayout.FillDirection = Enum.FillDirection.Horizontal
 UI.ChatboxInnerLayout.HorizontalFlex = Enum.UIFlexAlignment.Fill
-UI.ChatboxInnerLayout.Padding = UDim.new(0, 0)
+UI.ChatboxInnerLayout.Padding = UDim.new(0, 4)
 UI.ChatboxInnerLayout.SortOrder = Enum.SortOrder.LayoutOrder
 UI.ChatboxInnerLayout.VerticalAlignment = Enum.VerticalAlignment.Center
 UI.ChatboxInnerLayout.VerticalFlex = Enum.UIFlexAlignment.Fill
