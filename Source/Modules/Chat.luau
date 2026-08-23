@@ -74,14 +74,6 @@ UI.ChatCorner.Name = "ChatCorner"
 UI.ChatCorner.CornerRadius = UDim.new(0, 12)
 UI.ChatCorner.Parent = UI.Chat
 
-UI.ChatPadding = Instance.new("UIPadding")
-UI.ChatPadding.Name = "ChatPadding"
-UI.ChatPadding.PaddingBottom = UDim.new(0, 8)
-UI.ChatPadding.PaddingLeft = UDim.new(0, 8)
-UI.ChatPadding.PaddingRight = UDim.new(0, 8)
-UI.ChatPadding.PaddingTop = UDim.new(0, 8)
-UI.ChatPadding.Parent = UI.Chat
-
 UI.ChatLayout = Instance.new("UIListLayout")
 UI.ChatLayout.Name = "ChatLayout"
 UI.ChatLayout.HorizontalFlex = Enum.UIFlexAlignment.Fill
@@ -111,7 +103,10 @@ UI.MessagesLayout.Parent = UI.Messages
 
 UI.MessagesPadding = Instance.new("UIPadding")
 UI.MessagesPadding.Name = "MessagesPadding"
+UI.MessagesPadding.PaddingBottom = UDim.new(0, 8)
+UI.MessagesPadding.PaddingLeft = UDim.new(0, 8)
 UI.MessagesPadding.PaddingRight = UDim.new(0, 10)
+UI.MessagesPadding.PaddingTop = UDim.new(0, 8)
 UI.MessagesPadding.Parent = UI.Messages
 
 UI.MessageTemplate = Instance.new("TextLabel")
@@ -137,15 +132,10 @@ UI.ChatboxFrame.LayoutOrder = 2
 UI.ChatboxFrame.Size = UDim2.new(1, 0, 0, 44)
 UI.ChatboxFrame.Parent = UI.Chat
 
-UI.ChatboxSizeConstraint = Instance.new("UISizeConstraint")
-UI.ChatboxSizeConstraint.Name = "ChatboxSizeConstraint"
-UI.ChatboxSizeConstraint.MaxSize = Vector2.new(1e9, 34)
-UI.ChatboxSizeConstraint.Parent = UI.ChatboxFrame
-
-UI.ChatboxFrameCorner = Instance.new("UICorner")
-UI.ChatboxFrameCorner.Name = "ChatboxFrameCorner"
-UI.ChatboxFrameCorner.CornerRadius = UDim.new(0, 10)
-UI.ChatboxFrameCorner.Parent = UI.ChatboxFrame
+UI.ChatboxFrameConst = Instance.new("UISizeConstraint")
+UI.ChatboxFrameConst.Name = "ChatboxFrameConst"
+UI.ChatboxFrameConst.MaxSize = Vector2.new(1e9, 44)
+UI.ChatboxFrameConst.Parent = UI.ChatboxFrame
 
 UI.ChatboxFrameStroke = Instance.new("UIStroke")
 UI.ChatboxFrameStroke.Name = "ChatboxFrameStroke"
@@ -153,6 +143,14 @@ UI.ChatboxFrameStroke.Color = Color3.fromRGB(55, 58, 70)
 UI.ChatboxFrameStroke.Thickness = 1
 UI.ChatboxFrameStroke.Transparency = 0.25
 UI.ChatboxFrameStroke.Parent = UI.ChatboxFrame
+
+UI.ChatboxFramePadding = Instance.new("UIPadding")
+UI.ChatboxFramePadding.Name = "ChatboxFramePadding"
+UI.ChatboxFramePadding.PaddingLeft = UDim.new(0, 4)
+UI.ChatboxFramePadding.PaddingRight = UDim.new(0, 4)
+UI.ChatboxFramePadding.PaddingTop = UDim.new(0, 4)
+UI.ChatboxFramePadding.PaddingBottom = UDim.new(0, 4)
+UI.ChatboxFramePadding.Parent = UI.ChatboxFrame
 
 UI.ChatboxFrameLayout = Instance.new("UIListLayout")
 UI.ChatboxFrameLayout.Name = "ChatboxFrameLayout"
