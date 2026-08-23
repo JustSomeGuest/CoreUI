@@ -8,6 +8,7 @@ local StarterGui = Env.StarterGui
 local UserInputService = Env.UserInputService
 local GuiService = Env.GuiService
 local Tween = Env.Tween
+local Notify = Env.Notify
 local UI = Env.Leaderboard
 
 local WriteFile = writefile or function() end
@@ -78,10 +79,6 @@ local function GetAsset(path)
 
 	warn("[CoreUI] Failed to load local asset: " .. path)
 	return nil
-end
-
-local function Notify(Text, Duration)
-	return Env.Notify(Text, Duration)
 end
 
 local SECONDARY_COLOR = Color3.fromRGB(50, 50, 50)
