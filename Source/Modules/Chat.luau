@@ -71,7 +71,7 @@ UI.Chat.Parent = ScreenGui
 
 UI.ChatCorner = Instance.new("UICorner")
 UI.ChatCorner.Name = "ChatCorner"
-UI.ChatCorner.CornerRadius = UDim.new(0, 12)
+UI.ChatCorner.CornerRadius = UDim.new(0, 10)
 UI.ChatCorner.Parent = UI.Chat
 
 UI.ChatLayout = Instance.new("UIListLayout")
