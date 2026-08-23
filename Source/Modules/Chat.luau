@@ -98,8 +98,8 @@ UI.MessagesLayout.Parent = UI.Messages
 UI.MessagesPadding = Instance.new("UIPadding")
 UI.MessagesPadding.Name = "MessagesPadding"
 UI.MessagesPadding.PaddingBottom = UDim.new(0, 8)
-UI.MessagesPadding.PaddingLeft = UDim.new(0, 16)
-UI.MessagesPadding.PaddingRight = UDim.new(0, 16)
+UI.MessagesPadding.PaddingLeft = UDim.new(0, 8)
+UI.MessagesPadding.PaddingRight = UDim.new(0, 8)
 UI.MessagesPadding.PaddingTop = UDim.new(0, 8)
 UI.MessagesPadding.Parent = UI.Messages
 
