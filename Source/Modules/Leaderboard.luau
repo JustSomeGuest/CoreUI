@@ -20,68 +20,68 @@ local SetClipboard = setclipboard or toclipboard or (Clipboard and Clipboard.set
 local BASE_URL = "https://raw.githubusercontent.com/JustSomeGuest/CoreUI/Main/Source/Assets/"
 
 local ASSETS = {
-    ["CoreUI/AddFriend.png"] = BASE_URL .. "AddFriend.png",
-    ["CoreUI/Unfriend.png"] = BASE_URL .. "Unfriend.png",
-    ["CoreUI/Block.png"] = BASE_URL .. "Block.png",
-    ["CoreUI/Examine.png"] = BASE_URL .. "Examine.png",
-    ["CoreUI/Goto.png"] = BASE_URL .. "Goto.png",
-    ["CoreUI/Report.png"] = BASE_URL .. "Report.png",
-    ["CoreUI/Spectate.png"] = BASE_URL .. "Spectate.png",
-    ["CoreUI/Unspectate.png"] = BASE_URL .. "Unspectate.png",
+	["CoreUI/AddFriend.png"] = BASE_URL .. "AddFriend.png",
+	["CoreUI/Unfriend.png"] = BASE_URL .. "Unfriend.png",
+	["CoreUI/Block.png"] = BASE_URL .. "Block.png",
+	["CoreUI/Examine.png"] = BASE_URL .. "Examine.png",
+	["CoreUI/Goto.png"] = BASE_URL .. "Goto.png",
+	["CoreUI/Report.png"] = BASE_URL .. "Report.png",
+	["CoreUI/Spectate.png"] = BASE_URL .. "Spectate.png",
+	["CoreUI/Unspectate.png"] = BASE_URL .. "Unspectate.png",
 }
 
 local function HttpGet(url)
-    local RequestFunc = http_request or request or (syn and syn.request)
+	local RequestFunc = http_request or request or (syn and syn.request)
 
-    if not RequestFunc then
-        local ok, result = pcall(game.HttpGet, game, url)
-        return ok and { Success = true, Body = result } or nil
-    end
+	if not RequestFunc then
+		local ok, result = pcall(game.HttpGet, game, url)
+		return ok and { Success = true, Body = result } or nil
+	end
 
-    local ok, result = pcall(RequestFunc, { Url = url, Method = "GET" })
-    return ok and result or nil
+	local ok, result = pcall(RequestFunc, { Url = url, Method = "GET" })
+	return ok and result or nil
 end
 
 local function GetAsset(path)
-    if not LoadAsset then
-        warn("[CoreUI] getcustomasset/getsynasset not supported by this executor")
-        return nil
-    end
+	if not LoadAsset then
+		warn("[CoreUI] getcustomasset/getsynasset not supported by this executor")
+		return nil
+	end
 
-    local remoteURL = ASSETS[path]
-    if not remoteURL then
-        warn("[CoreUI] No asset registered for path: " .. path)
-        return nil
-    end
+	local remoteURL = ASSETS[path]
+	if not remoteURL then
+		warn("[CoreUI] No asset registered for path: " .. path)
+		return nil
+	end
 
-    if remoteURL:match("^rbxassetid://") then
-        return remoteURL
-    end
+	if remoteURL:match("^rbxassetid://") then
+		return remoteURL
+	end
 
-    if not IsFile(path) then
-        local folder = path:match("^(.+)/[^/]+$")
-        if folder and not IsFolder(folder) then
-            MakeFolder(folder)
-        end
+	if not IsFile(path) then
+		local folder = path:match("^(.+)/[^/]+$")
+		if folder and not IsFolder(folder) then
+			MakeFolder(folder)
+		end
 
-        local response = HttpGet(remoteURL)
-        if not response or not response.Success or not response.Body then
-            warn("[CoreUI] Failed to download asset: " .. path)
-            return nil
-        end
+		local response = HttpGet(remoteURL)
+		if not response or not response.Success or not response.Body then
+			warn("[CoreUI] Failed to download asset: " .. path)
+			return nil
+		end
 
-        WriteFile(path, response.Body)
-    end
+		WriteFile(path, response.Body)
+	end
 
-    local ok, result = pcall(LoadAsset, path)
-    if ok then return result end
+	local ok, result = pcall(LoadAsset, path)
+	if ok then return result end
 
-    warn("[CoreUI] Failed to load local asset: " .. path)
-    return nil
+	warn("[CoreUI] Failed to load local asset: " .. path)
+	return nil
 end
 
 local function Notify(Text, Duration)
-    return Env.Notify(Text, Duration)
+	return Env.Notify(Text, Duration)
 end
 
 local SECONDARY_COLOR = Color3.fromRGB(50, 50, 50)
@@ -303,19 +303,19 @@ UI.InfoLayout.VerticalFlex = Enum.UIFlexAlignment.Fill
 UI.InfoLayout.Parent = UI.Info
 
 local function MakeInfoLabel(name, defaultText, textSize, layoutOrder)
-    local lbl = Instance.new("TextLabel")
-    lbl.Name = name
-    lbl.BackgroundTransparency = 1
-    lbl.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json")
-    lbl.LayoutOrder = layoutOrder
-    lbl.Size = UDim2.new(0, 100, 0, 50)
-    lbl.Text = defaultText
-    lbl.TextColor3 = Color3.fromRGB(layoutOrder == 1 and 240 or 230, layoutOrder == 1 and 240 or 230, layoutOrder == 1 and 240 or 230)
-    lbl.TextSize = textSize
-    lbl.TextXAlignment = Enum.TextXAlignment.Left
-    lbl.TextYAlignment = Enum.TextYAlignment.Center
-    lbl.Parent = UI.Info
-    return lbl
+	local lbl = Instance.new("TextLabel")
+	lbl.Name = name
+	lbl.BackgroundTransparency = 1
+	lbl.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json")
+	lbl.LayoutOrder = layoutOrder
+	lbl.Size = UDim2.new(0, 100, 0, 50)
+	lbl.Text = defaultText
+	lbl.TextColor3 = Color3.fromRGB(layoutOrder == 1 and 240 or 230, layoutOrder == 1 and 240 or 230, layoutOrder == 1 and 240 or 230)
+	lbl.TextSize = textSize
+	lbl.TextXAlignment = Enum.TextXAlignment.Left
+	lbl.TextYAlignment = Enum.TextYAlignment.Center
+	lbl.Parent = UI.Info
+	return lbl
 end
 
 UI.DisplayName = MakeInfoLabel("DisplayName", "DisplayName", 16, 1)
@@ -346,67 +346,67 @@ UI.ActionsLayout.SortOrder = Enum.SortOrder.LayoutOrder
 UI.ActionsLayout.Parent = UI.Actions
 
 local function MakeAction(name, label, iconPath, layoutOrder)
-    local btn = Instance.new("TextButton")
-    btn.Name = name
-    btn.AutomaticSize = Enum.AutomaticSize.Y
-    btn.BackgroundTransparency = 1
-    btn.BorderSizePixel = 0
-    btn.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json")
-    btn.LayoutOrder = layoutOrder
-    btn.Size = UDim2.new(0, 0, 0, 0)
-    btn.Text = ""
-    btn.TextColor3 = Color3.fromRGB(255, 255, 255)
-    btn.TextSize = 14
-    btn.Parent = UI.Actions
+	local btn = Instance.new("TextButton")
+	btn.Name = name
+	btn.AutomaticSize = Enum.AutomaticSize.Y
+	btn.BackgroundTransparency = 1
+	btn.BorderSizePixel = 0
+	btn.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json")
+	btn.LayoutOrder = layoutOrder
+	btn.Size = UDim2.new(0, 0, 0, 0)
+	btn.Text = ""
+	btn.TextColor3 = Color3.fromRGB(255, 255, 255)
+	btn.TextSize = 14
+	btn.Parent = UI.Actions
 
-    local btnPadding = Instance.new("UIPadding")
-    btnPadding.PaddingTop = UDim.new(0, 6)
-    btnPadding.PaddingBottom = UDim.new(0, 6)
-    btnPadding.PaddingLeft = UDim.new(0, 6)
-    btnPadding.PaddingRight = UDim.new(0, 6)
-    btnPadding.Parent = btn
+	local btnPadding = Instance.new("UIPadding")
+	btnPadding.PaddingTop = UDim.new(0, 6)
+	btnPadding.PaddingBottom = UDim.new(0, 6)
+	btnPadding.PaddingLeft = UDim.new(0, 6)
+	btnPadding.PaddingRight = UDim.new(0, 6)
+	btnPadding.Parent = btn
 
-    local btnLayout = Instance.new("UIListLayout")
-    btnLayout.FillDirection = Enum.FillDirection.Horizontal
-    btnLayout.HorizontalFlex = Enum.UIFlexAlignment.Fill
-    btnLayout.Padding = UDim.new(0, 4)
-    btnLayout.VerticalAlignment = Enum.VerticalAlignment.Center
-    btnLayout.Parent = btn
+	local btnLayout = Instance.new("UIListLayout")
+	btnLayout.FillDirection = Enum.FillDirection.Horizontal
+	btnLayout.HorizontalFlex = Enum.UIFlexAlignment.Fill
+	btnLayout.Padding = UDim.new(0, 4)
+	btnLayout.VerticalAlignment = Enum.VerticalAlignment.Center
+	btnLayout.Parent = btn
 
-    local icon = Instance.new("ImageLabel")
-    icon.Name = "ActionIcon"
-    icon.BackgroundTransparency = 1
-    icon.ImageColor3 = Color3.fromRGB(255, 255, 255)
-    icon.LayoutOrder = 1
-    icon.Size = UDim2.new(0, 20, 0, 20)
-    icon.Parent = btn
+	local icon = Instance.new("ImageLabel")
+	icon.Name = "ActionIcon"
+	icon.BackgroundTransparency = 1
+	icon.ImageColor3 = Color3.fromRGB(255, 255, 255)
+	icon.LayoutOrder = 1
+	icon.Size = UDim2.new(0, 20, 0, 20)
+	icon.Parent = btn
 
-    local iconRatio = Instance.new("UIAspectRatioConstraint")
-    iconRatio.AspectRatio = 1
-    iconRatio.Parent = icon
+	local iconRatio = Instance.new("UIAspectRatioConstraint")
+	iconRatio.AspectRatio = 1
+	iconRatio.Parent = icon
 
-    task.spawn(function()
-        local asset = GetAsset(iconPath)
-        if asset then icon.Image = asset end
-    end)
+	task.spawn(function()
+		local asset = GetAsset(iconPath)
+		if asset then icon.Image = asset end
+	end)
 
-    local lbl = Instance.new("TextLabel")
-    lbl.Name = "ActionLabel"
-    lbl.BackgroundTransparency = 1
-    lbl.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json")
-    lbl.LayoutOrder = 2
-    lbl.Size = UDim2.new(0.9, 0, 0, 30)
-    lbl.Text = label
-    lbl.TextColor3 = Color3.fromRGB(230, 230, 230)
-    lbl.TextSize = 16
-    lbl.TextXAlignment = Enum.TextXAlignment.Left
-    lbl.TextYAlignment = Enum.TextYAlignment.Center
-    lbl.Parent = btn
+	local lbl = Instance.new("TextLabel")
+	lbl.Name = "ActionLabel"
+	lbl.BackgroundTransparency = 1
+	lbl.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json")
+	lbl.LayoutOrder = 2
+	lbl.Size = UDim2.new(0.9, 0, 0, 30)
+	lbl.Text = label
+	lbl.TextColor3 = Color3.fromRGB(230, 230, 230)
+	lbl.TextSize = 16
+	lbl.TextXAlignment = Enum.TextXAlignment.Left
+	lbl.TextYAlignment = Enum.TextYAlignment.Center
+	lbl.Parent = btn
 
-    return btn, lbl, icon
+	return btn, lbl, icon
 end
 
-UI.AddFriendBtn, UI.AddFriendLbl = MakeAction("AddFriend", "Add Friend", "CoreUI/AddFriend.png", 1)
+UI.AddFriendBtn, UI.AddFriendLbl, UI.AddFriendIcon = MakeAction("AddFriend", "Add Friend", "CoreUI/AddFriend.png", 1)
 UI.ExamineBtn, UI.ExamineLbl = MakeAction("Examine", "Examine", "CoreUI/Examine.png", 2)
 UI.BlockBtn, UI.BlockLbl = MakeAction("Block", "Block", "CoreUI/Block.png", 3)
 UI.GotoBtn, UI.GotoLbl = MakeAction("Goto", "Goto", "CoreUI/Goto.png", 4)
@@ -418,12 +418,16 @@ local SelectedPlayer = nil
 local SelectedEntry = nil
 local IsSpectating = false
 
+local AddFriendAsset = nil
+local UnfriendAsset = nil
 local SpectateAsset = nil
 local UnspectateAsset = nil
 
 task.spawn(function()
-    SpectateAsset = GetAsset("CoreUI/Spectate.png")
-    UnspectateAsset = GetAsset("CoreUI/Unspectate.png")
+	AddFriendAsset = GetAsset("CoreUI/AddFriend.png")
+	UnfriendAsset = GetAsset("CoreUI/Unfriend.png")
+	SpectateAsset = GetAsset("CoreUI/Spectate.png")
+	UnspectateAsset = GetAsset("CoreUI/Unspectate.png")
 end)
 
 local OPEN_POS = UDim2.new(1, -8, 0, 8)
@@ -433,379 +437,396 @@ local PROFILE_OPEN_POS = UDim2.new(1, -214, 0, 8)
 local PROFILE_CLOSED_POS = UDim2.new(1, 34, 0, 8)
 
 local function ShowLeaderboard()
-    LeaderboardVisible = true
-    UI.PlayersList.Visible = true
-    Tween(UI.PlayersList, 0.35, { Position = OPEN_POS }, "Back", "Out"):Play()
+	LeaderboardVisible = true
+	UI.PlayersList.Visible = true
+	Tween(UI.PlayersList, 0.35, { Position = OPEN_POS }, "Back", "Out"):Play()
 end
 
 local function HideProfile()
-    if not UI.Profile.Visible then return end
+	if not UI.Profile.Visible then return end
 
-    local t = Tween(UI.Profile, 0.2, { Position = PROFILE_CLOSED_POS, GroupTransparency = 1 }, "Quad", "In")
-    t:Play()
-    t.Completed:Connect(function()
-        UI.Profile.Visible = false
-    end)
+	local t = Tween(UI.Profile, 0.2, { Position = PROFILE_CLOSED_POS, GroupTransparency = 1 }, "Quad", "In")
+	t:Play()
+	t.Completed:Connect(function()
+		UI.Profile.Visible = false
+	end)
 end
 
 local function HideLeaderboard()
-    LeaderboardVisible = false
-    HideProfile()
+	LeaderboardVisible = false
+	HideProfile()
 
-    local t = Tween(UI.PlayersList, 0.25, { Position = CLOSED_POS }, "Quad", "In")
-    t:Play()
-    t.Completed:Connect(function()
-        if not LeaderboardVisible then
-            UI.PlayersList.Visible = false
-        end
-    end)
+	local t = Tween(UI.PlayersList, 0.25, { Position = CLOSED_POS }, "Quad", "In")
+	t:Play()
+	t.Completed:Connect(function()
+		if not LeaderboardVisible then
+			UI.PlayersList.Visible = false
+		end
+	end)
 end
 
 local function SetSelectedEntry(entry)
-    if SelectedEntry then
-        SelectedEntry.BackgroundTransparency = 1
-    end
-    SelectedEntry = entry
-    if SelectedEntry then
-        SelectedEntry.BackgroundTransparency = 0.95
-    end
+	if SelectedEntry then
+		SelectedEntry.BackgroundTransparency = 1
+	end
+	SelectedEntry = entry
+	if SelectedEntry then
+		SelectedEntry.BackgroundTransparency = 0.95
+	end
+end
+
+local function UpdateAddFriendButton(isFriend)
+	UI.AddFriendLbl.Text = isFriend and "Unfriend" or "Add Friend"
+	if UI.AddFriendIcon then
+		if isFriend and UnfriendAsset then
+			UI.AddFriendIcon.Image = UnfriendAsset
+		elseif not isFriend and AddFriendAsset then
+			UI.AddFriendIcon.Image = AddFriendAsset
+		end
+	end
 end
 
 local function ShowProfile(player)
-    SelectedPlayer = player
+	SelectedPlayer = player
 
-    local localPlayer = Players.LocalPlayer
-    local isSelf = player.UserId == localPlayer.UserId
-    local isFriend = localPlayer:IsFriendsWith(player.UserId)
+	local localPlayer = Players.LocalPlayer
+	local isSelf = player.UserId == localPlayer.UserId
+	local isFriend = localPlayer:IsFriendsWith(player.UserId)
 
-    UI.DisplayName.Text = player.DisplayName
-    UI.Username.Text = "@" .. player.Name
-    UI.UserId.Text = tostring(player.UserId)
+	UI.DisplayName.Text = player.DisplayName
+	UI.Username.Text = "@" .. player.Name
+	UI.UserId.Text = tostring(player.UserId)
 
-    UI.Headshot.Image = Players:GetUserThumbnailAsync(
-        player.UserId,
-        Enum.ThumbnailType.HeadShot,
-        Enum.ThumbnailSize.Size100x100
-    )
+	UI.Headshot.Image = Players:GetUserThumbnailAsync(
+		player.UserId,
+		Enum.ThumbnailType.HeadShot,
+		Enum.ThumbnailSize.Size100x100
+	)
 
-    UI.AddFriendLbl.Text = isFriend and "Unfriend" or "Add Friend"
-    UI.SpectatelLbl.Text = IsSpectating and "Unspectate" or "Spectate"
-    if UI.SpectateIcon then
-        UI.SpectateIcon.Image = (IsSpectating and UnspectateAsset) or SpectateAsset or UI.SpectateIcon.Image
-    end
+	UpdateAddFriendButton(isFriend)
 
-    UI.AddFriendBtn.Visible = not isSelf
-    UI.GotoBtn.Visible = not isSelf
-    UI.SpectateBtn.Visible = not isSelf
-    UI.ReportBtn.Visible = not isSelf
+	UI.SpectatelLbl.Text = IsSpectating and "Unspectate" or "Spectate"
+	if UI.SpectateIcon then
+		UI.SpectateIcon.Image = (IsSpectating and UnspectateAsset) or SpectateAsset or UI.SpectateIcon.Image
+	end
 
-    UI.Profile.Position = PROFILE_CLOSED_POS
-    UI.Profile.GroupTransparency = 1
-    UI.Profile.Visible = true
-    Tween(UI.Profile, 0.3, { Position = PROFILE_OPEN_POS, GroupTransparency = 0 }, "Back", "Out"):Play()
+	UI.AddFriendBtn.Visible = not isSelf
+	UI.GotoBtn.Visible = not isSelf
+	UI.SpectateBtn.Visible = not isSelf
+	UI.ReportBtn.Visible = not isSelf
+
+	UI.Profile.Position = PROFILE_CLOSED_POS
+	UI.Profile.GroupTransparency = 1
+	UI.Profile.Visible = true
+	Tween(UI.Profile, 0.3, { Position = PROFILE_OPEN_POS, GroupTransparency = 0 }, "Back", "Out"):Play()
 end
 
 local function RefreshPlayers()
-    for _, child in ipairs(UI.Players:GetChildren()) do
-        if child ~= UI.PlayerTemplate
-            and child ~= UI.PlayerDividerTemplate
-            and child ~= UI.PlayersLayout then
-            child:Destroy()
-        end
-    end
+	for _, child in ipairs(UI.Players:GetChildren()) do
+		if child ~= UI.PlayerTemplate
+			and child ~= UI.PlayerDividerTemplate
+			and child ~= UI.PlayersLayout then
+			child:Destroy()
+		end
+	end
 
-    local sortedPlayers = Players:GetPlayers()
-    table.sort(sortedPlayers, function(a, b)
-        return a.DisplayName:lower() < b.DisplayName:lower()
-    end)
+	local sortedPlayers = Players:GetPlayers()
+	table.sort(sortedPlayers, function(a, b)
+		return a.DisplayName:lower() < b.DisplayName:lower()
+	end)
 
-    SelectedEntry = nil
+	SelectedEntry = nil
 
-    for i, player in ipairs(sortedPlayers) do
-        local entry = UI.PlayerTemplate:Clone()
-        entry.Name = player.Name
-        entry.Text = player.DisplayName
-        entry.LayoutOrder = (i - 1) * 2
-        entry.Visible = true
-        entry.Parent = UI.Players
+	for i, player in ipairs(sortedPlayers) do
+		local entry = UI.PlayerTemplate:Clone()
+		entry.Name = player.Name
+		entry.Text = player.DisplayName
+		entry.LayoutOrder = (i - 1) * 2
+		entry.Visible = true
+		entry.Parent = UI.Players
 
-        if SelectedPlayer and player.UserId == SelectedPlayer.UserId then
-            entry.BackgroundTransparency = 0.95
-            SelectedEntry = entry
-        end
+		if SelectedPlayer and player.UserId == SelectedPlayer.UserId then
+			entry.BackgroundTransparency = 0.95
+			SelectedEntry = entry
+		end
 
-        entry.Activated:Connect(function()
-            if SelectedPlayer and player.UserId == SelectedPlayer.UserId then
-                SetSelectedEntry(nil)
-                SelectedPlayer = nil
-                HideProfile()
-            else
-                SetSelectedEntry(entry)
-                ShowProfile(player)
-            end
-        end)
+		entry.Activated:Connect(function()
+			if SelectedPlayer and player.UserId == SelectedPlayer.UserId then
+				SetSelectedEntry(nil)
+				SelectedPlayer = nil
+				HideProfile()
+			else
+				SetSelectedEntry(entry)
+				ShowProfile(player)
+			end
+		end)
 
-        if i < #sortedPlayers then
-            local divider = UI.PlayerDividerTemplate:Clone()
-            divider.LayoutOrder = (i - 1) * 2 + 1
-            divider.Visible = true
-            divider.Parent = UI.Players
-        end
-    end
+		if i < #sortedPlayers then
+			local divider = UI.PlayerDividerTemplate:Clone()
+			divider.LayoutOrder = (i - 1) * 2 + 1
+			divider.Visible = true
+			divider.Parent = UI.Players
+		end
+	end
 end
 
 Players.PlayerAdded:Connect(RefreshPlayers)
 Players.PlayerRemoving:Connect(function(player)
-    if SelectedPlayer == player then
-        HideProfile()
-        SelectedPlayer = nil
-    end
-    RefreshPlayers()
+	if SelectedPlayer == player then
+		HideProfile()
+		SelectedPlayer = nil
+	end
+	RefreshPlayers()
 end)
 
 RefreshPlayers()
 
 UI.DisplayName.InputBegan:Connect(function(Input)
-    if Input.UserInputType == Enum.UserInputType.MouseButton1
-    or Input.UserInputType == Enum.UserInputType.Touch then
-        if SetClipboard then
-            SetClipboard(UI.DisplayName.Text)
-            Notify("Display name copied!", 2)
-        end
-    end
+	if Input.UserInputType == Enum.UserInputType.MouseButton1
+		or Input.UserInputType == Enum.UserInputType.Touch then
+		if SetClipboard then
+			SetClipboard(UI.DisplayName.Text)
+			Notify("Display name copied!", 2)
+		end
+	end
 end)
 
 UI.Username.InputBegan:Connect(function(Input)
-    if Input.UserInputType == Enum.UserInputType.MouseButton1
-    or Input.UserInputType == Enum.UserInputType.Touch then
-        if SetClipboard then
-            SetClipboard(UI.Username.Text:sub(2))
-            Notify("Username copied!", 2)
-        end
-    end
+	if Input.UserInputType == Enum.UserInputType.MouseButton1
+		or Input.UserInputType == Enum.UserInputType.Touch then
+		if SetClipboard then
+			SetClipboard(UI.Username.Text:sub(2))
+			Notify("Username copied!", 2)
+		end
+	end
 end)
 
 UI.UserId.InputBegan:Connect(function(Input)
-    if Input.UserInputType == Enum.UserInputType.MouseButton1
-    or Input.UserInputType == Enum.UserInputType.Touch then
-        if SetClipboard then
-            SetClipboard(UI.UserId.Text)
-            Notify("UserId copied!", 2)
-        end
-    end
+	if Input.UserInputType == Enum.UserInputType.MouseButton1
+		or Input.UserInputType == Enum.UserInputType.Touch then
+		if SetClipboard then
+			SetClipboard(UI.UserId.Text)
+			Notify("UserId copied!", 2)
+		end
+	end
 end)
 
 UI.AddFriendBtn.Activated:Connect(function()
-    if not SelectedPlayer then return end
-    if Players.LocalPlayer:IsFriendsWith(SelectedPlayer.UserId) then
-        UI.AddFriendLbl.Text = "Add Friend"
-    else
-        StarterGui:SetCore("PromptSendFriendRequest", SelectedPlayer)
-        UI.AddFriendLbl.Text = "Unfriend"
-    end
+	if not SelectedPlayer then return end
+	local isFriend = Players.LocalPlayer:IsFriendsWith(SelectedPlayer.UserId)
+	if isFriend then
+		StarterGui:SetCore("PromptUnfriend", SelectedPlayer)
+	else
+		StarterGui:SetCore("PromptSendFriendRequest", SelectedPlayer)
+	end
+	task.delay(1, function()
+		if not SelectedPlayer then return end
+		local nowFriend = Players.LocalPlayer:IsFriendsWith(SelectedPlayer.UserId)
+		UpdateAddFriendButton(nowFriend)
+	end)
 end)
 
 UI.ExamineBtn.Activated:Connect(function()
-    if not SelectedPlayer then return end
-    GuiService:InspectPlayerFromUserId(SelectedPlayer.UserId)
+	if not SelectedPlayer then return end
+	GuiService:InspectPlayerFromUserId(SelectedPlayer.UserId)
 end)
 
 UI.BlockBtn.Activated:Connect(function()
-    if not SelectedPlayer then return end
-    StarterGui:SetCore("PromptBlockPlayer", SelectedPlayer)
+	if not SelectedPlayer then return end
+	StarterGui:SetCore("PromptBlockPlayer", SelectedPlayer)
 end)
 
 UI.GotoBtn.Activated:Connect(function()
-    if not SelectedPlayer then return end
-    local targetChar = SelectedPlayer.Character
-    local localChar = Players.LocalPlayer.Character
+	if not SelectedPlayer then return end
+	local targetChar = SelectedPlayer.Character
+	local localChar = Players.LocalPlayer.Character
 
-    if targetChar and localChar then
-        local targetRoot = targetChar:FindFirstChild("HumanoidRootPart")
-        local localRoot = localChar:FindFirstChild("HumanoidRootPart")
-        if targetRoot and localRoot then
-            localRoot.CFrame = targetRoot.CFrame + Vector3.new(0, 0, 3)
-        end
-    end
+	if targetChar and localChar then
+		local targetRoot = targetChar:FindFirstChild("HumanoidRootPart")
+		local localRoot = localChar:FindFirstChild("HumanoidRootPart")
+		if targetRoot and localRoot then
+			localRoot.CFrame = targetRoot.CFrame + Vector3.new(0, 0, 3)
+		end
+	end
 end)
 
 UI.ReportBtn.Activated:Connect(function()
-    if not SelectedPlayer then return end
-    StarterGui:SetCore("PromptReportPlayer", SelectedPlayer)
+	if not SelectedPlayer then return end
+	StarterGui:SetCore("PromptReportPlayer", SelectedPlayer)
 end)
 
 UI.SpectateBtn.Activated:Connect(function()
-    if not SelectedPlayer then return end
-    local camera = workspace.CurrentCamera
+	if not SelectedPlayer then return end
+	local camera = workspace.CurrentCamera
 
-    if IsSpectating then
-        IsSpectating = false
-        UI.SpectatelLbl.Text = "Spectate"
-        if UI.SpectateIcon and SpectateAsset then
-            UI.SpectateIcon.Image = SpectateAsset
-        end
-        camera.CameraSubject = Players.LocalPlayer.Character
-            and Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
-        camera.CameraType = Enum.CameraType.Custom
-    else
-        local targetChar = SelectedPlayer.Character
-        local humanoid = targetChar and targetChar:FindFirstChildOfClass("Humanoid")
-        if not humanoid then return end
+	if IsSpectating then
+		IsSpectating = false
+		UI.SpectatelLbl.Text = "Spectate"
+		if UI.SpectateIcon and SpectateAsset then
+			UI.SpectateIcon.Image = SpectateAsset
+		end
+		camera.CameraSubject = Players.LocalPlayer.Character
+			and Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+		camera.CameraType = Enum.CameraType.Custom
+	else
+		local targetChar = SelectedPlayer.Character
+		local humanoid = targetChar and targetChar:FindFirstChildOfClass("Humanoid")
+		if not humanoid then return end
 
-        IsSpectating = true
-        UI.SpectatelLbl.Text = "Unspectate"
-        if UI.SpectateIcon and UnspectateAsset then
-            UI.SpectateIcon.Image = UnspectateAsset
-        end
-        camera.CameraSubject = humanoid
-        camera.CameraType = Enum.CameraType.Custom
-    end
+		IsSpectating = true
+		UI.SpectatelLbl.Text = "Unspectate"
+		if UI.SpectateIcon and UnspectateAsset then
+			UI.SpectateIcon.Image = UnspectateAsset
+		end
+		camera.CameraSubject = humanoid
+		camera.CameraType = Enum.CameraType.Custom
+	end
 end)
 
 UI.Close.Activated:Connect(HideLeaderboard)
 
 local topbarMenu = CoreGui
-    :WaitForChild("TopBarApp", 10)
-    :WaitForChild("TopBarApp", 10)
-    :WaitForChild("UnibarLeftFrame", 10)
-    :WaitForChild("UnibarMenu", 10)
+	:WaitForChild("TopBarApp", 10)
+	:WaitForChild("TopBarApp", 10)
+	:WaitForChild("UnibarLeftFrame", 10)
+	:WaitForChild("UnibarMenu", 10)
 
 local subMenuHost = topbarMenu:WaitForChild("SubMenuHost", 10)
 
 local function GetMainCanvas()
-    local nineDot = subMenuHost:FindFirstChild("nine_dot")
-    if not nineDot then return nil end
-    local sf = nineDot:FindFirstChild("ScrollingFrame")
-    if not sf then return nil end
-    return sf:FindFirstChild("MainCanvas")
+	local nineDot = subMenuHost:FindFirstChild("nine_dot")
+	if not nineDot then return nil end
+	local sf = nineDot:FindFirstChild("ScrollingFrame")
+	if not sf then return nil end
+	return sf:FindFirstChild("MainCanvas")
 end
 
 local function CreateLB(mainCanvas)
-    local existing = mainCanvas:FindFirstChild("leaderboard")
-    if existing then existing:Destroy() end
+	local existing = mainCanvas:FindFirstChild("leaderboard")
+	if existing then existing:Destroy() end
 
-    local btn = Instance.new("ImageButton")
-    btn.Name = "leaderboard"
-    btn.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-    btn.BackgroundTransparency = 1
-    btn.BorderSizePixel = 0
-    btn.LayoutOrder = 1
-    btn.Size = UDim2.new(1, 0, 0, 56)
+	local btn = Instance.new("ImageButton")
+	btn.Name = "leaderboard"
+	btn.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+	btn.BackgroundTransparency = 1
+	btn.BorderSizePixel = 0
+	btn.LayoutOrder = 1
+	btn.Size = UDim2.new(1, 0, 0, 56)
 
-    local corner = Instance.new("UICorner")
-    corner.Parent = btn
+	local corner = Instance.new("UICorner")
+	corner.Parent = btn
 
-    local rowLabel = Instance.new("Frame")
-    rowLabel.Name = "RowLabel"
-    rowLabel.BackgroundTransparency = 1
-    rowLabel.BorderSizePixel = 0
-    rowLabel.LayoutOrder = 1
-    rowLabel.Size = UDim2.new(1, 0, 1, 0)
-    rowLabel.Parent = btn
+	local rowLabel = Instance.new("Frame")
+	rowLabel.Name = "RowLabel"
+	rowLabel.BackgroundTransparency = 1
+	rowLabel.BorderSizePixel = 0
+	rowLabel.LayoutOrder = 1
+	rowLabel.Size = UDim2.new(1, 0, 1, 0)
+	rowLabel.Parent = btn
 
-    local rowLayout = Instance.new("UIListLayout")
-    rowLayout.FillDirection = Enum.FillDirection.Horizontal
-    rowLayout.VerticalAlignment = Enum.VerticalAlignment.Center
-    rowLayout.Padding = UDim.new(0, 8)
-    rowLayout.Parent = rowLabel
+	local rowLayout = Instance.new("UIListLayout")
+	rowLayout.FillDirection = Enum.FillDirection.Horizontal
+	rowLayout.VerticalAlignment = Enum.VerticalAlignment.Center
+	rowLayout.Padding = UDim.new(0, 8)
+	rowLayout.Parent = rowLabel
 
-    local rowPadding = Instance.new("UIPadding")
-    rowPadding.PaddingLeft = UDim.new(0, 8)
-    rowPadding.PaddingRight = UDim.new(0, 8)
-    rowPadding.Parent = rowLabel
+	local rowPadding = Instance.new("UIPadding")
+	rowPadding.PaddingLeft = UDim.new(0, 8)
+	rowPadding.PaddingRight = UDim.new(0, 8)
+	rowPadding.Parent = rowLabel
 
-    local iconHost = Instance.new("Frame")
-    iconHost.Name = "IconHost"
-    iconHost.BackgroundTransparency = 1
-    iconHost.BorderSizePixel = 0
-    iconHost.LayoutOrder = 1
-    iconHost.Size = UDim2.new(0, 44, 0, 44)
-    iconHost.Parent = rowLabel
+	local iconHost = Instance.new("Frame")
+	iconHost.Name = "IconHost"
+	iconHost.BackgroundTransparency = 1
+	iconHost.BorderSizePixel = 0
+	iconHost.LayoutOrder = 1
+	iconHost.Size = UDim2.new(0, 44, 0, 44)
+	iconHost.Parent = rowLabel
 
-    local iconFrame = Instance.new("Frame")
-    iconFrame.Name = "IntegrationIconFrame"
-    iconFrame.BackgroundTransparency = 1
-    iconFrame.BorderSizePixel = 0
-    iconFrame.Size = UDim2.new(1, 0, 1, 0)
-    iconFrame.Parent = iconHost
+	local iconFrame = Instance.new("Frame")
+	iconFrame.Name = "IntegrationIconFrame"
+	iconFrame.BackgroundTransparency = 1
+	iconFrame.BorderSizePixel = 0
+	iconFrame.Size = UDim2.new(1, 0, 1, 0)
+	iconFrame.Parent = iconHost
 
-    local iconFrameLayout = Instance.new("UIListLayout")
-    iconFrameLayout.FillDirection = Enum.FillDirection.Horizontal
-    iconFrameLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
-    iconFrameLayout.VerticalAlignment = Enum.VerticalAlignment.Center
-    iconFrameLayout.Parent = iconFrame
+	local iconFrameLayout = Instance.new("UIListLayout")
+	iconFrameLayout.FillDirection = Enum.FillDirection.Horizontal
+	iconFrameLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+	iconFrameLayout.VerticalAlignment = Enum.VerticalAlignment.Center
+	iconFrameLayout.Parent = iconFrame
 
-    local icon = Instance.new("TextLabel")
-    icon.Name = "IntegrationIcon"
-    icon.BackgroundTransparency = 1
-    icon.FontFace = Font.new("rbxasset://LuaPackages/Packages/_Index/BuilderIcons/BuilderIcons/BuilderIcons.json")
-    icon.Text = "trophy"
-    icon.TextColor3 = Color3.fromRGB(247, 247, 248)
-    icon.TextSize = 24
-    icon.Size = UDim2.new(0, 36, 0, 36)
-    icon.Parent = iconFrame
+	local icon = Instance.new("TextLabel")
+	icon.Name = "IntegrationIcon"
+	icon.BackgroundTransparency = 1
+	icon.FontFace = Font.new("rbxasset://LuaPackages/Packages/_Index/BuilderIcons/BuilderIcons/BuilderIcons.json")
+	icon.Text = "trophy"
+	icon.TextColor3 = Color3.fromRGB(247, 247, 248)
+	icon.TextSize = 24
+	icon.Size = UDim2.new(0, 36, 0, 36)
+	icon.Parent = iconFrame
 
-    local label = Instance.new("Frame")
-    label.Name = "Label"
-    label.BackgroundTransparency = 1
-    label.BorderSizePixel = 0
-    label.Size = UDim2.new(0, 0, 1, 0)
-    label.Parent = rowLabel
+	local label = Instance.new("Frame")
+	label.Name = "Label"
+	label.BackgroundTransparency = 1
+	label.BorderSizePixel = 0
+	label.Size = UDim2.new(0, 0, 1, 0)
+	label.Parent = rowLabel
 
-    local flexItem = Instance.new("UIFlexItem")
-    flexItem.FlexMode = Enum.UIFlexMode.Fill
-    flexItem.Parent = label
+	local flexItem = Instance.new("UIFlexItem")
+	flexItem.FlexMode = Enum.UIFlexMode.Fill
+	flexItem.Parent = label
 
-    local textLabel = Instance.new("TextLabel")
-    textLabel.Name = "StyledTextLabel"
-    textLabel.BackgroundTransparency = 1
-    textLabel.FontFace = Font.new("rbxasset://fonts/families/BuilderSans.json", Enum.FontWeight.Bold)
-    textLabel.RichText = true
-    textLabel.Text = "Leaderboard"
-    textLabel.TextColor3 = Color3.fromRGB(247, 247, 248)
-    textLabel.TextScaled = true
-    textLabel.TextSize = 20
-    textLabel.TextTruncate = Enum.TextTruncate.AtEnd
-    textLabel.TextWrapped = true
-    textLabel.TextXAlignment = Enum.TextXAlignment.Left
-    textLabel.Size = UDim2.new(1, 0, 1, 0)
-    textLabel.Parent = label
+	local textLabel = Instance.new("TextLabel")
+	textLabel.Name = "StyledTextLabel"
+	textLabel.BackgroundTransparency = 1
+	textLabel.FontFace = Font.new("rbxasset://fonts/families/BuilderSans.json", Enum.FontWeight.Bold)
+	textLabel.RichText = true
+	textLabel.Text = "Leaderboard"
+	textLabel.TextColor3 = Color3.fromRGB(247, 247, 248)
+	textLabel.TextScaled = true
+	textLabel.TextSize = 20
+	textLabel.TextTruncate = Enum.TextTruncate.AtEnd
+	textLabel.TextWrapped = true
+	textLabel.TextXAlignment = Enum.TextXAlignment.Left
+	textLabel.Size = UDim2.new(1, 0, 1, 0)
+	textLabel.Parent = label
 
-    local textConstraint = Instance.new("UITextSizeConstraint")
-    textConstraint.MaxTextSize = 20
-    textConstraint.MinTextSize = 20
-    textConstraint.Parent = textLabel
+	local textConstraint = Instance.new("UITextSizeConstraint")
+	textConstraint.MaxTextSize = 20
+	textConstraint.MinTextSize = 20
+	textConstraint.Parent = textLabel
 
-    btn.Activated:Connect(function()
-        if LeaderboardVisible then
-            HideLeaderboard()
-        else
-            ShowLeaderboard()
-        end
-    end)
+	btn.Activated:Connect(function()
+		if LeaderboardVisible then
+			HideLeaderboard()
+		else
+			ShowLeaderboard()
+		end
+	end)
 
-    btn.Parent = mainCanvas
+	btn.Parent = mainCanvas
 end
 
 local function TryBuild()
-    local mainCanvas = GetMainCanvas()
-    if mainCanvas then
-        CreateLB(mainCanvas)
-    end
+	local mainCanvas = GetMainCanvas()
+	if mainCanvas then
+		CreateLB(mainCanvas)
+	end
 end
 
 local function HookLB()
-    pcall(function()
-        StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
-    end)
+	pcall(function()
+		StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
+	end)
 
-    TryBuild()
+	TryBuild()
 
-    subMenuHost.ChildAdded:Connect(function(child)
-        if child.Name == "nine_dot" then
-            task.defer(TryBuild)
-        end
-    end)
+	subMenuHost.ChildAdded:Connect(function(child)
+		if child.Name == "nine_dot" then
+			task.defer(TryBuild)
+		end
+	end)
 end
 
 HookLB()
@@ -813,12 +834,12 @@ HookLB()
 local tabDebounce = false
 
 UserInputService.InputBegan:Connect(function(input, gameProcessed)
-    if gameProcessed or input.KeyCode ~= Enum.KeyCode.Tab or tabDebounce then return end
+	if gameProcessed or input.KeyCode ~= Enum.KeyCode.Tab or tabDebounce then return end
 
-    tabDebounce = true
-    if LeaderboardVisible then HideLeaderboard() else ShowLeaderboard() end
+	tabDebounce = true
+	if LeaderboardVisible then HideLeaderboard() else ShowLeaderboard() end
 
-    task.delay(LeaderboardVisible and 0.35 or 0.25, function()
-        tabDebounce = false
-    end)
+	task.delay(LeaderboardVisible and 0.35 or 0.25, function()
+		tabDebounce = false
+	end)
 end)
