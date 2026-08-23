@@ -100,7 +100,18 @@ local function Notify(Text, Duration)
         Duration = Duration
     })
 end
-  
+
+local function IsMobile()
+    return UserInputService.TouchEnabled
+        and not UserInputService.KeyboardEnabled
+        and not UserInputService.MouseEnabled
+end
+
+local function IsDesktop()
+    return UserInputService.KeyboardEnabled
+        or UserInputService.MouseEnabled
+end
+
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Name = UID()
 ScreenGui.ResetOnSpawn = false
@@ -126,6 +137,8 @@ Shared.CoreUI.Env = {
     RGBToHex = RGBToHex,
     FindDescendant = FindDescendant,
     Notify = Notify,
+    IsMobile = IsMobile,
+    IsDesktop = IsDesktop,
       
     Chat = {},
     Leaderboard = {}
