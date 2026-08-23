@@ -88,24 +88,19 @@ UI.Folder.Parent = ScreenGui
 UI.PlayersList = Instance.new("CanvasGroup")
 UI.PlayersList.Name = "PlayersList"
 UI.PlayersList.AnchorPoint = Vector2.new(1, 0)
-UI.PlayersList.AutomaticSize = Enum.AutomaticSize.Y
+UI.PlayersList.AutomaticSize = Enum.AutomaticSize.None
 UI.PlayersList.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
 UI.PlayersList.BackgroundTransparency = 0.08
 UI.PlayersList.BorderSizePixel = 0
 UI.PlayersList.ClipsDescendants = false
 UI.PlayersList.Position = UDim2.new(1, 8, 0, 8)
-UI.PlayersList.Size = UDim2.new(0, 200, 0, 0)
+UI.PlayersList.Size = UDim2.new(0, 200, 0, 314)
 UI.PlayersList.Visible = false
 UI.PlayersList.Parent = UI.Folder
 
 UI.LeaderboardCorner = Instance.new("UICorner")
 UI.LeaderboardCorner.CornerRadius = UDim.new(0, 8)
 UI.LeaderboardCorner.Parent = UI.PlayersList
-
-UI.LeaderboardConst = Instance.new("UISizeConstraint")
-UI.LeaderboardConst.MinSize = Vector2.new(200, 0)
-UI.LeaderboardConst.MaxSize = Vector2.new(200, 314)
-UI.LeaderboardConst.Parent = UI.PlayersList
 
 UI.LeaderboardLayout = Instance.new("UIListLayout")
 UI.LeaderboardLayout.FillDirection = Enum.FillDirection.Vertical
@@ -180,14 +175,14 @@ UI.ClosePadding.Parent = UI.Close
 UI.Players = Instance.new("ScrollingFrame")
 UI.Players.Name = "Players"
 UI.Players.AutomaticCanvasSize = Enum.AutomaticSize.Y
-UI.Players.AutomaticSize = Enum.AutomaticSize.Y
+UI.Players.AutomaticSize = Enum.AutomaticSize.None
 UI.Players.BackgroundTransparency = 1
 UI.Players.BorderSizePixel = 0
 UI.Players.CanvasSize = UDim2.new(0, 0, 0, 0)
 UI.Players.LayoutOrder = 2
 UI.Players.ScrollBarThickness = 0
 UI.Players.ScrollingDirection = Enum.ScrollingDirection.Y
-UI.Players.Size = UDim2.new(1, 0, 0, 0)
+UI.Players.Size = UDim2.new(1, 0, 1, -37)
 UI.Players.Parent = UI.PlayersList
 
 UI.PlayersLayout = Instance.new("UIListLayout")
@@ -234,17 +229,13 @@ UI.Profile.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
 UI.Profile.BackgroundTransparency = 0.08
 UI.Profile.BorderSizePixel = 0
 UI.Profile.Position = UDim2.new(1, -214, 0, 8)
-UI.Profile.Size = UDim2.new(0, 240, 1, -16)
+UI.Profile.Size = UDim2.new(0, 240, 0, 414)
 UI.Profile.Visible = false
 UI.Profile.Parent = UI.Folder
 
 UI.ProfileCorner = Instance.new("UICorner")
 UI.ProfileCorner.CornerRadius = UDim.new(0, 8)
 UI.ProfileCorner.Parent = UI.Profile
-
-UI.ProfileConst = Instance.new("UISizeConstraint")
-UI.ProfileConst.MaxSize = Vector2.new(240, 414)
-UI.ProfileConst.Parent = UI.Profile
 
 UI.ProfilePadding = Instance.new("UIPadding")
 UI.ProfilePadding.PaddingBottom = UDim.new(0, 8)
