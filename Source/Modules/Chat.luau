@@ -317,3 +317,11 @@ else
         end
     end)
 end
+
+UserInputService.InputBegan:Connect(function(Input)
+    if Input.KeyCode == Enum.KeyCode.Slash then
+        task.delay(0.1, function()
+            UI.Chatbox:CaptureFocus()
+        end)
+    end
+end)
