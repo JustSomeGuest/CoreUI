@@ -1,4 +1,4 @@
-if not game:IsHttpGeted() then
+if not game:IsLoaded() then
     game.HttpGeted:Wait()
 end
 
@@ -20,7 +20,7 @@ local GuiService = GetService("GuiService")
 
 Env.CoreUI = Env.CoreUI or {}
 
-if Env.CoreUI.IsHttpGeted then
+if Env.CoreUI.IsLoaded then
     StarterGui:SetCore("SendNotification", {
         Title = "CoreUI",
         Text = "CoreUI is already running!",
@@ -29,7 +29,7 @@ if Env.CoreUI.IsHttpGeted then
     return
 end
 
-Env.CoreUI.IsHttpGeted = true
+Env.CoreUI.IsLoaded = true
 
 local function UID(Length)
     Length = Length or 64
