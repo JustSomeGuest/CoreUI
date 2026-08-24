@@ -1,15 +1,8 @@
-local Shared = (type(getgenv) == "function" and getgenv()) or shared or _G
-local Env = Shared.CoreUI.Env
+if not game:IsLoaded() then
+    game.Loaded:Wait()
+end
 
-local CoreGui = Env.CoreGui
-local Players = Env.Players
-local ScreenGui = Env.ScreenGui
-local StarterGui = Env.StarterGui
-local UserInputService = Env.UserInputService
-local GuiService = Env.GuiService
-local Tween = Env.Tween
-local Notify = Env.Notify
-local UI = Env.Leaderboard
+local UI = Leaderboard
 
 local WriteFile = writefile or function() end
 local IsFile = isfile or function() return false end
