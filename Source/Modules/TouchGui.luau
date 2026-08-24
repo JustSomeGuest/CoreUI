@@ -1,8 +1,6 @@
-local Shared = (type(getgenv) == "function" and getgenv()) or shared or _G
-local Env = Shared.CoreUI.Env
-
-local UserInputService = Env.UserInputService
-local Players = Env.Players
+if not game:IsLoaded() then
+    game.Loaded:Wait()
+end
 
 if not UserInputService.TouchEnabled then
     return
