@@ -2,22 +2,7 @@ if not game:IsLoaded() then
     game.Loaded:Wait()
 end
 
-local Shared = (type(getgenv) == "function" and getgenv()) or shared or _G
-local Env = Shared.CoreUI.Env
-
-local CoreGui = Env.CoreGui
-local Players = Env.Players
-local TextChatService = Env.TextChatService
-local UserInputService = Env.UserInputService
-
-local ScreenGui = Env.ScreenGui
-local Tween = Env.Tween
-local Protect = Env.Protect
-local RGBToHex = Env.RGBToHex
-local FindDescendant = Env.FindDescendant
-local IsMobile = Env.IsMobile
-local IsDesktop = Env.IsDesktop
-local UI = {}
+local UI = Chat
 
 local SECONDARY_COLOR = Color3.fromRGB(50, 50, 50)
 
