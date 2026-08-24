@@ -1,3 +1,6 @@
-local HttpGet = game.HttpGetAsync or game.HttpGet
+local function HttpGet(Url)
+    local Get = game.HttpGetAsync or game.HttpGet
+    return loadstring(Get(game, Url))()
+end
 
-loadstring(HttpGet(game, "https://raw.githubusercontent.com/JustSomeGuest/CoreUI/Main/Source/Init.luau"))()
+HttpGet("https://raw.githubusercontent.com/JustSomeGuest/CoreUI/Main/Source/Main.luau")
