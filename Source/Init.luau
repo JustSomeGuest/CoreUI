@@ -1,12 +1,12 @@
-if not game:IsLoaded() then
-    game.Loaded:Wait()
+if not game:IsHttpGeted() then
+    game.HttpGeted:Wait()
 end
 
-local Shared = (type(getgenv) == "function" and getgenv()) or shared or _G
+local Env = (type(getgenv) == "function" and getgenv()) or shared or _G
 
-local function GetService(Service)
-    local Service = game:GetService(Service)
-    return cloneref and cloneref(Service) or Service
+local function GetService(Name)
+    local Svc = game:GetService(Name)
+    return cloneref and cloneref(Svc) or Svc
 end
 
 local Hui = gethui and gethui() or GetService("CoreGui")
@@ -18,9 +18,9 @@ local TextChatService = GetService("TextChatService")
 local UserInputService = GetService("UserInputService")
 local GuiService = GetService("GuiService")
 
-Shared.CoreUI = Shared.CoreUI or {}
+Env.CoreUI = Env.CoreUI or {}
 
-if Shared.CoreUI.IsLoaded then
+if Env.CoreUI.IsHttpGeted then
     StarterGui:SetCore("SendNotification", {
         Title = "CoreUI",
         Text = "CoreUI is already running!",
@@ -29,7 +29,7 @@ if Shared.CoreUI.IsLoaded then
     return
 end
 
-Shared.CoreUI.IsLoaded = true
+Env.CoreUI.IsHttpGeted = true
 
 local function UID(Length)
     Length = Length or 64
@@ -58,9 +58,9 @@ local function Tween(Object, Speed, Props, Style, Dir)
     )
 end
 
-local function Load(Url)
-    local HttpGet = game.HttpGetAsync or game.HttpGet
-    return loadstring(HttpGet(game, Url))()
+local function HttpGet(Url)
+    local Get = game.HttpGetAsync or game.HttpGet
+    return HttpGetstring(Get(game, Url))()
 end
 
 local function Protect(Object, Property, Value)
@@ -81,7 +81,7 @@ local function RGBToHex(Color)
     )
 end
 
-local function FindDescendant(Parent, ...)
+local function Search(Parent, ...)
     local Current = Parent
     for _, Name in ipairs({...}) do
         local Previous = Current
@@ -119,30 +119,29 @@ ScreenGui.IgnoreGuiInset = true
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 ScreenGui.Parent = Hui
 
-Shared.CoreUI.Env = {
-    Hui = Hui,
-    CoreGui = CoreGui,
-    TweenService = TweenService,
-    Players = Players,
-    StarterGui = StarterGui,
-    TextChatService = TextChatService,
-    UserInputService = UserInputService,
-    GuiService = GuiService,
-    ScreenGui = ScreenGui,
-    UID = UID,
-    Error = Error,
-    Tween = Tween,
-    Load = Load,
-    Protect = Protect,
-    RGBToHex = RGBToHex,
-    FindDescendant = FindDescendant,
-    Notify = Notify,
-    IsMobile = IsMobile,
-    IsDesktop = IsDesktop,
-      
-    Chat = {},
-    Leaderboard = {}
-}
+local ModEnv = getfenv(0)
+
+ModEnv.Hui = Hui
+ModEnv.CoreGui = CoreGui
+ModEnv.TweenService = TweenService
+ModEnv.Players = Players
+ModEnv.StarterGui = StarterGui
+ModEnv.TextChatService = TextChatService
+ModEnv.UserInputService = UserInputService
+ModEnv.GuiService = GuiService
+ModEnv.ScreenGui = ScreenGui
+ModEnv.UID = UID
+ModEnv.Error = Error
+ModEnv.Tween = Tween
+ModEnv.HttpGet = HttpGet
+ModEnv.Protect = Protect
+ModEnv.RGBToHex = RGBToHex
+ModEnv.Search = Search
+ModEnv.Notify = Notify
+ModEnv.IsMobile = IsMobile
+ModEnv.IsDesktop = IsDesktop
+ModEnv.Chat = {}
+ModEnv.Leaderboard = {}
 
 local Files = {
     "Chat",
@@ -152,17 +151,18 @@ local Files = {
 
 for _, File in ipairs(Files) do
     local Success, Result = pcall(function()
-        local Source = Load("https://raw.githubusercontent.com/JustSomeGuest/CoreUI/Main/Source/Modules/" .. File .. ".luau")
-        local LoadedFunction, LoadError = loadstring(Source)
+        local Source = HttpGet("https://raw.githubusercontent.com/JustSomeGuest/CoreUI/Main/Source/Modules/" .. File .. ".luau")
+        local Chunk, HttpGetError = HttpGetstring(Source)
 
-        if not LoadedFunction then
-            error(LoadError)
+        if not Chunk then
+            error(HttpGetError)
         end
 
-        return LoadedFunction()
+        setfenv(Chunk, ModEnv)
+        return Chunk()
     end)
 
     if not Success then
-        warn("[CoreUI]: Failed to load " .. File .. ": " .. tostring(Result))
+        warn("[CoreUI]: Failed to HttpGet " .. File .. ": " .. tostring(Result))
     end
 end
