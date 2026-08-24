@@ -22,4 +22,4 @@ In Development
 
 Made by **JustSomeGuest**.
 
-Just me. No team, no other devs, no giant credits list. I can do it myself
+Just me. No team, no other devs, no giant credits list. I can do it myself. Yes I'm making fun of dev teams. Because just do it by yourself.
