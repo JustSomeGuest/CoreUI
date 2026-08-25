@@ -87,7 +87,6 @@ UI.ChatHeaderLayout.Parent = UI.ChatHeader
 
 UI.ChatHeaderPadding = Instance.new("UIPadding")
 UI.ChatHeaderPadding.PaddingLeft = UDim.new(0, 14)
-UI.ChatHeaderPadding.PaddingRight = UDim.new(0, 14)
 UI.ChatHeaderPadding.Parent = UI.ChatHeader
 
 UI.HeaderDot = Instance.new("Frame")
@@ -187,11 +186,11 @@ UI.ChatboxInner = Instance.new("Frame")
 UI.ChatboxInner.Name = "ChatboxInner"
 UI.ChatboxInner.BackgroundTransparency = 1
 UI.ChatboxInner.LayoutOrder = 5
-UI.ChatboxInner.Size = UDim2.new(1, 0, 0, 46)
+UI.ChatboxInner.Size = UDim2.new(1, 0, 1, 0)
 UI.ChatboxInner.Parent = UI.Chat
 
 UI.ChatboxInnerConst = Instance.new("UISizeConstraint")
-UI.ChatboxInnerConst.MaxSize = Vector2.new(1e9, 46)
+UI.ChatboxInnerConst.MaxSize = Vector2.new(1e9, 70)
 UI.ChatboxInnerConst.Parent = UI.ChatboxInner
 
 UI.ChatboxInnerPadding = Instance.new("UIPadding")
@@ -290,7 +289,8 @@ UI.HotkeyLabel = Instance.new("TextLabel")
 UI.HotkeyLabel.Name = "HotkeyLabel"
 UI.HotkeyLabel.BackgroundTransparency = 1
 UI.HotkeyLabel.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json")
-UI.HotkeyLabel.Text = "' to chat"
+UI.HotkeyLabel.RichText = true
+UI.HotkeyLabel.Text = "Press <b><font color=\"#FFFFFF\">'</font></b> to focus chat"
 UI.HotkeyLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 UI.HotkeyLabel.TextTransparency = 0.82
 UI.HotkeyLabel.TextSize = 10
