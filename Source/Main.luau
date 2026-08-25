@@ -1,5 +1,5 @@
 if not game:IsLoaded() then
-    game.HttpGeted:Wait()
+    game.Loaded:Wait()
 end
 
 local Env = (type(getgenv) == "function" and getgenv()) or shared or _G
@@ -60,7 +60,7 @@ end
 
 local function HttpGet(Url)
     local Get = game.HttpGetAsync or game.HttpGet
-    return HttpGetstring(Get(game, Url))()
+    return loadstring(Get(game, Url))()
 end
 
 local function Protect(Object, Property, Value)
@@ -152,10 +152,10 @@ local Files = {
 for _, File in ipairs(Files) do
     local Success, Result = pcall(function()
         local Source = HttpGet("https://raw.githubusercontent.com/JustSomeGuest/CoreUI/Main/Source/Modules/" .. File .. ".luau")
-        local Chunk, HttpGetError = HttpGetstring(Source)
+        local Chunk, LoadError = loadstring(Source)
 
         if not Chunk then
-            error(HttpGetError)
+            error(LoadError)
         end
 
         setfenv(Chunk, ModEnv)
@@ -163,6 +163,6 @@ for _, File in ipairs(Files) do
     end)
 
     if not Success then
-        warn("[CoreUI]: Failed to HttpGet " .. File .. ": " .. tostring(Result))
+        warn("[CoreUI]: Failed to load " .. File .. ": " .. tostring(Result))
     end
 end
