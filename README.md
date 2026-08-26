@@ -6,7 +6,7 @@ A small project that redesigns different parts of Roblox's CoreGui to make them 
 
 - **Chat**
 - **Leaderboard**
-- **TouchGui** — Restyles the classic thumbstick to give it a more modern look.
+- **TouchGui** (Classic thumbstick)
 
 ## Loader
 
