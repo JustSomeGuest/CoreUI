@@ -145,10 +145,10 @@ ModEnv.Leaderboard = {}
 ModEnv.Backpack = {}
 
 local Files = {
+    "Backpack",
     "Chat",
-    "TouchGui",
     "Leaderboard",
-  --"Backpack"
+    "TouchGui",
 }
 
 for _, File in ipairs(Files) do
