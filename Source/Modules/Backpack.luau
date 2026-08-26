@@ -61,7 +61,7 @@ UI.Backpack.BackgroundTransparency = 1
 UI.Backpack.BorderSizePixel = 0
 UI.Backpack.Name = "Backpack"
 UI.Backpack.Position = UDim2.new(0.5, 0, 1, -6)
-UI.Backpack.Size = UDim2.new(0.5, 28, 0.9, -20)
+UI.Backpack.Size = UDim2.new(0.5, 28, 0.9, -23)
 UI.Backpack.Parent = ScreenGui
 
 UI.BackpackLayout = Instance.new("UIListLayout")
