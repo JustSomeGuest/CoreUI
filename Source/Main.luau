@@ -83,13 +83,20 @@ end
 
 local function Search(Parent, ...)
     local Current = Parent
+
     for _, Name in ipairs({...}) do
         local Previous = Current
-        Current = Current and Current:FindFirstChild(Name)
+        Current = Current and Current:WaitForChild(Name)
+
         if not Current then
-            Error(string.format("'%s' was not found in '%s'", Name, Previous.Name))
+            Error(string.format(
+                "'%s' was not found in '%s'",
+                Name,
+                Previous.Name
+            ))
         end
     end
+
     return Current
 end
 
