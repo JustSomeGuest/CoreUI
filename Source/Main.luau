@@ -142,11 +142,13 @@ ModEnv.IsMobile = IsMobile
 ModEnv.IsDesktop = IsDesktop
 ModEnv.Chat = {}
 ModEnv.Leaderboard = {}
+ModEnv.Backpack = {}
 
 local Files = {
     "Chat",
     "TouchGui",
     "Leaderboard",
+  --"Backpack"
 }
 
 for _, File in ipairs(Files) do
