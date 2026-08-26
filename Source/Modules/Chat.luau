@@ -238,7 +238,7 @@ UI.ChatboxBgLayout.Parent = UI.ChatboxBg
 
 UI.ChatboxBgPadding = Instance.new("UIPadding")
 UI.ChatboxBgPadding.PaddingLeft = UDim.new(0, 12)
-UI.ChatboxBgPadding.PaddingRight = UDim.new(0, 6)
+UI.ChatboxBgPadding.PaddingRight = UDim.new(0, 2)
 UI.ChatboxBgPadding.Parent = UI.ChatboxBg
 
 UI.Chatbox = Instance.new("TextBox")
