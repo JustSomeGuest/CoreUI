@@ -223,11 +223,11 @@ UI.HotbarFrame.BackgroundTransparency = 1
 UI.HotbarFrame.BorderSizePixel = 0
 UI.HotbarFrame.LayoutOrder = 2
 UI.HotbarFrame.Name = "HotbarFrame"
-UI.HotbarFrame.Size = UDim2.new(0, 386, 0, 52)
+UI.HotbarFrame.Size = UDim2.new(0, 386, 0, 60)
 UI.HotbarFrame.Parent = UI.Backpack
 
 UI.HotbarSizeCons = Instance.new("UISizeConstraint")
-UI.HotbarSizeCons.MaxSize = Vector2.new(2147483648, 52)
+UI.HotbarSizeCons.MaxSize = Vector2.new(2147483648, 60)
 UI.HotbarSizeCons.Name = "HotbarSizeCons"
 UI.HotbarSizeCons.Parent = UI.HotbarFrame
 
@@ -247,7 +247,7 @@ UI.SlotTemplate.BackgroundTransparency = 0.08
 UI.SlotTemplate.BorderSizePixel = 0
 UI.SlotTemplate.LayoutOrder = -1
 UI.SlotTemplate.Name = "SlotTemplate"
-UI.SlotTemplate.Size = UDim2.new(0, 52, 1, 0)
+UI.SlotTemplate.Size = UDim2.new(0, 60, 1, 0)
 UI.SlotTemplate.Visible = false
 UI.SlotTemplate.Parent = UI.HotbarFrame
 
@@ -355,7 +355,7 @@ local function updateInventory()
     end)
 
     local hotbarCount = math.min(#allTools, 6)
-    UI.HotbarFrame.Size = UDim2.new(0, (hotbarCount * 52) + (math.max(0, hotbarCount - 1) * 6), 0, 52)
+    UI.HotbarFrame.Size = UDim2.new(0, (hotbarCount * 60) + (math.max(0, hotbarCount - 1) * 6), 0, 60)
 
     for i = 1, hotbarCount do
         local tool = allTools[i]
