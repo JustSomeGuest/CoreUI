@@ -4,6 +4,7 @@ A small project that redesigns different parts of Roblox's CoreGui to make them 
 
 ## Currently Redesigned
 
+- **Backpack**
 - **Chat**
 - **Leaderboard**
 - **TouchGui** (Classic thumbstick)
@@ -11,7 +12,7 @@ A small project that redesigns different parts of Roblox's CoreGui to make them 
 ## Loader
 
 ```lua
-loadstring(game:HttpGet("https://raw.githubusercontent.com/JustSomeGuest/CoreUI/Main/Init"))()
+loadstring(game:HttpGet("https://justsomeguest.pages.dev/scripts/coreui"))()
 ```
 
 ## Status
