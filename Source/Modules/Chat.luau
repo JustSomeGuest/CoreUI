@@ -436,8 +436,12 @@ else
     end)
 end
 
-UserInputService.InputBegan:Connect(function(Input)
+UserInputService.InputBegan:Connect(function(Input, GameProcessed)
+    if GameProcessed then return end
     if Input.KeyCode == Enum.KeyCode.Quote then
+        if not ChatVisible then ShowChat() end
         UI.Chatbox:CaptureFocus()
+    elseif Input.KeyCode == Enum.KeyCode.Escape then
+        if ChatVisible then HideChat() end
     end
 end)
