@@ -89,7 +89,7 @@ UI.PlayersList.BackgroundTransparency = 0.08
 UI.PlayersList.BorderSizePixel = 0
 UI.PlayersList.ClipsDescendants = false
 UI.PlayersList.Position = UDim2.new(1, 8, 0, 8)
-UI.PlayersList.Size = UDim2.new(0, 200, 0, 314)
+UI.PlayersList.Size = IsMobile() and UDim2.new(0, 200, 0, 314) or IsDesktop() and UDim2.new(0, 200, 0, 414)
 UI.PlayersList.Visible = false
 UI.PlayersList.Parent = UI.Folder
 
