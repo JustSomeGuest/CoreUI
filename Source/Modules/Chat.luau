@@ -40,6 +40,7 @@ local MaxMessages = 20
 local ChatVisible = false
 local SlideInPos = UDim2.new(0, 16, 0, 60)
 local SlideOutPos = UDim2.new(0, -400, 0, 60)
+local ShiftLockEnabled = false
 
 local function UpdatePlayerCount()
     UI.CountLabel.Text = #Players:GetPlayers() .. " online"
@@ -385,9 +386,19 @@ end)
 
 UI.Send.Activated:Connect(SendMessage)
 
+UI.Chatbox.Focused:Connect(function()
+    ShiftLockEnabled = UserInputService.MouseBehavior == Enum.MouseBehavior.LockCenter
+    if ShiftLockEnabled then
+        UserInputService.MouseBehavior = Enum.MouseBehavior.LockCenter
+    end
+end)
+
 UI.Chatbox.FocusLost:Connect(function(EnterPressed)
     if EnterPressed then
         SendMessage()
+    end
+    if ShiftLockEnabled then
+        UserInputService.MouseBehavior = Enum.MouseBehavior.LockCenter
     end
 end)
 
