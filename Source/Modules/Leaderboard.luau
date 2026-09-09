@@ -214,29 +214,9 @@ UI.TemplateInnerLayout = Instance.new("UIListLayout")
 UI.TemplateInnerLayout.FillDirection = Enum.FillDirection.Horizontal
 UI.TemplateInnerLayout.VerticalAlignment = Enum.VerticalAlignment.Center
 UI.TemplateInnerLayout.HorizontalFlex = Enum.UIFlexAlignment.Fill
-UI.TemplateInnerLayout.Padding = UDim.new(0, 6)
+UI.TemplateInnerLayout.Padding = UDim.new(0, 5)
 UI.TemplateInnerLayout.SortOrder = Enum.SortOrder.LayoutOrder
 UI.TemplateInnerLayout.Parent = UI.PlayerTemplate
-
-UI.TemplateNameLabel = Instance.new("TextLabel")
-UI.TemplateNameLabel.Name = "NameLabel"
-UI.TemplateNameLabel.BackgroundTransparency = 1
-UI.TemplateNameLabel.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json")
-UI.TemplateNameLabel.LayoutOrder = 1
-UI.TemplateNameLabel.Size = UDim2.new(1, 0, 0, 20)
-UI.TemplateNameLabel.Text = "Display Name"
-UI.TemplateNameLabel.TextColor3 = Color3.fromRGB(230, 230, 230)
-UI.TemplateNameLabel.TextSize = 16
-UI.TemplateNameLabel.TextXAlignment = Enum.TextXAlignment.Left
-UI.TemplateNameLabel.TextTruncate = Enum.TextTruncate.AtEnd
-UI.TemplateNameLabel.Parent = UI.PlayerTemplate
-
-UI.TemplateBadgeLayout = Instance.new("UIListLayout")
-UI.TemplateBadgeLayout.FillDirection = Enum.FillDirection.Horizontal
-UI.TemplateBadgeLayout.VerticalAlignment = Enum.VerticalAlignment.Center
-UI.TemplateBadgeLayout.Padding = UDim.new(0, 3)
-UI.TemplateBadgeLayout.SortOrder = Enum.SortOrder.LayoutOrder
-UI.TemplateBadgeLayout.Parent = UI.PlayerTemplate
 
 UI.PlayerDividerTemplate = Instance.new("Frame")
 UI.PlayerDividerTemplate.Name = "PlayerDivider"
@@ -514,24 +494,9 @@ local function UpdateAddFriendButton(isFriend)
     end
 end
 
-local function MakeBadgeIcon(parent, asset, layoutOrder)
-    local icon = Instance.new("ImageLabel")
-    icon.BackgroundTransparency = 1
-    icon.Image = asset or ""
-    icon.LayoutOrder = layoutOrder
-    icon.Size = UDim2.new(0, 14, 0, 14)
-    icon.Parent = parent
-
-    local ratio = Instance.new("UIAspectRatioConstraint")
-    ratio.AspectRatio = 1
-    ratio.Parent = icon
-
-    return icon
-end
-
 local function BuildEntryBadges(entry, player)
     for _, child in ipairs(entry:GetChildren()) do
-        if child.Name == "BadgeContainer" then
+        if child.Name == "PlusBadge" or child.Name == "FriendBadge" or child.Name == "NameLabel" then
             child:Destroy()
         end
     end
@@ -540,33 +505,52 @@ local function BuildEntryBadges(entry, player)
     local hasPlus = player.MembershipType == Enum.MembershipType.Premium
     local isFriend = localPlayer:IsFriendsWith(player.UserId)
 
-    if not hasPlus and not isFriend then return end
-
-    local container = Instance.new("Frame")
-    container.Name = "BadgeContainer"
-    container.BackgroundTransparency = 1
-    container.LayoutOrder = 2
-    container.Size = UDim2.new(0, 0, 0, 14)
-    container.AutomaticSize = Enum.AutomaticSize.X
-    container.Parent = entry
-
-    local containerLayout = Instance.new("UIListLayout")
-    containerLayout.FillDirection = Enum.FillDirection.Horizontal
-    containerLayout.VerticalAlignment = Enum.VerticalAlignment.Center
-    containerLayout.Padding = UDim.new(0, 3)
-    containerLayout.SortOrder = Enum.SortOrder.LayoutOrder
-    containerLayout.Parent = container
-
     local badgeOrder = 1
 
     if hasPlus and PlusAsset then
-        MakeBadgeIcon(container, PlusAsset, badgeOrder)
+        local icon = Instance.new("ImageLabel")
+        icon.Name = "PlusBadge"
+        icon.BackgroundTransparency = 1
+        icon.Image = PlusAsset
+        icon.LayoutOrder = badgeOrder
+        icon.Size = UDim2.new(0, 18, 0, 18)
+        icon.Parent = entry
+
+        local ratio = Instance.new("UIAspectRatioConstraint")
+        ratio.AspectRatio = 1
+        ratio.Parent = icon
+
         badgeOrder += 1
     end
 
     if isFriend and FriendAsset then
-        MakeBadgeIcon(container, FriendAsset, badgeOrder)
+        local icon = Instance.new("ImageLabel")
+        icon.Name = "FriendBadge"
+        icon.BackgroundTransparency = 1
+        icon.Image = FriendAsset
+        icon.LayoutOrder = badgeOrder
+        icon.Size = UDim2.new(0, 18, 0, 18)
+        icon.Parent = entry
+
+        local ratio = Instance.new("UIAspectRatioConstraint")
+        ratio.AspectRatio = 1
+        ratio.Parent = icon
+
+        badgeOrder += 1
     end
+
+    local nameLabel = Instance.new("TextLabel")
+    nameLabel.Name = "NameLabel"
+    nameLabel.BackgroundTransparency = 1
+    nameLabel.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json")
+    nameLabel.LayoutOrder = badgeOrder
+    nameLabel.Size = UDim2.new(1, 0, 0, 20)
+    nameLabel.Text = player.DisplayName
+    nameLabel.TextColor3 = Color3.fromRGB(230, 230, 230)
+    nameLabel.TextSize = 16
+    nameLabel.TextXAlignment = Enum.TextXAlignment.Left
+    nameLabel.TextTruncate = Enum.TextTruncate.AtEnd
+    nameLabel.Parent = entry
 end
 
 local function ShowProfile(player)
@@ -637,11 +621,6 @@ local function RefreshPlayers()
         entry.LayoutOrder = (i - 1) * 2
         entry.Visible = true
         entry.Parent = UI.Players
-
-        local nameLabel = entry:FindFirstChild("NameLabel")
-        if nameLabel then
-            nameLabel.Text = player.DisplayName
-        end
 
         task.spawn(BuildEntryBadges, entry, player)
 
