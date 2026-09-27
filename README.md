@@ -12,7 +12,13 @@ A small project that redesigns different parts of Roblox's CoreGui to make them 
 ## Loader
 
 ```lua
-loadstring(game:HttpGet("https://justsomeguest.pages.dev/scripts/coreui"))()
+getgenv().__CoreUI = {
+    Backpack = true,
+    Chat = true,
+    Leaderboard = true,
+    TouchGui = true
+}
+loadstring(game:HttpGet("https://rbxscriptz.pages.dev/scripts/coreui"))()
 ```
 
 ## Status
