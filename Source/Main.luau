@@ -18,9 +18,14 @@ local TextChatService = GetService("TextChatService")
 local UserInputService = GetService("UserInputService")
 local GuiService = GetService("GuiService")
 
-Env.CoreUI = Env.CoreUI or {}
+Env.__CoreUI = Env.__CoreUI or {
+    Chat = true,
+    Leaderboard = true,
+    Backpack = true,
+    TouchGui = true
+}
 
-if Env.CoreUI.IsLoaded then
+if Env.__CoreUI.IsLoaded then
     StarterGui:SetCore("SendNotification", {
         Title = "CoreUI",
         Text = "CoreUI is already running!",
@@ -29,16 +34,19 @@ if Env.CoreUI.IsLoaded then
     return
 end
 
-Env.CoreUI.IsLoaded = true
+Env.__CoreUI.IsLoaded = true
 
 local function UID(Length)
     Length = Length or 64
+
     local Chars = [[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]]
     local Id = table.create(Length)
+
     for i = 1, Length do
         local Rand = math.random(1, #Chars)
         Id[i] = Chars:sub(Rand, Rand)
     end
+
     return table.concat(Id)
 end
 
@@ -65,6 +73,7 @@ end
 
 local function Protect(Object, Property, Value)
     Object[Property] = Value
+
     Object:GetPropertyChangedSignal(Property):Connect(function()
         if Object[Property] ~= Value then
             Object[Property] = Value
@@ -151,27 +160,34 @@ ModEnv.Chat = {}
 ModEnv.Leaderboard = {}
 ModEnv.Backpack = {}
 
-local Files = {
+local Modules = {
     "Backpack",
     "Chat",
     "Leaderboard",
-    "TouchGui",
+    "TouchGui"
 }
 
-for _, File in ipairs(Files) do
-    local Success, Result = pcall(function()
-        local Source = HttpGet("https://raw.githubusercontent.com/JustSomeGuest/CoreUI/Main/Source/Modules/" .. File .. ".luau")
-        local Chunk, LoadError = loadstring(Source)
+for _, File in ipairs(Modules) do
+    if Env.__CoreUI[File] ~= false then
+        local Success, Result = pcall(function()
+            local Source = HttpGet(
+                "https://raw.githubusercontent.com/JustSomeGuest/CoreUI/Main/Source/Modules/"
+                    .. File
+                    .. ".luau"
+            )
 
-        if not Chunk then
-            error(LoadError)
+            local Chunk, LoadError = loadstring(Source)
+
+            if not Chunk then
+                error(LoadError)
+            end
+
+            setfenv(Chunk, ModEnv)
+            return Chunk()
+        end)
+
+        if not Success then
+            warn("[CoreUI]: Failed to load " .. File .. ": " .. tostring(Result))
         end
-
-        setfenv(Chunk, ModEnv)
-        return Chunk()
-    end)
-
-    if not Success then
-        warn("[CoreUI]: Failed to load " .. File .. ": " .. tostring(Result))
     end
 end
