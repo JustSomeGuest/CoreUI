@@ -175,7 +175,7 @@ for _, File in ipairs(Modules) do
             local Source = HttpGet(
                 "https://raw.githubusercontent.com/JustSomeGuest/CoreUI/Main/Source/Modules/"
                     .. File
-                    .. ".luau"
+                    .. ".lua"
             )
 
             local Chunk, LoadError = loadstring(Source)
