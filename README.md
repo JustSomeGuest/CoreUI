@@ -11,6 +11,8 @@ A small project that redesigns different parts of Roblox's CoreGui to make them 
 
 ## Loader
 
+### Main
+
 ```lua
 getgenv().__CoreUI = {
     Backpack = true,
@@ -19,6 +21,18 @@ getgenv().__CoreUI = {
     TouchGui = true
 }
 loadstring(game:HttpGet("https://rbxscriptz.pages.dev/scripts/coreui"))()
+```
+
+### Alternative
+
+```lua
+getgenv().__CoreUI = {
+    Backpack = true,
+    Chat = true,
+    Leaderboard = true,
+    TouchGui = true
+}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/JustSomeGuest/CoreUI/Main/Source/Init.lua"))()
 ```
 
 ## Status
